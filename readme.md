@@ -120,20 +120,20 @@ When passing these to the script, surround them in quotes. Choose one, and use i
 
 This AHK script allows you to call your favourite stratagem. In this case, mine is the Recoiless Rifle, and the Patriot Exosuit.
 ```ahk
-#NoEnv 
 SendMode Event
 SetWorkingDir %A_ScriptDir%
 XButton1:: ; Mouse Browser Back button
 try {
-	Run, ".\Helldivers 2 Macros.ahk" "Recoiless Rifle"
+	Run('"Helldivers 2 Macros.ahk" "Recoiless Rifle"')
 } catch e {
-	MsgBox e
+	MsgBox(e)
 }
-return
+exit
 XButton2:: ; Mouse Browser Forward button
 try {
-	Run, ".\Helldivers 2 Macros.ahk" "Patriot Exosuit"
+	Run('"Helldivers 2 Macros.ahk" "Patriot Exosuit"')
 } catch e {
-	MsgBox e
+	MsgBox(e)
 }
+exit
 ```
