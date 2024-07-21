@@ -568,12 +568,12 @@ Default:
 global version
 if (A_Args[1] = "update macros") {
 	try {
-		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers2Macros/main/version.txt", "./version.txt")
+		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 		try {
 			new := FileRead("./version.txt")
 			if (new > version) {
 				try {
-					Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers2Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
+					Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
 				} catch error {
 					MsgBox(appname, "Could not download update.",48)
 				}
@@ -588,7 +588,7 @@ if (A_Args[1] = "update macros") {
 	}
 } else {
 	try {
-		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers2Macros/main/version.txt", "./version.txt")
+		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 		try {
 			new:=FileRead("./version.txt")
 			if (new > version) {
