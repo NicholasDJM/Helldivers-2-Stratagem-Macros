@@ -2,7 +2,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 2 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 1 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
@@ -571,7 +571,7 @@ if (A_Args[1] = "update macros") {
 		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 		try {
 			new := FileRead("./version.txt")
-			if (new > version) {
+			if (Number(new) > version) {
 				try {
 					Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
 				} catch error {
@@ -591,7 +591,7 @@ if (A_Args[1] = "update macros") {
 		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 		try {
 			new:=FileRead("./version.txt")
-			if (new > version) {
+			if (Number(new) > version) {
 				TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, 33)
 				Sleep(5000)
 			}
