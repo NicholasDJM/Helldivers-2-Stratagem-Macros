@@ -576,16 +576,16 @@ if (A_Args[1] = "update macros") {
 				try {
 					Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
 				} catch error {
-					MsgBox(appname, "Could not download update.",48)
+					MsgBox("Could not download update.",appname,48)
 				}
 			} else {
-				MsgBox(appname, "You already have the latest version.",64)
+				MsgBox("You already have the latest version.",appname,64)
 			}
 		} catch error {
-			MsgBox(appname,"Could not read version file.",48)
+			MsgBox("Could not read version file.".appname,48)
 		}
 	} catch error {
-		MsgBox(appname,"Could not retrieve latest version.",48)
+		MsgBox("Could not retrieve latest version.",appname,48)
 	}
 } else {
 	try {
