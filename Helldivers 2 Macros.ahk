@@ -2,7 +2,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 1 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 2 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
