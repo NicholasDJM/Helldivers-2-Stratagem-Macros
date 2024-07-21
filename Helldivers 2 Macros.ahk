@@ -2,7 +2,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 2 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 3 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
@@ -24,6 +24,32 @@ appname := "Helldivers 2 Macros"
 
 SteamID := RegRead("HKCU\SOFTWARE\Valve\Steam\ActiveProcess", "ActiveUser")
 
+
+
+global MsgBoxEnums
+MsgBoxEnums := Map()
+MsgBoxEnums["OK"] := 0
+MsgBoxEnums["OKCancel"] := 1
+MsgBoxEnums["AbortRetryIgnore"] := 2
+MsgBoxEnums["YesNoCancel"] := 3
+MsgBoxEnums["YesNo"] := 4
+MsgBoxEnums["RetryCancel"] := 5
+MsgBoxEnums["CancelTryAgainContinue"] := 6
+MsgBoxEnums["Stop"] := 16
+MsgBoxEnums["Error"] := 16
+MsgBoxEnums["Question"] := 32
+MsgBoxEnums["Exclamation"] := 48
+MsgBoxEnums["Info"] := 64
+
+global TrayEnums
+TrayEnums := Map()
+TrayEnums["NoIcon"] := 0
+TrayEnums["Info"] := 1
+TrayEnums["Warning"] := 2
+TrayEnums["Error"] := 3
+TrayEnums["TrayIcon"] := 4
+TrayEnums["Mute"] := 16
+TrayEnums["LargeIcon"] := 32
 
 ; TODO WARNING! We must translate every possible key to AutoHotKey's key names.
 ; What are the key names that Helldivers 2 uses?
@@ -269,7 +295,7 @@ secondarytiming := 10 ; Secondary timing default, between key down and key up of
 
 
 if (A_Args.length = 0) {
-	MsgBox(help, appname, 64)
+	MsgBox(help, appname, MsgBoxEnums["Info"])
 	ExitApp
 }
 if (A_Args.length = 2) {
@@ -339,7 +365,7 @@ Stratagem(code) {
 			Sleep(5000)
 			ExitApp
 		} else {
-			TrayTip("Incorrect direction for Stratagem. Players: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros. Devs: Check your code.",appname, 35)
+			TrayTip("Incorrect direction for Stratagem. Players: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros. Devs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 			Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
 			ExitApp
 		}
@@ -561,7 +587,7 @@ Case "hive breaker drill":
 
 Default:
 	if (A_Args[1] != "update macros")
-	TrayTip("Cannot find " . A_Args[1] . " macro.",appname,35)
+	TrayTip("Cannot find " . A_Args[1] . " macro.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
 }
 
@@ -576,16 +602,16 @@ if (A_Args[1] = "update macros") {
 				try {
 					Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
 				} catch error {
-					MsgBox("Could not download update.",appname,48)
+					MsgBox("Could not download update.",appname,MsgBoxEnums["Error"])
 				}
 			} else {
-				MsgBox("You already have the latest version.",appname,64)
+				MsgBox("You already have the latest version.",appname,MsgBoxEnums["Info"])
 			}
 		} catch error {
-			MsgBox("Could not read version file.".appname,48)
+			MsgBox("Could not read version file.",appname,MsgBoxEnums["Error"])
 		}
 	} catch error {
-		MsgBox("Could not retrieve latest version.",appname,48)
+		MsgBox("Could not retrieve latest version.",appname,MsgBoxEnums["Error"])
 	}
 } else {
 	try {
@@ -593,15 +619,15 @@ if (A_Args[1] = "update macros") {
 		try {
 			new:=FileRead("./version.txt")
 			if (Number(new) > version) {
-				TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, 33)
+				TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, TrayEnums["Info"]+TrayEnums["LargeIcon"])
 				Sleep(5000)
 			}
 		} catch error {
-			TrayTip("Could not read version file.",appname, 34)
+			TrayTip("Could not read version file.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 			Sleep(5000)
 		}
 	} catch error {
-		TrayTip("Could not retrieve latest version.",appname, 34)
+		TrayTip("Could not retrieve latest version.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)
 	}
 }
