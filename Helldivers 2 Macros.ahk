@@ -339,7 +339,7 @@ Stratagem(code) {
 			Sleep(5000)
 			ExitApp
 		} else {
-			TrayTip("Incorrect direction for Stratagem. Players: Contact support at github.com/NicholasDJM/Helldivers2Macros. Devs: Check your code.",appname, 35)
+			TrayTip("Incorrect direction for Stratagem. Players: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros. Devs: Check your code.",appname, 35)
 			Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
 			ExitApp
 		}
