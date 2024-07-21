@@ -269,7 +269,7 @@ secondarytiming := 10 ; Secondary timing default, between key down and key up of
 
 
 if (A_Args.length = 0) {
-	MsgBox(appname, help, 64)
+	MsgBox(help, appname, 64)
 	ExitApp
 }
 if (A_Args.length = 2) {
