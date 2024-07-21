@@ -1,5 +1,5 @@
 # Helldivers 2 Stratagem Macros
-[![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue)](/LICENSE.txt) ![Version 1](https://img.shields.io/badge/Version-1-brightgreen)
+[![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue)](/LICENSE.txt) ![Version 2](https://img.shields.io/badge/Version-2-brightgreen)
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
 
