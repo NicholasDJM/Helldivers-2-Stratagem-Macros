@@ -19,7 +19,7 @@ Once my script has downloaded, place it somewhere in it's own folder, alone. Don
 
 To create hot keys using this script:
 - Use the AutoHotkey [example script](#example) provided below.
-- Run the script using Stream Deck by adding an "open" action under the System section and pointing it to the script location. In the App/File text field, add the desired stratagem in quotes after the file path (e.g., "C:\Users\%username%\Documents\Helldivers 2 Macros\Helldivers 2 Macros.ahk" "Recoiless Rifle"). Replace `%username%` with your user folder name.
+- Run the script using Stream Deck by adding an "open" action under the System section and pointing it to the script location. In the App/File text field, add the desired stratagem in quotes after the file path (e.g., `"C:\Users\%username%\Documents\Helldivers 2 Macros\Helldivers 2 Macros.ahk" "Recoiless Rifle"`). Replace `%username%` with your user folder name.
 
 The script automatically uses in-game key bindings and reads the correct keys for each Steam user, eliminating the need for manual configuration.
 
