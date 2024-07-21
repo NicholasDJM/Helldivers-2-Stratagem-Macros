@@ -560,6 +560,7 @@ Case "hive breaker drill":
 	strat := Stratagem(["left","up","down","right","down","down"])
 
 Default:
+	if (A_Args[1] != "update macros")
 	TrayTip("Cannot find " . A_Args[1] . " macro.",appname,35)
 	Sleep(5000)
 }
