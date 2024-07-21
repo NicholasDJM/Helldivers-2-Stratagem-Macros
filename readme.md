@@ -1,5 +1,5 @@
 # Helldivers 2 Stratagem Macros
-![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue) ![Version 1](https://img.shields.io/badge/Version-1-brightgreen)
+[![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue)](/LICENSE.txt) ![Version 1](https://img.shields.io/badge/Version-1-brightgreen)
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
 
@@ -11,7 +11,7 @@ You can execute these macros either through another AutoHotKey script, or throug
 
 You must have AutoHotKey installed, head to https://www.autohotkey.com/ to download the latest version.
 
-Then, download my script, <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">Helldivers 2 Macros.ahk</a>
+Then, download my script, <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">Helldivers 2 Macros.ahk</a> (Right click on link, and "Save Link as")
 
 Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will download and overwrite any file called "version.txt". Make sure not to save any file with that name.
 
