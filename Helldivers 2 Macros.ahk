@@ -2,7 +2,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 4 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 5 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
@@ -16,15 +16,8 @@ version := 4 ; NOTE to Devs, remember to increment this and the number in versio
 
 ; DO NOT EDIT ANYTHING BELOW
 
-global keys
-keys := Map()
-
 global appname
 appname := "Helldivers 2 Macros"
-
-SteamID := RegRead("HKCU\SOFTWARE\Valve\Steam\ActiveProcess", "ActiveUser")
-
-
 
 global MsgBoxEnums
 MsgBoxEnums := Map()
@@ -50,6 +43,189 @@ TrayEnums["Error"] := 3
 TrayEnums["TrayIcon"] := 4
 TrayEnums["Mute"] := 16
 TrayEnums["LargeIcon"] := 32
+
+global help
+help := Map()
+help["main"] := "
+(
+To use this script, add a Stratagem name as the first argument when calling this script, in quotes.
+You may also add a number as the second argument to adjust the timing, in milliseconds.
+Add `"update macros`" as the first argument to instead start the auto-updater. Updates add new stratagems.
+Created by github.com/NicholasDJM
+
+Do you want to see the names Support Weapon names?
+Select No to see the next Stratagem group.
+Select Cancel to quit.
+)"
+
+help["support"] := "
+(
+These are the names of Support Weapons currently available.
+Pick one, and add it the the end of the script call, Ex: "Helldivers 2 Macros.ahk" "recoilless rifle"
+
+Machine Gun
+Anti Material Rifle
+Stalwart
+Expendable Anti Tank
+Recoilless Rifle
+Flamethrower
+Autocannon
+Heavy Machine Gun
+Airburst Rocket Launcher
+Commando
+Railgun
+Spear
+Grenade Launcher
+Laser Cannon
+Arc Thrower
+Quasar Cannon
+)"
+
+help["orbital"] := "
+(
+These are the names of Orbital Strikes currently available.
+Pick one, and add it the the end of the script call, Ex: "Helldivers 2 Macros.ahk" "railcannon strike"
+
+Orbital Gatling Barrage
+Orbital Airburst Strike
+Orbital 120mm HE Barrage
+Orbital 380mm HE Barrage
+Orbital Walking Barrage
+Orbital Laser
+Orbital Railcannon Strike
+Orbital Precision Strike
+Orbital Gas Strike
+Orbital Smoke Strike
+Orbital EMS Strike
+)"
+
+help["eagle"] := "
+(
+These are the names of Eagle Strikes currently available.
+Pick one, and add it the the end of the script call, Ex: "Helldivers 2 Macros.ahk" "eagle 500kg bomb"
+
+Eagle Strafing Run
+Eagle Airstrike
+Eagle Cluster Bomb
+Eagle Napalm Strike
+Eagle Smoke Strike
+Eagle 110mm Rocket Pods
+Eagle 500kg Bomb
+)"
+
+help["defense"] := "
+(
+These are the names of Defensive Stratagems currently available.
+Pick one, and add it the the end of the script call, Ex: "Helldivers 2 Macros.ahk" "gatling sentry"
+
+Shield Generator Relay
+Tesla Tower
+Anti Personnel Minefield
+Incendiary Mines
+HMG Emplacement
+Machine Gun Sentry
+Gatling Sentry
+Mortar Sentry
+Autocannon Sentry
+Rocket Sentry
+EMS Mortar Sentry
+)"
+
+help["misc"] := "
+(
+These are the names of Miscellaneous Stratagems currently available.
+Pick one, and add it the the end of the script call, Ex: "Helldivers 2 Macros.ahk" "guard dog rover"
+
+Jump Pack
+Supply Pack
+Guard Dog Rover
+Guard Dog
+Ballistic Shield Backpack
+Shield Generator Pack
+Patriot Exosuit
+Emancipator Exosuit
+)"
+
+help["mission"] := "
+(
+These are the names of Mission Stratagems currently available.
+Pick one, and add it the the end of the script call, Ex: "Helldivers 2 Macros.ahk" "hellbomb"
+
+Reinforce
+SOS Beacon
+Resupply
+Eagle Rearm
+SSSD Delivery
+Prospecting Drill
+Super Earth Flag
+Hellbomb
+Upload Data
+Seismic Probe
+SEAF Artillery
+Dark Fluid Vessel
+Tectonic Drill
+Hive Breaker Drill
+)"
+
+if (A_Args.length = 0) {
+	result := MsgBox(help["main"], appname, MsgBoxEnums["Question"]+MsgBoxEnums["YesNoCancel"])
+	if (result = "Cancel") {
+		ExitApp
+	}
+	if (result = "Yes") {
+		MsgBox(help["support"], appname . " - Support Weapons", MsgBoxEnums["Info"])
+	}
+	result := MsgBox("Do you want to see Orbital Strike names? Select No to see next Stratagem group. Select Cancel to quit.", appname, MsgBoxEnums["Question"]+MsgBoxEnums["YesNoCancel"])
+	if (result = "Cancel") {
+		ExitApp
+	}
+	if (result = "Yes") {
+		MsgBox(help["orbital"], appname . " - Orbital Strikes", MsgBoxEnums["Info"])
+	}
+	result := MsgBox("Do you want to see Eagle Strike names? Select No to see next Stratagem group. Select Cancel to quit.", appname, MsgBoxEnums["Question"]+MsgBoxEnums["YesNoCancel"])
+	if (result = "Cancel") {
+		ExitApp
+	}
+	if (result = "Yes") {
+		MsgBox(help["eagle"], appname . " - Eagle Strikes", MsgBoxEnums["Info"])
+	}
+	result := MsgBox("Do you want to see Defensive Stratagem names? Select No to see next Stratagem group. Select Cancel to quit.", appname, MsgBoxEnums["Question"]+MsgBoxEnums["YesNoCancel"])
+	if (result = "Cancel") {
+		ExitApp
+	}
+	if (result = "Yes") {
+		MsgBox(help["defense"], appname . " - Defensive Stratagems", MsgBoxEnums["Info"])
+	}
+	result := MsgBox("Do you want to see Miscellaneous Stratagem names? Select No to see next Stratagem group.", appname, MsgBoxEnums["Question"]+MsgBoxEnums["YesNoCancel"])
+	if (result = "Cancel") {
+		ExitApp
+	}
+	if (result = "Yes") {
+		MsgBox(help["misc"], appname . " - Miscellaneous Stratagems", MsgBoxEnums["Info"])
+	}
+	result := MsgBox("Do you want to see Mission Stratagem names? Select No to quit.", appname, MsgBoxEnums["Question"]+MsgBoxEnums["YesNo"])
+	if (result = "Yes") {
+		MsgBox(help["mission"], appname . " - Mission Stratagems", MsgBoxEnums["Info"])
+	}
+	ExitApp
+}
+if (A_Args[1] = "update macros") {
+	goto update
+}
+if (A_Args.length = 2) {
+	timing := A_Args[2]
+}
+if (A_Args.length = 3) {
+	timing := A_Args[2]
+	secondarytiming := A_Args[3]
+}
+
+global version
+global keys
+keys := Map()
+
+
+SteamID := RegRead("HKCU\SOFTWARE\Valve\Steam\ActiveProcess", "ActiveUser")
 
 ; TODO WARNING! We must translate every possible key to AutoHotKey's key names.
 ; What are the key names that Helldivers 2 uses?
@@ -209,83 +385,7 @@ if (!keys.Has("menu"))
 	key_menu_type := "hold"
 }
 
-; TODO: This already produces a really long dialog box. We should maybe add more stratagems per line, instead of 1 stratagem per line?
-; Or maybe split into multiple dialog boxes, shown optionally via yes/no?
-help := "
-(
-Add one of the following Stratagem names as the first argument when calling this script, in quotes.
-You may also add a number as the second argument to adjust the timing, in milliseconds.
-Add `"update macros`" as the first argument to instead start the auto-updater. Updates add new stratagems.
-Created by github.com/NicholasDJM
 
-Machine Gun
-Anti Material Rifle
-Stalwart
-Expendable Anti Tank
-Recoilless Rifle
-Flamethrower
-Autocannon
-Heavy Machine Gun
-Airburst Rocket Launcher
-Commando
-Railgun
-Spear
-Grenade Launcher
-Laser Cannon
-Arc Thrower
-Quasar Cannon
-Orbital Gatling Barrage
-Orbital Airburst Strike
-Orbital 120mm HE Barrage
-Orbital 380mm HE Barrage
-Orbital Walking Barrage
-Orbital Laser
-Orbital Railcannon Strike
-Orbital Precision Strike
-Orbital Gas Strike
-Orbital Smoke Strike
-Orbital EMS Strike
-Eagle Strafing Run
-Eagle Airstrike
-Eagle Cluster Bomb
-Eagle Napalm Strike
-Eagle Smoke Strike
-Eagle 110mm Rocket Pods
-Eagle 500kg Bomb
-Jump Pack
-Supply Pack
-Guard Dog Rover
-Guard Dog
-Ballistic Shield Backpack
-Shield Generator Pack
-Shield Generator Relay
-Tesla Tower
-Anti Personnel Minefield
-Incendiary Mines
-HMG Emplacement
-Machine Gun Sentry
-Gatling Sentry
-Mortar Sentry
-Autocannon Sentry
-Rocket Sentry
-EMS Mortar Sentry
-Patriot Exosuit
-Emancipator Exosuit
-Reinforce
-SOS Beacon
-Resupply
-Eagle Rearm
-SSSD Delivery
-Prospecting Drill
-Super Earth Flag
-Hellbomb
-Upload Data
-Seismic Probe
-SEAF Artillery
-Dark Fluid Vessel
-Tectonic Drill
-Hive Breaker Drill
-)"
 global timing
 global secondarytiming
 
@@ -294,26 +394,16 @@ secondarytiming := 10 ; Secondary timing default, between key down and key up of
 
 
 
-if (A_Args.length = 0) {
-	MsgBox(help, appname, MsgBoxEnums["Info"])
-	ExitApp
-}
-if (A_Args.length = 2) {
-	timing := A_Args[2]
-}
-if (A_Args.length = 3) {
-	timing := A_Args[2]
-	secondarytiming := A_Args[3]
-}
+
 
 Stratagem(code) {
 	title := "HELLDIVERS™ 2"
-	if (key_menu_type = "hold" && WinActive(title))
-	{
+	
+	if (WinActive(title)) {
+	if (key_menu_type = "hold") {
 		Send("{" . keys["menu"] . " DOWN}")
 
-	} else if (key_menu_type = "doubletap" && WinActive(title))
-	{
+	} else if (key_menu_type = "doubletap") {
 		Send("{" . keys["menu"] . " DOWN}")
 		Sleep(secondarytiming)
 		Send("{" . keys["menu"] . " UP}")
@@ -322,15 +412,13 @@ Stratagem(code) {
 		Sleep(secondarytiming)
 		Send("{" . keys["menu"] . " UP}")
 
-	} else if (key_menu_type = "longpress" && WinActive(title))
-	{
+	} else if (key_menu_type = "longpress") {
 		Send("{" . keys["menu"] . " DOWN}")
 		Sleep(500)
 		Send("{" . keys["menu"] . " UP}")
 		Sleep(timing)
 
-	} else if (WinActive(title))
-	{
+	} else {
 		Send("{" . keys["menu"] . " DOWN}")
 		Sleep(10)
 		Send("{" . keys["menu"] . " UP}")
@@ -340,39 +428,38 @@ Stratagem(code) {
 
 
 	for index, value in code {
-		if (value = "up" && WinActive(title)) {
-			Send("{" . keys["up"] . " Down}")
-			Sleep(secondarytiming)
-			Send("{" . keys["up"] . " Up}")
-		}
-		else if (value = "left" && WinActive(title)) {
-			Send("{" . keys["left"] . " Down}")
-			Sleep(secondarytiming)
-			Send("{" . keys["left"] . " Up}")
-		}
-		else if (value = "right" && WinActive(title)) {
-			Send("{" . keys["right"] . " Down}")
-			Sleep(secondarytiming)
-			Send("{" . keys["right"] . " Up}")
-		}
-		else if (value = "down" && WinActive(title)) {
-			Send("{" . keys["down"] . " Down}")
-			Sleep(secondarytiming)
-			Send("{" . keys["down"] . " Up}")
-		} else if (!WinActive(title))
-		{
-			TrayTip("Helldivers 2 is not in focus.",appname, 35)
-			Sleep(5000)
-			ExitApp
-		} else {
-			TrayTip("Incorrect direction for Stratagem. Players: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros. Devs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
-			Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
-			ExitApp
-		}
+			if (value = "up") {
+				Send("{" . keys["up"] . " Down}")
+				Sleep(secondarytiming)
+				Send("{" . keys["up"] . " Up}")
+			}
+			else if (value = "left") {
+				Send("{" . keys["left"] . " Down}")
+				Sleep(secondarytiming)
+				Send("{" . keys["left"] . " Up}")
+			}
+			else if (value = "right") {
+				Send("{" . keys["right"] . " Down}")
+				Sleep(secondarytiming)
+				Send("{" . keys["right"] . " Up}")
+			}
+			else if (value = "down") {
+				Send("{" . keys["down"] . " Down}")
+				Sleep(secondarytiming)
+				Send("{" . keys["down"] . " Up}")
+			} else {
+				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+				Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
+				ExitApp
+			}
 		Sleep(timing)
 	}
-	if (key_menu_type = "hold" && WinActive(title))
-	{
+	} else {
+		TrayTip("Helldivers 2 is not in focus.",appname, 35)
+		Sleep(5000)
+		ExitApp
+	}
+	if (key_menu_type = "hold" && WinActive(title)) {
 		Send("{" . keys["menu"] . " UP}")
 	}
 	return
@@ -586,49 +673,48 @@ Case "hive breaker drill":
 	strat := Stratagem(["left","up","down","right","down","down"])
 
 Default:
-	if (A_Args[1] != "update macros")
 	TrayTip("Cannot find " . A_Args[1] . " macro.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
 }
 
 
-global version
-if (A_Args[1] = "update macros") {
+
+try {
+	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 	try {
-		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
-		try {
-			new := FileRead("./version.txt")
-			if (Number(new) > version) {
-				try {
-					Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
-				} catch error {
-					MsgBox("Could not download update.",appname,MsgBoxEnums["Error"])
-				}
-			} else {
-				MsgBox("You already have the latest version.",appname,MsgBoxEnums["Info"])
-			}
-		} catch error {
-			MsgBox("Could not read version file.",appname,MsgBoxEnums["Error"])
-		}
-	} catch error {
-		MsgBox("Could not retrieve latest version.",appname,MsgBoxEnums["Error"])
-	}
-} else {
-	try {
-		Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
-		try {
-			new:=FileRead("./version.txt")
-			if (Number(new) > version) {
-				TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, TrayEnums["Info"]+TrayEnums["LargeIcon"])
-				Sleep(5000)
-			}
-		} catch error {
-			TrayTip("Could not read version file.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+		new:=FileRead("./version.txt")
+		if (Number(new) > version) {
+			TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, TrayEnums["Info"]+TrayEnums["LargeIcon"])
 			Sleep(5000)
 		}
 	} catch error {
-		TrayTip("Could not retrieve latest version.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+		TrayTip("Could not read version file.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)
 	}
+} catch error {
+	TrayTip("Could not retrieve latest version.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+	Sleep(5000)
+}
+ExitApp
+
+update:
+try {
+	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
+	try {
+		new := FileRead("./version.txt")
+		if (Number(new) > version) {
+			try {
+				Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk", A_ScriptName)
+			} catch error {
+				MsgBox("Could not download update.",appname,MsgBoxEnums["Error"])
+			}
+		} else {
+			MsgBox("You already have the latest version.",appname,MsgBoxEnums["Info"])
+		}
+	} catch error {
+		MsgBox("Could not read version file.",appname,MsgBoxEnums["Error"])
+	}
+} catch error {
+	MsgBox("Could not retrieve latest version.",appname,MsgBoxEnums["Error"])
 }
 ExitApp
