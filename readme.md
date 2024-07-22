@@ -19,7 +19,7 @@ Once my script has downloaded, place it somewhere in it's own folder, alone. Don
 
 To create hot keys using this script:
 - Use the AutoHotkey [example script](#example) provided below.
-- Run the script using Stream Deck by adding an "open" action under the System section and point it to the script location. In the App/File text field, add the desired stratagem in quotes after the file path (e.g., `"C:\Users\%username%\Documents\Helldivers 2 Macros\Helldivers 2 Macros.ahk" "Recoiless Rifle"`). Replace `%username%` with your user folder name.
+- Run the script using Stream Deck by adding an "open" action under the System section and point it to the script location. In the App/File text field, add the desired stratagem in quotes after the file path (e.g., `"C:\Users\%username%\Documents\Helldivers 2 Macros\Helldivers 2 Macros.ahk" "Recoilless Rifle"`). Replace `%username%` with your user folder name.
 
 The script automatically uses in-game key bindings and reads the correct keys for each Steam user, eliminating the need for manual configuration.
 
@@ -52,7 +52,7 @@ When passing these to the script, surround them in quotes. Choose one, and use i
 - Anti Material Rifle
 - Stalwart
 - Expendable Anti Tank
-- Recoiless Rifle
+- Recoilless Rifle
 - Flamethrower
 - Autocannon
 - Heavy Machine Gun
@@ -118,13 +118,13 @@ When passing these to the script, surround them in quotes. Choose one, and use i
 
 ## Example
 
-This AHK script allows you to call your favourite stratagem. In this case, mine is the Recoiless Rifle, and the Patriot Exosuit.
+This AHK script allows you to call your favourite stratagem. In this case, mine is the Recoilless Rifle, and the Patriot Exosuit.
 ```ahk
 SendMode Event
 SetWorkingDir A_ScriptDir
 XButton1:: ; Mouse Browser Back button
 try {
-	Run('"Helldivers 2 Macros.ahk" "Recoiless Rifle"')
+	Run('"Helldivers 2 Macros.ahk" "Recoilless Rifle"')
 } catch e {
 	MsgBox(e)
 }

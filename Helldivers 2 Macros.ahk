@@ -2,15 +2,15 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 3 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 4 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
 
 ; Call this script with a string argument of the name of the stratagem you want, as seen in game, in English.
-; For example `Helldivers 2 Macro.ahk "Recoiless Rifle"`
+; For example `Helldivers 2 Macro.ahk "Recoilless Rifle"`
 ; You can also adjust the timing of each keypress, with a number at the end.
-; For example `Helldivers 2 Macro.ahk "Recoiless Rifle" 250`
+; For example `Helldivers 2 Macro.ahk "Recoilless Rifle" 250`
 
 
 
@@ -222,7 +222,7 @@ Machine Gun
 Anti Material Rifle
 Stalwart
 Expendable Anti Tank
-Recoiless Rifle
+Recoilless Rifle
 Flamethrower
 Autocannon
 Heavy Machine Gun
@@ -332,7 +332,7 @@ Stratagem(code) {
 	} else if (WinActive(title))
 	{
 		Send("{" . keys["menu"] . " DOWN}")
-		Sleep(50)
+		Sleep(10)
 		Send("{" . keys["menu"] . " UP}")
 
 	}
@@ -393,7 +393,7 @@ Case "stalwart":
 Case "expendable anti tank":
 	strat := Stratagem(["down","down","left","up","right"])
 
-Case "recoiless rifle":
+Case "recoilless rifle":
 	strat := Stratagem(["down","left","right","right","left"])
 
 Case "flamethrower":
