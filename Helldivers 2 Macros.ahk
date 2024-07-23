@@ -2,7 +2,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 5 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 6 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
@@ -325,11 +325,6 @@ Loop Read inputfile
 	{
 		state := "menu"
 		key_found_menu := true
-		continue
-	}
-
-	if (key_menu_type = "unknown" && state="menu")
-	{
 		Switch (lastLine)
 		{
 			Case "`t`t`ttrigger = `"Press`"":
@@ -348,7 +343,7 @@ Loop Read inputfile
 				key_menu_type := "hold"
 		}
 	}
-	if (state = "up" || state = "down" || state = "right" || state = "left" || (state = "menu" && key_menu_type != "unknown"))
+	if (state = "up" || state = "down" || state = "right" || state = "left" || state = "menu")
 	{
 
 		SplitA := StrSplit(A_LoopReadLine, "=")
