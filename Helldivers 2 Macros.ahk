@@ -450,7 +450,7 @@ Stratagem(code) {
 		Sleep(timing)
 	}
 	} else {
-		TrayTip("Helldivers 2 is not in focus.",appname, 35)
+		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)
 		ExitApp
 	}
