@@ -2,7 +2,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 6 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 7 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
@@ -652,7 +652,7 @@ Case "upload data":
 Case "seismic probe":
 	strat := Stratagem(["up","up","left","right","down","down"])
 
-Case "global illumination flare":
+Case "orbital illumination flare":
 	strat := Stratagem(["right","right","left","left"])
 
 Case "SEAF Artillery":
