@@ -1,10 +1,27 @@
-﻿#Requires AutoHotkey >=2.0
+﻿/*
+    Automatically enters stratagem codes for Helldivers 2
+    Copyright (C) 2024  Nicholas Miller
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+#Requires AutoHotkey >=2.0
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 7 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 8 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
-; Macros for every Stratagem in Helldivers 2, up to version 1.000.405.
+; Macros for every Stratagem in Helldivers 2, up to version 1.001.002.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
 
 ; Call this script with a string argument of the name of the stratagem you want, as seen in game, in English.
@@ -122,6 +139,7 @@ Shield Generator Relay
 Tesla Tower
 Anti Personnel Minefield
 Incendiary Mines
+Anti Tank Mines
 HMG Emplacement
 Machine Gun Sentry
 Gatling Sentry
@@ -666,6 +684,9 @@ Case "tectonic drill":
 
 Case "hive breaker drill":
 	strat := Stratagem(["left","up","down","right","down","down"])
+
+Case "anti tank mines":
+	strat := Stratagem(["down","left","up","up"])
 
 Default:
 	TrayTip("Cannot find " . A_Args[1] . " macro.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])

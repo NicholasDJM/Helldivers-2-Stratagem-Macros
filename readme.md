@@ -74,7 +74,7 @@ The second argument can be an integer number, in milliseconds, to set the delay 
 The third argument can be an integer number, in milliseconds, to set the delay between key down and up events.
 
 ## Current Stratagems
-This list is up to date with Helldivers 2 version 1.000.405.
+This list is up to date with Helldivers 2 version 1.001.002.
 When passing these to the script, surround them in quotes. Choose one, and use it as the first argument.
 
 - Machine Gun
@@ -121,6 +121,7 @@ When passing these to the script, surround them in quotes. Choose one, and use i
 - Tesla Tower
 - Anti Personnel Minefield
 - Incendiary Mines
+- Anti Tank Mines
 - HMG Emplacement
 - Machine Gun Sentry
 - Gatling Sentry
