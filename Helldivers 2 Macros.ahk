@@ -413,68 +413,67 @@ Stratagem(code) {
 	title := "HELLDIVERS™ 2"
 	
 	if (WinActive(title)) {
-	if (key_menu_type = "hold") {
-		Send("{" . keys["menu"] . " DOWN}")
-
-	} else if (key_menu_type = "doubletap") {
-		Send("{" . keys["menu"] . " DOWN}")
-		Sleep(secondarytiming)
-		Send("{" . keys["menu"] . " UP}")
-		Sleep(secondarytiming)
-		Send("{" . keys["menu"] . " DOWN}")
-		Sleep(secondarytiming)
-		Send("{" . keys["menu"] . " UP}")
-
-	} else if (key_menu_type = "longpress") {
-		Send("{" . keys["menu"] . " DOWN}")
-		Sleep(500)
-		Send("{" . keys["menu"] . " UP}")
+		switch (key_menu_type) {
+			case "hold":
+				Send("{" . keys["menu"] . " DOWN}")
+				
+			case "doubletap":
+				Send("{" . keys["menu"] . " DOWN}")
+				Sleep(secondarytiming)
+				Send("{" . keys["menu"] . " UP}")
+				Sleep(secondarytiming)
+				Send("{" . keys["menu"] . " DOWN}")
+				Sleep(secondarytiming)
+				Send("{" . keys["menu"] . " UP}")
+				
+			case "longpress":
+				Send("{" . keys["menu"] . " DOWN}")
+				Sleep(500)
+				Send("{" . keys["menu"] . " UP}")
+				Sleep(timing)
+				
+			default:
+				Send("{" . keys["menu"] . " DOWN}")
+				Sleep(10)
+				Send("{" . keys["menu"] . " UP}")
+		}
 		Sleep(timing)
 
-	} else {
-		Send("{" . keys["menu"] . " DOWN}")
-		Sleep(10)
-		Send("{" . keys["menu"] . " UP}")
-
-	}
-	Sleep(timing)
-
-
-	for index, value in code {
-			if (value = "up") {
-				Send("{" . keys["up"] . " Down}")
-				Sleep(secondarytiming)
-				Send("{" . keys["up"] . " Up}")
-			}
-			else if (value = "left") {
-				Send("{" . keys["left"] . " Down}")
-				Sleep(secondarytiming)
-				Send("{" . keys["left"] . " Up}")
-			}
-			else if (value = "right") {
-				Send("{" . keys["right"] . " Down}")
-				Sleep(secondarytiming)
-				Send("{" . keys["right"] . " Up}")
-			}
-			else if (value = "down") {
-				Send("{" . keys["down"] . " Down}")
-				Sleep(secondarytiming)
-				Send("{" . keys["down"] . " Up}")
-			} else {
-				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
-				Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
-				ExitApp
-			}
-		Sleep(timing)
-	}
-	} else {
-		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
-		Sleep(5000)
-		ExitApp
-	}
-	if (key_menu_type = "hold" && WinActive(title)) {
-		Send("{" . keys["menu"] . " UP}")
-	}
+		for index, value in code {
+				if (value = "up") {
+					Send("{" . keys["up"] . " Down}")
+					Sleep(secondarytiming)
+					Send("{" . keys["up"] . " Up}")
+				}
+				else if (value = "left") {
+					Send("{" . keys["left"] . " Down}")
+					Sleep(secondarytiming)
+					Send("{" . keys["left"] . " Up}")
+				}
+				else if (value = "right") {
+					Send("{" . keys["right"] . " Down}")
+					Sleep(secondarytiming)
+					Send("{" . keys["right"] . " Up}")
+				}
+				else if (value = "down") {
+					Send("{" . keys["down"] . " Down}")
+					Sleep(secondarytiming)
+					Send("{" . keys["down"] . " Up}")
+				} else {
+					TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+					Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
+					ExitApp
+				}
+			Sleep(timing)
+		}
+		} else {
+			TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+			Sleep(5000)
+			ExitApp
+		}
+		if (key_menu_type = "hold" && WinActive(title)) {
+			Send("{" . keys["menu"] . " UP}")
+		}
 }
 
 Switch A_Args[1] {
