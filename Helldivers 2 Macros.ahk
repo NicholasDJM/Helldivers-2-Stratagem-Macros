@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 8 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
+version := 9 ; NOTE to Devs, remember to increment this and the number in version.txt to correctly update the script. Must be an integer!
 
 ; Macros for every Stratagem in Helldivers 2, up to version 1.001.002.
 ; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
@@ -475,218 +475,216 @@ Stratagem(code) {
 	if (key_menu_type = "hold" && WinActive(title)) {
 		Send("{" . keys["menu"] . " UP}")
 	}
-	return
 }
 
 Switch A_Args[1] {
 
-Case "Machine Gun":
-	; AutoHotKey requires we set a variable to execute functions. We don't intend to use that variable, we just need it to execute the function.
-	strat := Stratagem(["down","left","down","up","right"])
+Case "machine gun":
+	Stratagem(["down","left","down","up","right"])
 
 Case "anti material rifle":
-	strat := Stratagem(["down","left","right","up","down"])
+	Stratagem(["down","left","right","up","down"])
 
 Case "stalwart":
-	strat := Stratagem(["down","left","down","up","up","left"])
+	Stratagem(["down","left","down","up","up","left"])
 
 Case "expendable anti tank":
-	strat := Stratagem(["down","down","left","up","right"])
+	Stratagem(["down","down","left","up","right"])
 
 Case "recoilless rifle":
-	strat := Stratagem(["down","left","right","right","left"])
+	Stratagem(["down","left","right","right","left"])
 
 Case "flamethrower":
-	strat := Stratagem(["down","left","up","down","up"])
+	Stratagem(["down","left","up","down","up"])
 
 Case "autocannon":
-	strat := Stratagem(["down","left","down","up","up","right"])
+	Stratagem(["down","left","down","up","up","right"])
 
 Case "heavy machine gun":
-	strat := Stratagem(["down","left","up","down","down"])
+	Stratagem(["down","left","up","down","down"])
 
 Case "airburst rocket launcher":
-	strat := Stratagem(["down","up","up","left","right"])
+	Stratagem(["down","up","up","left","right"])
 
 Case "commando":
-	strat := Stratagem(["down","left","up","down","right"])
+	Stratagem(["down","left","up","down","right"])
 
 Case "railgun":
-	strat := Stratagem(["down","right","down","up","left","right"])
+	Stratagem(["down","right","down","up","left","right"])
 
 Case "spear":
-	strat := Stratagem(["down","down","up","down","down"])
+	Stratagem(["down","down","up","down","down"])
 
 Case "grenade launcher":
-	strat := Stratagem(["down","left","up","left","down"])
+	Stratagem(["down","left","up","left","down"])
 
 Case "laser cannon":
-	strat := Stratagem(["down","left","down","up","left"])
+	Stratagem(["down","left","down","up","left"])
 
 Case "arc thrower":
-	strat := Stratagem(["down","left","down","up","left","left"])
+	Stratagem(["down","left","down","up","left","left"])
 
 Case "quasar cannon":
-	strat := Stratagem(["down","down","up","left","right"])
+	Stratagem(["down","down","up","left","right"])
 
 Case "orbital gatling barrage":
-	strat := Stratagem(["right","down","left","up","up"])
+	Stratagem(["right","down","left","up","up"])
 
 Case "orbital airburst strike":
-	strat := Stratagem(["right","right","right"])
+	Stratagem(["right","right","right"])
 
 Case "orbital 120mm he barrage":
-	strat := Stratagem(["right","right","down","left","right","down"])
+	Stratagem(["right","right","down","left","right","down"])
 
 Case "orbital 380mm he barrage":
-	strat := Stratagem(["right","down","up","up","left","down","down"])
+	Stratagem(["right","down","up","up","left","down","down"])
 
 Case "orbital walking barrage":
-	strat := Stratagem(["right","down","right","down","right","down"])
+	Stratagem(["right","down","right","down","right","down"])
 
 Case "orbital laser":
-	strat := Stratagem(["right","down","up","right","down"])
+	Stratagem(["right","down","up","right","down"])
 
 Case "orbital railcannon strike":
-	strat := Stratagem(["right","up","down","down","right"])
+	Stratagem(["right","up","down","down","right"])
 
 Case "orbital precision strike":
-	strat := Stratagem(["right","right","down"])
+	Stratagem(["right","right","down"])
 
 Case "orbital gas strike":
-	strat := Stratagem(["right","right","down","right"])
+	Stratagem(["right","right","down","right"])
 
 Case "orbital ems strike":
-	strat := Stratagem(["right","right","left","down"])
+	Stratagem(["right","right","left","down"])
 
 Case "orbital smoke strike":
-	strat := Stratagem(["right","right","down","up"])
+	Stratagem(["right","right","down","up"])
 
 Case "eagle strafing run":
-	strat := Stratagem(["up","right","right"])
+	Stratagem(["up","right","right"])
 
 Case "eagle airstrike":
-	strat := Stratagem(["up","right","down","right"])
+	Stratagem(["up","right","down","right"])
 
 Case "eagle cluster bomb":
-	strat := Stratagem(["up","right","down","down","right"])
+	Stratagem(["up","right","down","down","right"])
 
 Case "eagle napalm strike":
-	strat := Stratagem(["up","right","down","up"])
+	Stratagem(["up","right","down","up"])
 
 Case "eagle smoke strike":
-	strat := Stratagem(["up","right","up","down"])
+	Stratagem(["up","right","up","down"])
 
 Case "eagle 110mm rocket pods":
-	strat := Stratagem(["up","right","up","left"])
+	Stratagem(["up","right","up","left"])
 
 Case "eagle 500kg bomb":
-	strat := Stratagem(["up","right","down","down","down"])
+	Stratagem(["up","right","down","down","down"])
 
 Case "jump pack":
-	strat := Stratagem(["down","up","up","down","up"])
+	Stratagem(["down","up","up","down","up"])
 
 Case "supply pack":
-	strat := Stratagem(["down","left","down","up","up","down"])
+	Stratagem(["down","left","down","up","up","down"])
 
 Case "guard dog rover":
-	strat := Stratagem(["down","up","left","up","right","right"])
+	Stratagem(["down","up","left","up","right","right"])
 
 Case "guard dog":
-	strat := Stratagem(["down","up","left","up","right","down"])
+	Stratagem(["down","up","left","up","right","down"])
 
 Case "ballistic shield backpack":
-	strat := Stratagem(["down","left","down","down","up","left"])
+	Stratagem(["down","left","down","down","up","left"])
 
 Case "shield generator pack":
-	strat := Stratagem(["down","up","left","right","left","right"])
+	Stratagem(["down","up","left","right","left","right"])
 
 Case "hmg emplacement":
-	strat := Stratagem(["down","up","left","right","right","left"])
+	Stratagem(["down","up","left","right","right","left"])
 
 Case "shield generator relay":
-	strat := Stratagem(["down","down","left","right","left","right"])
+	Stratagem(["down","down","left","right","left","right"])
 
 Case "tesla tower":
-	strat := Stratagem(["down","up","right","up","left","right"])
+	Stratagem(["down","up","right","up","left","right"])
 
 Case "anti personal minefield":
-	strat := Stratagem(["down","left","up","right"])
+	Stratagem(["down","left","up","right"])
 
 Case "incendiary mines":
-	strat := Stratagem(["down","left","left","down"])
+	Stratagem(["down","left","left","down"])
 
 Case "machine gun sentry":
-	strat := Stratagem(["down","up","right","right","up"])
+	Stratagem(["down","up","right","right","up"])
 
 Case "gatling sentry":
-	strat := Stratagem(["down","up","right","left"])
+	Stratagem(["down","up","right","left"])
 
 Case "mortar sentry":
-	strat := Stratagem(["down","up","right","right","down"])
+	Stratagem(["down","up","right","right","down"])
 
 Case "autocannon sentry":
-	strat := Stratagem(["down","up","right","up","left","up"])
+	Stratagem(["down","up","right","up","left","up"])
 
 Case "rocket sentry":
-	strat := Stratagem(["down","up","right","right","left"])
+	Stratagem(["down","up","right","right","left"])
 
 Case "ems mortar sentry":
-	strat := Stratagem(["down","up","right","down","right"])
+	Stratagem(["down","up","right","down","right"])
 
 Case "patriot exosuit":
-	strat := Stratagem(["left","down","right","up","left","down","down"])
+	Stratagem(["left","down","right","up","left","down","down"])
 
 Case "emancipator exosuit":
-	strat := Stratagem(["left","down","right","up","left","down","up"])
+	Stratagem(["left","down","right","up","left","down","up"])
 
 Case "reinforce":
-	strat := Stratagem(["up","down","right","left","up"])
+	Stratagem(["up","down","right","left","up"])
 
 Case "sos beacon":
-	strat := Stratagem(["up","down","right","up"])
+	Stratagem(["up","down","right","up"])
 
 Case "resupply":
-	strat := Stratagem(["down","down","up","right"])
+	Stratagem(["down","down","up","right"])
 
 Case "eagle rearm":
-	strat := Stratagem(["up","up","left","up","right"])
+	Stratagem(["up","up","left","up","right"])
 
 Case "SSSD delivery":
-	strat := Stratagem(["down","down","down","up","up"])
+	Stratagem(["down","down","down","up","up"])
 
 Case "prospecting drill":
-	strat := Stratagem(["down","down","left","right","down","down"])
+	Stratagem(["down","down","left","right","down","down"])
 
 Case "super earth flag":
-	strat := Stratagem(["up","down","up","down"])
+	Stratagem(["up","down","up","down"])
 
 Case "hellbomb":
-	strat := Stratagem(["down","up","left","down","up","right","down","up"])
+	Stratagem(["down","up","left","down","up","right","down","up"])
 
 Case "upload data":
-	strat := Stratagem(["left","right","up","up","up"])
+	Stratagem(["left","right","up","up","up"])
 
 Case "seismic probe":
-	strat := Stratagem(["up","up","left","right","down","down"])
+	Stratagem(["up","up","left","right","down","down"])
 
 Case "orbital illumination flare":
-	strat := Stratagem(["right","right","left","left"])
+	Stratagem(["right","right","left","left"])
 
 Case "SEAF Artillery":
-	strat := Stratagem(["right","up","up","down"])
+	Stratagem(["right","up","up","down"])
 
 Case "dark fluid vessel":
-	strat := Stratagem(["up","left","right","down","up","up"])
+	Stratagem(["up","left","right","down","up","up"])
 
 Case "tectonic drill":
-	strat := Stratagem(["up","down","up","down","up","down"])
+	Stratagem(["up","down","up","down","up","down"])
 
 Case "hive breaker drill":
-	strat := Stratagem(["left","up","down","right","down","down"])
+	Stratagem(["left","up","down","right","down","down"])
 
 Case "anti tank mines":
-	strat := Stratagem(["down","left","up","up"])
+	Stratagem(["down","left","up","up"])
 
 Default:
 	TrayTip("Cannot find " . A_Args[1] . " macro.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
