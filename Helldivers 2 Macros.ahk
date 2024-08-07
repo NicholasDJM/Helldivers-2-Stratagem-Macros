@@ -466,14 +466,14 @@ Stratagem(code) {
 				}
 			Sleep(timing)
 		}
-		} else {
-			TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
-			Sleep(5000)
-			ExitApp
-		}
-		if (key_menu_type = "hold" && WinActive(title)) {
-			Send("{" . keys["menu"] . " UP}")
-		}
+	} else {
+		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+		Sleep(5000)
+		ExitApp
+	}
+	if (key_menu_type = "hold" && WinActive(title)) {
+		Send("{" . keys["menu"] . " UP}")
+	}
 }
 
 Switch A_Args[1] {
