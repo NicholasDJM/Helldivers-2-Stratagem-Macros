@@ -1,10 +1,10 @@
-# Helldivers 2 Stratagem Macros ![Version 9](https://img.shields.io/badge/Version-9-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
+# Helldivers 2 Stratagem Macros ![Version 10](https://img.shields.io/badge/Version-10-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
 The script automatically uses in-game key bindings and reads the correct keys for each Steam user, eliminating the need for manual configuration.
 
-You can execute these macros either through another AutoHotKey script, or through Elgato Stream Deck.
+You can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck.
 
 This script is only for Windows. This script has been tested on Windows 10 22H2, but should work on Windows 11.
 
@@ -12,13 +12,15 @@ This script is only for Windows. This script has been tested on Windows 10 22H2,
 
 ## Installation
 
-You must have AutoHotKey installed, head to https://www.autohotkey.com/ to download the latest version.
+1. You must have AutoHotKey installed, head to https://www.autohotkey.com/ to download the latest version.
 
-Next, if you're using this script with the Stream Deck, you must install [Barraider's Advanced Launcher](https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125) plugin.
+2. Next, if you're using this script with the Stream Deck, you must install [Barraider's Advanced Launcher](https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125) plugin.
 
-Then, download my script, <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">Helldivers 2 Macros.ahk</a> (Right click on link, and "Save Link as")
+3. Then, download my script, <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">Helldivers 2 Macros.ahk</a> (Right click on link, and "Save Link as")
 
-Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will download and overwrite any file called "version.txt". Make sure not to save any file with that name.
+4. Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will download and overwrite any file called "version.txt", and any file called "help.html". Make sure not to save any file with those names.
+
+5. Finally, run the script without any arguments to read the most up-to-date instructions.
 
 ## Usage
 
@@ -28,26 +30,31 @@ This AHK script allows you to call your favourite stratagem. In this case, mine 
 #Requires AutoHotkey >=2.0
 SendMode "Event"
 SetWorkingDir A_ScriptDir
-XButton1:: ; Mouse Browser Back button
-try {
-	Run('"Helldivers 2 Macros.ahk" "Recoilless Rifle"')
-} catch e {
-	MsgBox(e)
+title := "HELLDIVERS™ 2"
+XButton1:: { ; Mouse Browser Back button
+	if (winActive(title)) {
+		try {
+			Run('"Helldivers 2 Macros.ahk" "Recoilless Rifle"')
+		} catch {
+			TrayTip("Could not run Helldivers 2 Macros script.")
+		}
+	}
 }
-exit
-XButton2:: ; Mouse Browser Forward button
-try {
-	Run('"Helldivers 2 Macros.ahk" "Patriot Exosuit"')
-} catch e {
-	MsgBox(e)
+XButton2:: { ; Mouse Browser Forward button
+	if (winActive(title)) {
+		try {
+			Run('"Helldivers 2 Macros.ahk" "Patriot Exosuit"')
+		} catch {
+			TrayTip("Could not run Helldivers 2 Macros script.")
+		}
+	}
 }
-exit
 ```
 Look at [AutoHotkey's key list](https://www.autohotkey.com/docs/v2/KeyList.htm) for a complete list of keys that can be bound.
 
 ### Using with Elgato Stream Deck
 
-![A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch "Helldivers 2 Macros.ahk" with an argument of "recoilless rifle".](/ExampleUsageWithStreamDeck.png)
+![A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch "Helldivers 2 Macros.ahk" with an argument of "recoilless rifle".](/helpPage/public/ExampleUsageWithStreamDeck.webp)
 
 1. Open the Elgato Stream Deck software.
 2. Ensure [Barraider's Advanced Launcher](https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125) plugin is installed.
@@ -63,18 +70,10 @@ Due to AutoHotKey's keystroke sending method, the game won't recognize your keyp
 
 
 ### Mouse Buttons
-Please note, currently, Helldivers 2 doesn't like mouse buttons received from AutoHotKey. Please use keyboard keys instead. Looking into a way to fix this.
+Please note, currently, Helldivers 2 doesn't like mouse buttons received from AutoHotKey. This means, for example, that if you have set your Stratagem menu key to be mouse 4 instead of the default CTRL, it will not work. Please use keyboard keys instead. Looking into a way to fix this.
 
-
-## Syntax
-
-Syntax is `Helldivers 2 Macros.ahk <Stratagem Name | update macros> [Timing between keypresses, in milliseconds] [Timing between key down/up events, in milliseconds]`
-
-First argument must have quotes if there are spaces.
-Execute with `update macros` as the first argument, in quotes, and the script will attempt to update itself with a newer version.
-
-The second argument can be an integer number, in milliseconds, to set the delay between different keypresses.
-The third argument can be an integer number, in milliseconds, to set the delay between key down and up events.
+### Frame rates
+Please note, if you're unable to run Helldivers 2 at a high frame rate, the script may be running too fast for the game to recognize the inputs.
 
 ## Current Stratagems
 This list is up to date with Helldivers 2 version 1.001.002.

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Manual - Helldivers 2 Stratagem Macros</title>
+	<script type="module" src="./main.ts"></script>
+</head>
+	<body>
+		<a href="#top"><button>Back to Top</button></a>
+		<main class="container-fluid">
+			<article>
+				<section>
+					<h1>HELLDIVERS™ 2 Stratagem Macros</h1>
+					<p>Helldivers 2 Stratagem Macros is an AutoHotkey macro script, that will automatically input the correct sequence of keys to call in a stratagem.</p>
+					<p>You can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck.</p>
+				</section>
+				<section>
+					<h2>Installation</h2>
+					<ol>
+						<li>Ensure <a href="https://www.autohotkey.com" rel="noreferrer" target="_blank">AutoHotkey 2</a> or later is installed.</li>
+						<li>Download the <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" rel="noreferrer" download="Helldivers 2 Macros.ahk" target="_blank">macro script</a> to it's own folder, with nothing else in it. (You may need to right click on the link, and select "Save Link as")</li>
+					</ol>
+				</section>
+				<section>
+					<h2>Syntax</h2>
+					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can set in any order.</p>
+					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] [timing] [secondarytiming] [path]</code>
+					<ul>
+						<li><code>Stratagem Name</code> - This is the name of a stratagem you wish to use. See the Stratagem list below.</li>
+						<li><code>"update macros"</code> - Enter this verbatim to run the auto updater.</li>
+						<li><code>timing</code> - This controls the timing between keystrokes, in milliseconds. Type out <code>timing=x</code>, but replace x with a number. Default is 250.</li>
+						<li><code>secondarytiming</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>secondarytiming=x</code>, but replace x with a number. Default is 10.</li>
+						<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Usage</h2>
+					<details open>
+						<summary>Using with Elgato Stream Deck</summary>
+						<div class="grid">
+							<ol>
+								<li>Open the Elgato Stream Deck software.</li>
+								<li>Ensure <a href="https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125" rel="noreferrer" target="_blank">BarRaiders's Advanced Launcher</a> plugin is installed.</li>
+								<li>Add "Advanced Launcher" action to a button.</li>
+								<li>In the action's settings, click on "Choose file...", and select the macro script.</li>
+								<li>In the "Arguments" text field, add your desired stratagem, in quotes.</li>
+							</ol>
+							<img alt="A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;." height="299px" width="569px" src="../public/ExampleUsageWithStreamDeck.webp"/>
+						</div>
+					</details>
+					<hr>
+					<details open>
+						<summary>Using with AutoHotkey</summary>
+						<div class="grid">
+							<div>
+								<p>This example <abbr title="AutoHotkey" class="">AHK</abbr> script allows you to call your favourite stratagem. In this case, mine is the Recoilless Rifle, and the Patriot Exosuit. You can modify it as you see fit. This particular script will call in the Recoilless Rifle on mouse 4, and the Patriot Exosuit on mouse 5.</p>
+								<p>Look at <a href="https://www.autohotkey.com/docs/v2/KeyList.htm" rel="noreferrer" target="_blank">AutoHotkey's key list</a> for a complete list of keys that can be bound.</p>
+							</div>
+							<div style="font-size: 0.75rem;">
+								<!-- PrismJS CSS is conflicting with PicoCSS, and I need to revert them. -->
+								<pre style="padding:0" class="language-autohotkey" data-download-link id="ahk-example"></pre>
+							</div>
+						</div>
+					</details>
+					<hr>
+					<details open x-data="{input: ''}">
+						<summary>Stratagem list</summary>
+						<p>This is a list of stratagems that the script will accept. Click on one to copy it. This list is up to date with Helldivers 2 version <code>1.002.001</code>.</p>
+						<search>
+							<fieldset role="search">
+								<input type="search" list="category" placeholder="Search" aria-label="Search" x-model="input"/>
+								<button class="outline" @click="input = ''" id="clear-button">Clear</button>
+							</fieldset>
+							<datalist id="category">
+								<option value="weapons">Support Weapon Stratagems</option>
+								<option value="backpack">Backpack Stratagems</option>
+								<option value="eagle">Eagle Stratagems</option>
+								<option value="orbital">Orbital Stratagems</option>
+								<option value="defense">Defensive Stratagems</option>
+								<option value="vehicle">Vehicle Stratagems</option>
+								<option value="mission">Mission Stratagems</option>
+							</datalist>
+						</search>
+						<p x-init="$el.remove()">Loading Stratagem Data...</p>
+						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input"></p>
+						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
+						<ul class="minHeight nobullets">
+							<template x-data="tools" x-for="value in search()" :key="value.item.key">
+								<li tabindex="0" aria-role="button" class="stratagem" @click.throttle.6000ms="copy()" @keydown.enter.throttle.6000ms="copy()" :style="'--colour:'+border(value.item.type)" :data-key="value.item.key">
+									<template x-if="value.item.icon">
+										<span class="overlay">
+											<img :src="value.item.icon" class="icon" loading="lazy" width="50px" height="50px" :alt="value.item.key + ' icon'">
+										</span>
+									</template>
+									<code spellcheck="false" x-text="'&quot;'+value.item.key+'&quot;'" :data-original="'&quot;'+value.item.key+'&quot;'"></code>
+								</li>
+							</template>
+						</ul>
+					</details>
+				</section>
+			</article>
+		</main>
+	</body>
+</html>

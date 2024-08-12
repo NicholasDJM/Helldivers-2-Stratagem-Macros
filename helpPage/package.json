@@ -1,0 +1,41 @@
+{
+	"private": "true",
+	"root": "true",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"build": "wireit"
+	},
+	"wireit": {
+		"build": {
+			"command": "vite build",
+			"files": [
+				"./src",
+				"./public",
+				"./vite.config.ts",
+				"./postcss.config.ts",
+				"./package.json"
+			],
+			"clean": false,
+			"output": [
+				"dist"
+			]
+		}
+	},
+	"dependencies": {
+		"@picocss/pico": "^2.0.6",
+		"alpinejs": "^3.14.1",
+		"fuse.js": "^7.0.0",
+		"lightningcss": "^1.26.0",
+		"prismjs": "^1.29.0",
+		"terser": "^5.31.5",
+		"vite": "^5.4.0",
+		"vite-imagetools": "^7.0.4",
+		"vite-plugin-html": "^3.2.2",
+		"vite-plugin-singlefile": "^2.0.2",
+		"wireit": "^0.14.7"
+	},
+	"devDependencies": {
+		"@types/alpinejs": "^3.13.10"
+	}
+}

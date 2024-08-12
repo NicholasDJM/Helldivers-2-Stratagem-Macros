@@ -1,0 +1,1 @@
+start /wait "" ".\ahk\build.ahk"

@@ -1,0 +1,182 @@
+
+:root:not([data-theme="dark"]),:root {
+	--pico-code-color:var(--pico-color);
+}
+:root {
+	scroll-behavior: smooth;
+}
+.copy {
+	--distance: 10px;
+	--border: rgb(0 255 0 / 0.75);
+	position:relative;
+	background-image: repeating-linear-gradient(45deg,var(--border),var(--border) var(--distance),rgb(0 0 0 / 0.75) var(--distance),rgb(0 0 0 / 0.75) calc(var(--distance) * 2)) !important;
+	outline: 2px solid var(--border) !important;
+	transition: background-image 500ms;
+}
+.copy::after{
+	position: absolute;
+	content: "Copied to Clipboard!";
+	background-color: #00FF00;
+	color: black;
+	padding-inline: 10px;
+	padding-block: 2px;
+	margin-inline-start: 15px;
+	margin-block-start: 10px;
+	border-radius: 20px;
+	white-space: nowrap;
+	opacity: 0;
+	font-size:medium;
+	font-weight:normal;
+}
+.copy.failed::after {
+	content: "Failed to copy. Please manually copy text.";
+	background-color: #AA0000;
+	color:white;
+}
+.copy.failed {
+	background-image:repeating-linear-gradient(45deg,rgb(170 0 0 / 1),rgb(170 0 0 / 1) var(--distance),rgb(0 0 0 / 1) var(--distance),rgb(0 0 0 / 1) calc(var(--distance) * 2)) !important;
+	outline: 2px solid #aa0000 !important;
+}
+.copy.fadein::after {
+	animation-name: fadein;
+	animation-duration: 250ms;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+}
+.copy.fadeout::after {
+	animation-name: fadeout;
+	animation-duration: 250ms;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+}
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes fadeout {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+.minHeight {
+	min-block-size: 75vh;
+	scroll-padding-top: 15px;
+}
+search {
+	position: sticky;
+	top:0;
+	z-index: 1;
+	padding-block-start: 15px
+}
+.icon {
+	block-size: 50px;
+	inline-size: 50px;
+	outline: var(--colour) 2px solid;
+	background-color:black;
+	transition: 500ms;
+}
+.overlay {
+	position: relative;
+	block-size:50px;
+	inline-size:50px;
+	margin-inline-end: 10px;
+	display: inline-block;
+}
+.overlay::after {
+	content: '';
+	backdrop-filter: grayscale() brightness(300%);
+	position: absolute;
+	inline-size: 50px;
+	block-size: 50px;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	opacity: 0;
+	transition: opacity 500ms;
+}
+.copy .overlay::after {
+	content: '';
+	backdrop-filter: grayscale() brightness(300%);
+	position: absolute;
+	inline-size: 50px;
+	block-size: 50px;
+	inset-block-start: 0;
+	inset-inline-start: 0;
+	animation-name: block;
+	animation-duration: var(--time);
+	animation-fill-mode: both;
+	animation-timing-function: linear;
+	outline: white 2px solid;
+	opacity: 1;
+}
+@keyframes block {
+	from {
+		block-size: 0px;
+	}
+	to {
+		block-size: 50px;
+	}
+}
+ul.nobullets {
+	padding-inline-start: 0;
+}
+ul.nobullets li {
+	list-style: none !important;
+}
+.stratagem {
+	--size: 2px
+	font-size: larger;
+	font-weight: bolder;
+	cursor: pointer;
+	padding: 0.25rem;
+	padding-inline-start: 20px;
+	transition: background-image 500ms;
+	background-image: repeating-linear-gradient(45deg,rgb(0 0 0 / 0),rgb(0 0 0 / 0) var(--distance),rgb(0 0 0 / 0) var(--distance),rgb(0 0 0 / 0) calc(var(--distance) * 2));
+	inline-size: 100%;
+	/* display:inline-flex;
+	align-content: start;
+	align-items: center; */
+}
+.stratagem:hover,.stratagem:focus-visible {
+	--distance: 10px;
+	background-image: repeating-linear-gradient(45deg,var(--pico-primary-border),var(--pico-primary-border) var(--distance),black var(--distance),black calc(var(--distance) * 2));
+	outline: 2px solid var(--pico-primary-border);
+	transition: background-image 500ms;
+}
+.toolbar {
+	display: flex;
+	gap: 0.5rem;
+}
+
+[href="#top"] {
+	position: fixed;
+	inset-inline-end: 1rem;
+	inset-block-end: 1rem;
+	animation-name: top-button;
+	animation-duration: 250ms; /* Firefox requires scroll driven animations to have a minimum of 1ms. */
+	/* Also, scroll driven animations in Firefox are currently only available by enabling `layout.css.scroll-driven-animations.enabled` in `about:config` */
+	animation-timeline: scroll();
+	z-index: 100;
+}
+
+@keyframes top-button {
+	/* This animation will hide the button when at the top of the page, but show it when the page is scrolled. */
+	0% {
+		opacity: 0;
+	}
+	0.01% {
+		opacity: 1;
+	}
+}
+#clear-button {
+	--pico-background-color: var(--pico-card-background-color);
+}
+#example {
+	margin-inline: auto;
+}
