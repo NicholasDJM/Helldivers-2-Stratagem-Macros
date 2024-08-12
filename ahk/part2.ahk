@@ -63,7 +63,7 @@ Loop A_Args.Length {
 		switch split[1] {
 			case "timing":
 				options["timing"] = split[2]
-			case "secondarytiming":
+			case "secondaryTiming":
 				options["secondaryTiming"] = split[2]
 			case "path":
 				options["steamPath"] = split[2]
@@ -247,11 +247,11 @@ Stratagem(code) {
 				
 			case "doubletap":
 				Send("{" . keys["menu"] . " DOWN}")
-				Sleep(options["secondarytiming"])
+				Sleep(options["secondaryTiming"])
 				Send("{" . keys["menu"] . " UP}")
-				Sleep(options["secondarytiming"])
+				Sleep(options["secondaryTiming"])
 				Send("{" . keys["menu"] . " DOWN}")
-				Sleep(options["secondarytiming"])
+				Sleep(options["secondaryTiming"])
 				Send("{" . keys["menu"] . " UP}")
 				
 			case "longpress":
@@ -270,22 +270,22 @@ Stratagem(code) {
 		for index, value in code {
 				if (value = "up") {
 					Send("{" . keys["up"] . " Down}")
-					Sleep(options["secondarytiming"])
+					Sleep(options["secondaryTiming"])
 					Send("{" . keys["up"] . " Up}")
 				}
 				else if (value = "left") {
 					Send("{" . keys["left"] . " Down}")
-					Sleep(options["secondarytiming"])
+					Sleep(options["secondaryTiming"])
 					Send("{" . keys["left"] . " Up}")
 				}
 				else if (value = "right") {
 					Send("{" . keys["right"] . " Down}")
-					Sleep(options["secondarytiming"])
+					Sleep(options["secondaryTiming"])
 					Send("{" . keys["right"] . " Up}")
 				}
 				else if (value = "down") {
 					Send("{" . keys["down"] . " Down}")
-					Sleep(options["secondarytiming"])
+					Sleep(options["secondaryTiming"])
 					Send("{" . keys["down"] . " Up}")
 				} else {
 					TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
