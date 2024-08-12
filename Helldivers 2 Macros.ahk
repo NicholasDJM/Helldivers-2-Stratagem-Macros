@@ -19,25 +19,16 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 11
+version := 12
 
 options := Map()
 ; DO NOT EDIT ANYTHING ABOVE
-
-
-
-; Macros for every Stratagem in Helldivers 2, up to version 1.001.002.
-; Script designed to be called from other AutoHotKey scripts or from a Stream Deck.
-
-; Call this script with a string argument of the name of the stratagem you want, as seen in game, in English, surrounded in quotation marks.
-; For example `Helldivers 2 Macro.ahk "Recoilless Rifle"`
-; You can also adjust the timing of each keypress, with a number at the end.
-; For example `Helldivers 2 Macro.ahk "Recoilless Rifle" 250`
 
 ; You can modify these to change the defaults.
 options["timing"] := 150 ; This is the timing between different keystrokes.
 options["secondaryTiming"] := 10 ; This is the timing between the key up and key down events of a single keystroke.
 options["steamPath"] := "C:\Program Files (x86)\Steam"
+; TODO Before I can compile this script into an exe, I must let these options be overridden by a config file, as an exe is not easily editable.
 
 ; DO NOT EDIT ANYTHING BELOW
 
@@ -83,14 +74,17 @@ Loop A_Args.Length {
 		; If argument has an = sign, it's a flag
 		switch split[1] {
 			case "timing":
-				options["timing"] = split[2]
-			case "secondaryTiming":
-				options["secondaryTiming"] = split[2]
+				options["timing"] := split[2]
+			case "secondarytiming":
+				options["secondaryTiming"] := split[2]
 			case "path":
-				options["steamPath"] = split[2]
-				if (options["steamPath"][options["steamPath"].Length] = "\") { ; Remove trailing backslash.
-					options["steamPath"] = SubStr(options["steamPath"], 1 options["steamPath"].Length - 1)
-				}
+				options["steamPath"] := split[2]
+				; This doesn't work. Strings don't have a length property.
+				;if (options["steamPath"][options["steamPath"].Length] = "\") { ; Remove trailing backslash.
+					;options["steamPath"] := SubStr(options["steamPath"], 1 options["steamPath"].Length - 1)
+				;}
+			default:
+				TrayTip("`"" . split[1] . "`" is not a valid flag.", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}
 	} else {
 		; Otherwise, we can assume it's a Stragaem name or command.
@@ -141,6 +135,7 @@ key_menu_type := "unknown"
 loopindex := 0
 lastLine := ""
 
+try {
 ; We must only read a file once! It's very expensive time wise to read a file, and the player expects the action to be immediate.
 Loop Read inputfile
 {
@@ -227,6 +222,10 @@ Loop Read inputfile
 		}
 	}
 	lastLine := A_LoopReadLine
+}
+} catch {
+	MsgBox("Steam path is incorrect. Are you sure Steam is installed at " . options["steamPath"] . "? " . appname . " will now quit.", appname, MsgBoxEnums["Error"] + MsgBoxEnums["OK"])
+	ExitApp(1)
 }
 
 if (!keys.Has("up"))

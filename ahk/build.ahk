@@ -2,7 +2,6 @@
 SetWorkingDir A_ScriptDir
 
 ; Compiles the AHK script, by embedding the version and HTML help file into the AutoHotkey script.
-RunWait(A_ComSpec ' /c "pnpm build"', "../helpPage") ; Build HTML help file.
 part1 := FileRead("./part1.ahk")
 part2 := FileRead("./part2.ahk")
 part3 := FileRead("./part3.ahk")
