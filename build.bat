@@ -1,1 +1,9 @@
-start /wait "" ".\ahk\build.ahk"
+@echo off
+pushd .\helpPage
+echo Compiling HTML...
+cmd /c pnpm build
+echo Done...
+popd
+echo Compiling AHK script...
+start /b /wait "" ".\ahk\build.ahk"
+echo Done
