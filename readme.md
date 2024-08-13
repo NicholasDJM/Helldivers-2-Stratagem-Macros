@@ -1,4 +1,4 @@
-# Helldivers 2 Stratagem Macros ![Version 13](https://img.shields.io/badge/Version-13-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
+# Helldivers 2 Stratagem Macros ![Version 14](https://img.shields.io/badge/Version-14-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
@@ -54,7 +54,7 @@ Look at [AutoHotkey's key list](https://www.autohotkey.com/docs/v2/KeyList.htm) 
 
 ### Using with Elgato Stream Deck
 
-![A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch "Helldivers 2 Macros.ahk" with an argument of "recoilless rifle".](/helpPage/public/ExampleUsageWithStreamDeck.webp)
+![A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch "Helldivers 2 Macros.ahk" with an argument of "recoilless rifle".](/help/public/ExampleUsageWithStreamDeck.webp)
 
 1. Open the Elgato Stream Deck software.
 2. Ensure [Barraider's Advanced Launcher](https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125) plugin is installed.

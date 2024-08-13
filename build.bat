@@ -5,7 +5,7 @@ REM We're assuming AutoHotkey is installed, as that's what this entire repo is c
 call :clear
 where pnpm > nul
 if %errorlevel% NEQ 0 echo Requires PNPM to be installed. Please run `npm i -g pnpm`. If you don't have 'npm', please run 'choco install node' or `winget install node`. && exit /b 1
-pushd .\helpPage
+pushd .\help
 echo Compiling HTML...
 cmd /c pnpm build
 echo Done...

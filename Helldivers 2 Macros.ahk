@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 13
+version := 14
 
 options := Map()
 ; DO NOT EDIT ANYTHING ABOVE
