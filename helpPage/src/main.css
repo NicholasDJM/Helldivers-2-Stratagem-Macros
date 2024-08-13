@@ -152,6 +152,7 @@ ul.nobullets li {
 .toolbar {
 	display: flex;
 	gap: 0.5rem;
+	justify-content: end;
 }
 
 [href="#top"] {
@@ -179,4 +180,9 @@ ul.nobullets li {
 }
 #example {
 	margin-inline: auto;
+}
+@media (prefers-color-scheme:dark) {
+	pre {
+		background-color: var(--pico-code-background-color) !important;
+	}
 }

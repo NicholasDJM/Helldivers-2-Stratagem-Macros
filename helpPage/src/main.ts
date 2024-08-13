@@ -8,7 +8,7 @@ globalThis.Prism = Prism
 //@ts-expect-error Not a module.
 import light from "prismjs/themes/prism.min.css?raw";
 //@ts-expect-error Not a module.
-import dark from "prismjs/themes/prism-twilight.min.css?raw";
+import dark from "prismjs/themes/prism-okaidia.min.css?raw";
 import "prismjs/plugins/toolbar/prism-toolbar.js";
 import "prismjs/plugins/download-button/prism-download-button.min.js"
 import "prismjs/components/prism-autohotkey.min.js";
@@ -98,9 +98,9 @@ Alpine.data("tools", ()=>{
 					}
 				}, timing - 250);
 			}).catch(error=>{
-				this.$el.classList.add("failed","copy","fadein")
-				console.error(error)
 				// If we can't copy to clipboard, we should make the text selected, so the user can CTRL + C
+				console.error(error)
+				this.$el.classList.add("failed","copy","fadein")
 				this.$el.setAttribute("contenteditable", "true")
 				const range = document.createRange();
 				range.selectNodeContents(this.$el.querySelector("code"));
@@ -125,6 +125,7 @@ Alpine.data("tools", ()=>{
 Alpine.start()
 
 // If you add a period to a `class` HTML attribute, and can't figure out why your styles aren't applying, this will fix that.
+// Example: `<div class=".red">` to `<div class="red">`
 document.querySelectorAll("*").forEach(element=>{
 	element.classList.forEach(className => {
 		if (className[0] == ".") element.classList.replace(className, className.slice(1))
