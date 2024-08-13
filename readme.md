@@ -76,8 +76,8 @@ Please note, currently, Helldivers 2 doesn't like mouse buttons received from Au
 Please note, if you're unable to run Helldivers 2 at a high frame rate, the script may be running too fast for the game to recognize the inputs.
 
 ## Current Stratagems
-This list is up to date with Helldivers 2 version 1.001.002.
-When passing these to the script, surround them in quotes. Choose one, and use it as the first argument.
+This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
+This list is up to date with Helldivers 2 version `100.001.002`.
 
 - Machine Gun
 - Anti Material Rifle
@@ -97,8 +97,8 @@ When passing these to the script, surround them in quotes. Choose one, and use i
 - Quasar Cannon
 - Orbital Gatling Barrage
 - Orbital Airburst Strike
-- Orbital 120mm HE Barrage
-- Orbital 380mm HE Barrage
+- Orbital 120mm He Barrage
+- Orbital 380mm He Barrage
 - Orbital Walking Barrage
 - Orbital Laser
 - Orbital Railcannon Strike
@@ -144,6 +144,7 @@ When passing these to the script, surround them in quotes. Choose one, and use i
 - Upload Data
 - Seismic Probe
 - SEAF Artillery
+- Orbital Illumination Flare
 - Dark Fluid Vessel
 - Tectonic Drill
 - Hive Breaker Drill
