@@ -1,0 +1,25 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"style": {
+				"useSingleVarDeclarator": {
+					"level": "off"
+				},
+				"useTemplate": {
+					"level": "info"
+				}
+			},
+			"complexity": {
+				"noForEach": {
+					"level": "warn"
+				}
+			}
+		}
+	},
+	"formatter": {
+		"enabled": false
+	}
+}

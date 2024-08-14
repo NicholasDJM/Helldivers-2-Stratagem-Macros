@@ -44,7 +44,7 @@ const buttonTimer = setInterval(()=>{
 
 
 
-let fuse = new Fuse(stratagems, {
+const fuse = new Fuse(stratagems, {
 	keys: ["key", "type"],
 	threshold: 0.4
 })
@@ -128,6 +128,6 @@ Alpine.start()
 // Example: `<div class=".red">` to `<div class="red">`
 document.querySelectorAll("*").forEach(element=>{
 	element.classList.forEach(className => {
-		if (className[0] == ".") element.classList.replace(className, className.slice(1))
+		if (className[0] === ".") element.classList.replace(className, className.slice(1))
 	})
 })

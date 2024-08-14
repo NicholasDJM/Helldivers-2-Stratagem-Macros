@@ -4,9 +4,31 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "wireit"
+		"build": "wireit",
+		"lint": "wireit",
+		"lint:fix": "wireit"
 	},
 	"wireit": {
+		"lint:fix": {
+			"command": "biome lint ./scr --write",
+			"files": [
+				"./src",
+				"./biome.json"
+			],
+			"clean": false,
+			"output": [
+				"./src"
+			]
+		},
+		"lint": {
+			"command": "biome lint ./src",
+			"clean": false,
+			"files": [
+				"./src",
+				"./biome.json"
+			],
+			"output": []
+		},
 		"build": {
 			"command": "vite build",
 			"files": [
@@ -16,9 +38,12 @@
 				"./postcss.config.ts",
 				"./package.json"
 			],
-			"clean": false,
+			"clean": "if-file-deleted",
 			"output": [
 				"dist"
+			],
+			"dependencies": [
+				"lint"
 			]
 		}
 	},
@@ -37,6 +62,7 @@
 		"wireit": "^0.14.7"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
 		"@types/alpinejs": "^3.13.10",
 		"@types/node": "^22.2.0",
 		"@types/prismjs": "^1.26.4"
