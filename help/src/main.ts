@@ -13,11 +13,10 @@ import "prismjs/plugins/toolbar/prism-toolbar.js";
 import "prismjs/plugins/download-button/prism-download-button.min.js"
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js";
 import "prismjs/components/prism-autohotkey.min.js";
-import"prismjs/components/prism-toml.min.js";
+import "prismjs/components/prism-toml.min.js";
 //@ts-expect-error Not a module.
 import ahk from "/example.ahk?url"
-//@ts-expect-error Not a module.
-import {stratagems, version} from "/stratagems.json5";
+import {stratagems, version} from "./stratagems.js";
 
 
 const ahkEl = document.querySelector("#ahk-example") as HTMLPreElement

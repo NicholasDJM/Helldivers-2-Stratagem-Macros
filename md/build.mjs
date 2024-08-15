@@ -1,10 +1,12 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import path from "node:path"
 import process from "node:process";
-import JSON5 from "json5"
+import {stratagems, version as hd2version} from "../help/src/stratagems.js"
+
+// Constructs README.md with dynamic data, such as the script version number, and example code.
+// Since the dynamic data is used elsewhere, having to manually update in the README is just wasted time.
 
 const cwd = process.cwd(),
-	{stratagems, version: hd2version} = JSON5.parse(readFileSync(path.join(cwd,"..","help","src","stratagems.json5")).toString("utf8")),
 	part1 = readFileSync(path.join(cwd,"part1.md")).toString("utf8"),
 	part2 = readFileSync(path.join(cwd,"part2.md")).toString("utf8"),
 	part3 = readFileSync(path.join(cwd,"part3.md")).toString("utf8"),
@@ -12,12 +14,9 @@ const cwd = process.cwd(),
 	exampleCode = readFileSync(path.join(cwd,"..","help","src","example.ahk")).toString("utf8"),
 	version = readFileSync(path.join(cwd,"..","version.txt")).toString("utf8")
 
-/**
- * @typedef {import("../help/src/stratagems").Stratagem} Stratagem
- */	
 
-/*** @type {string} */
-const output = stratagems.map(/*** @param {Stratagem} item */ item => `
+
+const output = stratagems.map(item => `
 - ${
 	item.displayName ?
 	item.displayName

@@ -24,9 +24,9 @@ function Invoke-Script {
 
 Invoke-Script -command "pnpm build" -message "Failed to build HTML." -location .\help
 
-Invoke-Script -command "node .\build.js" -message "Failed to build AutoHotkey script." -location .\ahk
+Invoke-Script -command "node .\build.mjs" -message "Failed to build AutoHotkey script." -location .\ahk
 
-Invoke-Script -command "node .\build.js" -message "Failed to build README file." -location .\md
+Invoke-Script -command "node .\build.mjs" -message "Failed to build README file." -location .\md
 
 Write-Output "[32mComplete[0m"
 

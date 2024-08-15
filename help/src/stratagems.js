@@ -1,6 +1,25 @@
-{
-	version: "100.001.002",
-	stratagems: [
+/** 
+ * @typedef {Object} Stratagem
+ * @property {string} key
+ * @property {string[]} type
+ * @property {string} [icon]
+ * @property {string[]} code
+ * @property {string} [displayName]
+*/
+
+/**
+ *  Game version that the Stratagem list is aligned with.
+ */
+export const version = "100.001.002",
+	/**
+	 * @type {Stratagem[]}
+	 * @property {string} key
+	 * @property {string[]} type
+	 * @property {string} [icon]
+	 * @property {string[]} code
+	 * @property {string} [displayName]
+	 */
+	stratagems = [
 		{ key: "machine gun", type: ["weapon"], icon: "https://helldivers.wiki.gg/images/e/e0/Machine_Gun_Stratagem_Icon.png", code: ["down","left","down","up","right"] },
 		{ key: "anti material rifle", type: ["weapon"], icon: "https://helldivers.wiki.gg/images/3/3c/Anti-Materiel_Rifle_Stratagem_Icon.png", code: ["down","left","right","up","down"] },
 		{ key: "stalwart", type: ["weapon","machine gun"], icon: "https://helldivers.wiki.gg/images/4/46/Stalwart_Stratagem_Icon.png", code: ["down","left","down","up","up","left"] },
@@ -71,4 +90,3 @@
 		{ key: "tectonic drill", type: ["mission"], code: ["up","down","up","down","up","down"] },
 		{ key: "hive breaker drill", type: ["mission"], icon: "https://helldivers.wiki.gg/images/0/02/Prospecting_Drill_Stratagem_Icon.png", code: ["left","up","down","right","down","down"] }
 	]
-}

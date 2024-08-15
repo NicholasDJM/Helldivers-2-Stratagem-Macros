@@ -35,9 +35,6 @@ importers:
       vite-plugin-html:
         specifier: ^3.2.2
         version: 3.2.2(vite@5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5))
-      vite-plugin-json5:
-        specifier: ^1.1.2
-        version: 1.1.2(@rollup/pluginutils@5.1.0(rollup@4.20.0))(vite@5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5))
       vite-plugin-singlefile:
         specifier: ^2.0.2
         version: 2.0.2(rollup@4.20.0)(vite@5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5))
@@ -51,9 +48,6 @@ importers:
       '@types/alpinejs':
         specifier: ^3.13.10
         version: 3.13.10
-      '@types/node':
-        specifier: ^22.2.0
-        version: 22.2.0
       '@types/prismjs':
         specifier: ^1.26.4
         version: 1.26.4
@@ -745,11 +739,6 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  json5@2.2.3:
-    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
-    engines: {node: '>=6'}
-    hasBin: true
-
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
@@ -967,12 +956,6 @@ packages:
     resolution: {integrity: sha512-vb9C9kcdzcIo/Oc3CLZVS03dL5pDlOFuhGlZYDCJ840BhWl/0nGeZWf3Qy7NlOayscY4Cm/QRgULCQkEZige5Q==}
     peerDependencies:
       vite: '>=2.0.0'
-
-  vite-plugin-json5@1.1.2:
-    resolution: {integrity: sha512-V0EowrUhYRXAYPy62L9KLgPqd1L7lfVZcjvLh1fj+DIo5X2t6DT2/HOoiAV9FE4YEljdgFJByA+XwKxZ78uQww==}
-    peerDependencies:
-      '@rollup/pluginutils': '>= 3.0.0 || ^4.0.0 || ^5.0.0'
-      vite: ^3.0.0 || ^4.0.0 || ^5.0.0
 
   vite-plugin-singlefile@2.0.2:
     resolution: {integrity: sha512-Z2ou6HcvED5CF0hM+vcFSaFa+klyS8RyyLxW0PbMRLnMbvzTI6ueWyxdYNFhpuXZgz/aj6+E/dHFTdEcw6gb9w==}
@@ -1307,6 +1290,7 @@ snapshots:
   '@types/node@22.2.0':
     dependencies:
       undici-types: 6.13.0
+    optional: true
 
   '@types/prismjs@1.26.4': {}
 
@@ -1563,8 +1547,6 @@ snapshots:
       filelist: 1.0.4
       minimatch: 3.1.2
 
-  json5@2.2.3: {}
-
   jsonc-parser@3.3.1: {}
 
   jsonfile@6.1.0:
@@ -1783,7 +1765,8 @@ snapshots:
 
   tslib@2.6.3: {}
 
-  undici-types@6.13.0: {}
+  undici-types@6.13.0:
+    optional: true
 
   universalify@2.0.1: {}
 
@@ -1809,12 +1792,6 @@ snapshots:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5)
-
-  vite-plugin-json5@1.1.2(@rollup/pluginutils@5.1.0(rollup@4.20.0))(vite@5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5)):
-    dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@4.20.0)
-      json5: 2.2.3
       vite: 5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5)
 
   vite-plugin-singlefile@2.0.2(rollup@4.20.0)(vite@5.4.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5)):
