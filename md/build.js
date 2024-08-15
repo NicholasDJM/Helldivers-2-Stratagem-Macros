@@ -13,10 +13,7 @@ const cwd = process.cwd(),
 	version = readFileSync(path.join(cwd,"..","version.txt")).toString("utf8")
 
 /**
- * @typedef {Object} Stratagem
- * @property {string} key - The key of the stratagem.
- * @property {string[]} code - The code array of the stratagem.
- * @property {string?} displayName - Proper display name.
+ * @typedef {import("../help/src/stratagems").Stratagem} Stratagem
  */	
 
 /*** @type {string} */

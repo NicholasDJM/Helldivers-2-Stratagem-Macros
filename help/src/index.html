@@ -25,14 +25,37 @@
 				<section>
 					<h2>Syntax</h2>
 					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order.</p>
-					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] [timing] [secondarytiming] [path]</code>
+					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] [delay] [holdDelay] [path]</code>
 					<ul>
 						<li><code>Stratagem Name</code> - This is the name of a stratagem you wish to use. See the Stratagem list below.</li>
 						<li><code>"update macros"</code> - Enter this verbatim to run the auto updater.</li>
-						<li><code>timing</code> - This controls the timing between keystrokes, in milliseconds. Type out <code>timing=x</code>, but replace x with a number. Default is 250.</li>
-						<li><code>secondarytiming</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>secondarytiming=x</code>, but replace x with a number. Default is 10.</li>
+						<li><code>delay</code> - This controls the timing between keystrokes, in milliseconds. Type out <code>delay=x</code>, but replace x with a number. Default is 250.</li>
+						<li><code>holdDelay</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>holdDelay=x</code>, but replace x with a number. Default is 10.</li>
 						<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
 					</ul>
+					<h3>Examples</h3>
+					<ul>
+						<li>Call in the Patriot Exosuit: <code>"Helldivers 2 Macros.ahk" "patriot exosuit"</code></li>
+						<li>Call in the Autocannon with a key delay of 250 milliseconds: <code>"Helldivers 2 Macros.ahk" autocannon delay=500</code></li>
+						<li>Call in the Recoilless Rifle with a key hold delay of 50 milliseconds: <code>"Helldivers 2 Macros.ahk" "recoilless rifle" holdDelay=500</code></li>
+					</ul>
+				</section>
+				<section class="grid">
+					<div>
+						<h2>Changing the Defaults</h2>
+						<p>The defaults for the arguments can be loaded from a file, instead of specifying them everytime you call the script.</p>
+						<p>You can save a file in the same directory as the script, named <code>options.toml</code>. In this file, you must specify one option per line, followed by an equals sign, then the value.</p>
+						<ul>
+							<li><code>delay</code> Change the default delay between different keystrokes, in milliseconds</li>
+							<li><code>holdDelay</code> Change the default delay between key down and key up, in milliseconds.</li>
+							<li><code>steamPath</code> Change the default path to your Steam installation, where the steam.exe is located. Must surround the value in quotation marks.</li>
+						</ul>
+					</div>
+					<div>
+						<pre class="language-toml"><code>delay = 250
+holdDelay = 50
+steamPath = "D:\Steam"</code></pre>
+					</div>
 				</section>
 				<section>
 					<h2>Usage</h2>
@@ -46,7 +69,9 @@
 								<li>In the action's settings, click on "Choose file...", and select the macro script.</li>
 								<li>In the "Arguments" text field, add your desired stratagem, in quotes.</li>
 							</ol>
-							<img alt="A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;." height="299px" width="569px" src="../public/ExampleUsageWithStreamDeck.webp"/>
+							<div class="center">
+								<img alt="A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;." height="299px" width="569px" src="../public/ExampleUsageWithStreamDeck.webp"/>
+							</div>
 						</div>
 					</details>
 					<hr>

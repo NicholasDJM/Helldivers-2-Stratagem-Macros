@@ -11,8 +11,9 @@ import light from "prismjs/themes/prism.min.css?raw";
 import dark from "prismjs/themes/prism-okaidia.min.css?raw";
 import "prismjs/plugins/toolbar/prism-toolbar.js";
 import "prismjs/plugins/download-button/prism-download-button.min.js"
-import "prismjs/components/prism-autohotkey.min.js";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js";
+import "prismjs/components/prism-autohotkey.min.js";
+import"prismjs/components/prism-toml.min.js";
 //@ts-expect-error Not a module.
 import ahk from "/example.ahk?url"
 //@ts-expect-error Not a module.

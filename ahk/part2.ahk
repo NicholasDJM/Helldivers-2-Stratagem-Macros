@@ -1,15 +1,31 @@
 
 
 options := Map()
-; DO NOT EDIT ANYTHING ABOVE
-
-; You can modify these to change the defaults.
-options["timing"] := 150 ; This is the timing between different keystrokes.
-options["secondaryTiming"] := 10 ; This is the timing between the key up and key down events of a single keystroke.
+options["timing"] := 150
+options["secondaryTiming"] := 10
 options["steamPath"] := "C:\Program Files (x86)\Steam"
-; TODO Before I can compile this script into an exe, I must let these options be overridden by a config file, as an exe is not easily editable.
 
-; DO NOT EDIT ANYTHING BELOW
+
+
+try Loop Read "./options.toml" {
+	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*[\d]+$") > 0) {
+		options["timing"] := RegExReplace(A_LoopReadLine, "^delay\s*=\s*", "")
+	}
+	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*[\d]+$") > 0) {
+		options["secondaryTiming"] := RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", "")
+	}
+	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')$") > 0) {
+		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
+		options["SteamPath"] := RegExReplace(
+			RegExReplace(
+				RegExReplace(A_LoopReadLine, "steamPath\s*=\s*", ""),
+				"^[`"']", ""),
+			"[`"']$", ""
+		)
+	}
+}
+
+
 
 options["stratagem"] := "initial"
 
@@ -52,9 +68,9 @@ Loop A_Args.Length {
 	if split.Length > 1 {
 		; If argument has an = sign, it's a flag
 		switch split[1] {
-			case "timing":
+			case "delay":
 				options["timing"] := split[2]
-			case "secondarytiming":
+			case "holdDelay":
 				options["secondaryTiming"] := split[2]
 			case "path":
 				options["steamPath"] := split[2]

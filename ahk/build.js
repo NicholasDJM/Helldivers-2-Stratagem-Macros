@@ -13,9 +13,7 @@ const cwd = process.cwd(),
 	html = readFileSync(path.join(cwd,"..","help","dist","index.html")).toString("utf8").replaceAll("`", "``") // Must escape backticks.
 
 /**
- * @typedef {Object} Stratagem
- * @property {string} key - The key of the stratagem.
- * @property {string[]} code - The code array of the stratagem.
+ * @typedef {import("../help/src/stratagems").Stratagem} Stratagem
  */	
 
 /*** @type {string} */

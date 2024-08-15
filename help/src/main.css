@@ -186,3 +186,10 @@ ul.nobullets li {
 		background-color: var(--pico-code-background-color) !important;
 	}
 }
+.center {
+	display: flex;
+	justify-content: center;
+}
+.center img {
+	object-fit: scale-down;
+}
