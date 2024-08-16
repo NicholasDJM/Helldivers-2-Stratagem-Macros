@@ -7,30 +7,41 @@ import Prism from "prismjs";
 globalThis.Prism = Prism
 import "./highlight.css"
 import "prismjs/plugins/toolbar/prism-toolbar.js";
-import "prismjs/plugins/download-button/prism-download-button.min.js"
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js";
 import "prismjs/components/prism-autohotkey.min.js";
 import "prismjs/components/prism-toml.min.js";
 //@ts-expect-error Not a module.
-import ahk from "/example.ahk?url"
+import ahk from "/example.ahk?raw"
 import {stratagems, version} from "./stratagems.js";
+import { Base64 } from "base64-string";
 
+Prism.manual = true;
 
 const ahkEl = document.querySelector("#ahk-example") as HTMLPreElement
 if (ahkEl) ahkEl.dataset.src = ahk
 
+function download(data: string, filename: string) {
+	const enc = new Base64()
+	const a = document.createElement("a"),
+	b = "data:text/plain;base64," + enc.urlEncode(data)
+	console.log(filename)
+	a.setAttribute("href", b);
+	a.setAttribute("download", filename);
+	document.body.append(a);
+	a.click();
+	a.remove();
+}
 
-let done = false
-const buttonTimer = setInterval(()=>{
-	// Can't style generated link from the Download Button plugin for PrismJS, so we must programatically style it.
-	document.querySelectorAll(".toolbar-item a[download]").forEach(element=>{
-		element.setAttribute("role", "button")
-		element.setAttribute("download", "example.ahk") // NOTE: If we add more code examples, we should check for the proper filename somehow.
-		done = true
+Prism.plugins.toolbar.registerButton("download-file", env => {
+	const pre = env.element.parentNode as HTMLPreElement,
+		button = document.createElement("button"),
+		filename = pre.dataset.filename ?? "file.txt";
+	button.textContent = "Download"
+	button.addEventListener("click", event => {
+	download(env.element.textContent, filename)
 	})
-	if (done) clearInterval(buttonTimer)
+	return button
 })
-
 
 
 const fuse = new Fuse(stratagems, {
@@ -39,6 +50,7 @@ const fuse = new Fuse(stratagems, {
 })
 Alpine.data("tools", ()=>{
 	return {
+		example: ahk,
 		version,
 		search() {
 			if (this.$data.input) {
@@ -111,7 +123,13 @@ Alpine.data("tools", ()=>{
 		}
 	}
 })
-Alpine.start()
+
+document.addEventListener("alpine:initialized", ()=>{
+	Prism.highlightAll();
+})
+
+Alpine.start();
+
 
 // If you add a period to a `class` HTML attribute, and can't figure out why your styles aren't applying, this will fix that.
 // Example: `<div class=".red">` to `<div class="red">`

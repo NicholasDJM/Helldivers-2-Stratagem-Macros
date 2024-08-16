@@ -15,7 +15,7 @@ function Invoke-Script {
 			Invoke-Expression "$command" # If there's error messages, we need to run the command again, with output enabled.
 			Write-Output "[41m ERROR [0m [31m$message[0m"
 			Pop-Location
-			Exit
+			Exit 1
 		}
 		Write-Output "`r[[32mDone[0m]"
 		Pop-Location

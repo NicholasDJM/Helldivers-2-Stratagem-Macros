@@ -1,5 +1,5 @@
-import { defineConfig } from "vite"
-import { viteSingleFile } from "vite-plugin-singlefile"
+import { defineConfig } from "vite";
+import { viteSingleFile } from "vite-plugin-singlefile";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { imagetools } from "vite-imagetools";
 // Tried using a CSS purger, but found it was too aggressive without a lot of fine tuning.
