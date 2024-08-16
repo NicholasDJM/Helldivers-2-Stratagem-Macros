@@ -5,10 +5,7 @@ import "@picocss/pico/css/pico.amber.min.css";
 import "./main.css";
 import Prism from "prismjs";
 globalThis.Prism = Prism
-//@ts-expect-error Not a module.
-import light from "prismjs/themes/prism.min.css?raw";
-//@ts-expect-error Not a module.
-import dark from "prismjs/themes/prism-okaidia.min.css?raw";
+import "./highlight.css"
 import "prismjs/plugins/toolbar/prism-toolbar.js";
 import "prismjs/plugins/download-button/prism-download-button.min.js"
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js";
@@ -22,14 +19,6 @@ import {stratagems, version} from "./stratagems.js";
 const ahkEl = document.querySelector("#ahk-example") as HTMLPreElement
 if (ahkEl) ahkEl.dataset.src = ahk
 
-const darkStyleEl = document.createElement("style"),
-	lightStyleEl = document.createElement("style");
-darkStyleEl.textContent = dark;
-lightStyleEl.textContent = light;
-darkStyleEl.setAttribute("media", "(prefers-color-scheme: dark)");
-lightStyleEl.setAttribute("media", "(prefers-color-scheme: light)");
-document.head.append(darkStyleEl);
-document.head.append(lightStyleEl);
 
 let done = false
 const buttonTimer = setInterval(()=>{

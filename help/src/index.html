@@ -25,10 +25,11 @@
 				<section>
 					<h2>Syntax</h2>
 					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order.</p>
-					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] [delay] [holdDelay] [path]</code>
+					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] ["generate options.toml"] [delay] [holdDelay] [path]</code>
 					<ul>
 						<li><code>Stratagem Name</code> - This is the name of a stratagem you wish to use. See the Stratagem list below.</li>
 						<li><code>"update macros"</code> - Enter this verbatim to run the auto updater.</li>
+						<li><code>"generate options.toml"</code> - Enter this verbatim to generate an options.toml file with the default options.</li>
 						<li><code>delay</code> - This controls the timing between keystrokes, in milliseconds. Type out <code>delay=x</code>, but replace x with a number. Default is 250.</li>
 						<li><code>holdDelay</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>holdDelay=x</code>, but replace x with a number. Default is 10.</li>
 						<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
@@ -45,6 +46,7 @@
 						<h2>Changing the Defaults</h2>
 						<p>The defaults for the arguments can be loaded from a file, instead of specifying them everytime you call the script.</p>
 						<p>You can save a file in the same directory as the script, named <code>options.toml</code>. In this file, you must specify one option per line, followed by an equals sign, then the value.</p>
+						<p>Options can be overridden via command line flags. See Syntax above.</p>
 						<ul>
 							<li><code>delay</code> Change the default delay between different keystrokes, in milliseconds</li>
 							<li><code>holdDelay</code> Change the default delay between key down and key up, in milliseconds.</li>
@@ -52,9 +54,9 @@
 						</ul>
 					</div>
 					<div>
-						<pre class="language-toml"><code>delay = 250
-holdDelay = 50
-steamPath = "D:\Steam"</code></pre>
+						<pre class="language-toml"><code>delay = 250 # Default 150
+holdDelay = 50 # Default 10
+steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 					</div>
 				</section>
 				<section>
@@ -82,9 +84,9 @@ steamPath = "D:\Steam"</code></pre>
 								<p>This example <abbr title="AutoHotkey" class="">AHK</abbr> script allows you to call your favourite stratagem. In this case, mine is the Recoilless Rifle, and the Patriot Exosuit. You can modify it as you see fit. This particular script will call in the Recoilless Rifle on mouse 4, and the Patriot Exosuit on mouse 5.</p>
 								<p>Look at <a href="https://www.autohotkey.com/docs/v2/KeyList.htm" rel="noreferrer" target="_blank">AutoHotkey's key list</a> for a complete list of keys that can be bound.</p>
 							</div>
-							<div style="font-size: 0.75rem;">
+							<div>
 								<!-- PrismJS CSS is conflicting with PicoCSS, and I need to revert them. -->
-								<pre style="padding:0" class="language-autohotkey" data-download-link id="ahk-example"></pre>
+								<pre class="language-autohotkey" data-download-link id="ahk-example"></pre>
 							</div>
 						</div>
 					</details>

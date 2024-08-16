@@ -3,3 +3,4 @@ node_modules
 dist
 .wireit
 help.html
+options.toml

@@ -86,6 +86,9 @@ Loop A_Args.Length {
 		if (A_Args[A_Index] = "update macros") {
 			goto update
 		}
+		if (A_Args[A_Index] = "generate options.toml") {
+			goto genOptions
+		}
 		options["stratagem"] := A_Args[A_Index]
 	}
 }
