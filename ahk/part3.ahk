@@ -26,9 +26,10 @@ ExitApp
 
 update:
 
+
 releaseType := RegExMatch(A_ScriptName, "\.exe$") > 0 ? "exe" : "ahk" ; Which release should we target? The script, or the executable?
 fileLocation := releaseType = "exe" ? 
-	"https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk"
+	"https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk.tar.gz"
   : "https://github.com/NicholasDJM/Helldivers-2-Stratagem-Macros/releases/download/v" . version . "/Helldivers 2 Macros.exe"
 
 try {
@@ -37,7 +38,8 @@ try {
 		new := FileRead("./version.txt")
 		if (Number(new) > version) {
 			try {
-				Download(fileLocation, A_ScriptName)
+				Download(fileLocation, A_ScriptName . ".tar.gz")
+				RunWait("tar.exe -xzf 'Helldivers 2 Macros.ahk.tar.gz'")
 			} catch error {
 				MsgBox("Could not download update.",appname,MsgBoxEnums["Error"])
 			}

@@ -135,62 +135,45 @@ lastLine := ""
 
 try {
 ; We must only read a file once! It's very expensive time wise to read a file, and the player expects the action to be immediate.
-Loop Read inputfile
-{
+Loop Read inputfile{
 	loopindex := loopindex + 1
-	if (state = "findstratagem" && A_LoopReadLine = "Stratagem = {")
-	{
+	if (state = "findstratagem" && A_LoopReadLine = "Stratagem = {"){
 		state := "stratagem"
 	} else {
-		if (!key_found_up && A_LoopReadLine = "`tUp = [")
-		{
+		if (!key_found_up && A_LoopReadLine = "`tUp = ["){
 			state := "findup"
 		}
-		if (!key_found_down && A_LoopReadLine = "`tDown = [")
-		{
+		if (!key_found_down && A_LoopReadLine = "`tDown = ["){
 			state := "finddown"
 		}
-		if (!key_found_left && A_LoopReadLine = "`tLeft = [")
-		{
+		if (!key_found_left && A_LoopReadLine = "`tLeft = ["){
 			state := "findleft"
 		}
-		if (!key_found_right && A_LoopReadLine = "`tRight = [")
-		{
+		if (!key_found_right && A_LoopReadLine = "`tRight = ["){
 			state := "findright"
 		}
-		if (!key_found_menu && A_LoopReadLine = "`tStart = [")
-		{
+		if (!key_found_menu && A_LoopReadLine = "`tStart = ["){
 			state := "findmenu"
 		}
 	}
 
 
-	if (!key_found_up && state = "findup" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" || A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`"") )
-	{
+	if (!key_found_up && state = "findup" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" || A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`"") ){
 		state := "up"
 		key_found_up := true
-	}
-	else if (!key_found_down && state = "finddown" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" || A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`""))
-	{
+	} else if (!key_found_down && state = "finddown" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" || A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`"")){
 		state := "down"
 		key_found_down := true
-	}
-	else if (!key_found_left && state = "findleft" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" || A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`""))
-	{
+	} else if (!key_found_left && state = "findleft" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" || A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`"")){
 		state := "left"
 		key_found_left := true
-	}
-	else if (!key_found_right && state = "findright" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" ||  A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`""))
-	{
+	}else if (!key_found_right && state = "findright" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" ||  A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`"")){
 		state := "right"
 		key_found_right := true
-	}
-	else if (!key_found_menu && state = "findmenu" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" ||  A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`""))
-	{
+	}else if (!key_found_menu && state = "findmenu" && (A_LoopReadLine = "`t`t`tdevice_type = `"Keyboard`"" ||  A_LoopReadLine = "`t`t`tdevice_type = `"Mouse`"")){
 		state := "menu"
 		key_found_menu := true
-		Switch (lastLine)
-		{
+		Switch (lastLine){
 			Case "`t`t`ttrigger = `"Press`"":
 				key_menu_type := "press"
 
@@ -207,8 +190,7 @@ Loop Read inputfile
 				key_menu_type := "hold"
 		}
 	}
-	if (state = "up" || state = "down" || state = "right" || state = "left" || state = "menu")
-	{
+	if (state = "up" || state = "down" || state = "right" || state = "left" || state = "menu"){
 
 		SplitA := StrSplit(A_LoopReadLine, "=")
 		SplitB := StrSplit(A_LoopReadLine, "=", " `"")
@@ -226,24 +208,19 @@ Loop Read inputfile
 	ExitApp(1)
 }
 
-if (!keys.Has("up"))
-{
+if (!keys.Has("up")){
 	keys["up"] := "w"
 }
-if (!keys.Has("down"))
-{
+if (!keys.Has("down")){
 	keys["down"] := "s"
 }
-if (!keys.Has("left"))
-{
+if (!keys.Has("left")){
 	keys["left"] := "a"
 }
-if (!keys.Has("right"))
-{
+if (!keys.Has("right")){
 	keys["right"] := "d"
 }
-if (!keys.Has("menu"))
-{
+if (!keys.Has("menu")){
 	keys["menu"] := "ctrl"
 	key_menu_type := "hold"
 }

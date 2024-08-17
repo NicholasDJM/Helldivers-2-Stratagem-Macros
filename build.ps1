@@ -28,6 +28,8 @@ Invoke-Script -command "node .\build.mjs" -message "Failed to build AutoHotkey s
 
 Invoke-Script -command "node .\build.mjs" -message "Failed to build README file." -location .\md
 
+Invoke-Script -command "tar.exe -czf 'Helldivers 2 Macros.ahk.tar.gz' 'Helldivers 2 Macros.ahk'" -message "Failed to compress archive." -location .
+
 Write-Output "[32mComplete[0m"
 
 # While I could use the `e escape code for the escape character, it won't show up in CMD.exe. So I'm using the literal escape character in this script.
