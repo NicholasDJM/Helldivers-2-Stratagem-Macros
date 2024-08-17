@@ -3,6 +3,7 @@
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"target": "ESNext",
+		"noEmit": true,
 		"allowImportingTsExtensions": true,
 		"checkJs": true,
 		"strictNullChecks": true,

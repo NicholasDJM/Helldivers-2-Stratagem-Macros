@@ -1,19 +1,26 @@
 import { readFileSync, writeFileSync } from "node:fs"
-import path from "node:path"
-import process from "node:process";
+import {join} from "node:path"
+import {cwd} from "node:process";
 import {stratagems} from "../help/src/stratagems.js"
 
 // Constructs the AutoHotkey script, using dynamic data, including the version number, and the entire list of Stratagems.
 // TODO: Can an AutoHotkey script be minified? Other than removing blank lines, currently, there's no system for minifying.
 
+/**
+ * Read file contents. Path is relative to the current working directory.
+ * @param {string[]} p 
+ * @returns {string}
+ */
+function read(...p) {
+	return readFileSync(join(cwd(),...p)).toString("utf8")
+}
 
-const cwd = process.cwd(),
-	part1 = readFileSync(path.join(cwd,"part1.ahk")).toString("utf8"),
-	part2 = readFileSync(path.join(cwd,"part2.ahk")).toString("utf8"),
-	part3 = readFileSync(path.join(cwd,"part3.ahk")).toString("utf8"),
-	part4 = readFileSync(path.join(cwd,"part4.ahk")).toString("utf8"),
-	version = readFileSync(path.join(cwd,"..","version.txt")).toString("utf8"),
-	html = readFileSync(path.join(cwd,"..","help","dist","index.html")).toString("utf8").replaceAll("`", "``") // Must escape backticks.
+const part1 = read("part1.ahk"),
+	part2 = read("part2.ahk"),
+	part3 = read("part3.ahk"),
+	part4 = read("part4.ahk"),
+	version = read("..","version.txt"),
+	html = read("..","help","dist","index.html").replaceAll("`","``") // Must escape backticks.
 
 
 
@@ -23,4 +30,4 @@ Case "${item.key}":
 	Stratagem(${JSON.stringify(item.code)})
 `).join('');
 
-writeFileSync(path.join(cwd, "..", "Helldivers 2 Macros.ahk"), part1 + version + part2 + output + part3 + html + part4)
+writeFileSync(join(cwd(), "..", "Helldivers 2 Macros.ahk"), part1 + version + part2 + output + part3 + html + part4)
