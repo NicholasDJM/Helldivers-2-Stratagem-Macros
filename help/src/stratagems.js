@@ -10,7 +10,7 @@
 /**
  *  Game version that the Stratagem list is aligned with.
  */
-export const version = "100.001.002",
+export const version = "01.001.002",
 	/**
 	 * @type {Stratagem[]}
 	 * @property {string} key

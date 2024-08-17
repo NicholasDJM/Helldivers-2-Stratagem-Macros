@@ -77,7 +77,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `100.001.002`.
+This list is up to date with Helldivers 2 version `01.001.002`.
 
 - Machine Gun
 - Anti Material Rifle

@@ -22,7 +22,7 @@ const part1 = read("part1.ahk"),
 	version = read("..","version.txt"),
 	html = read("..","help","dist","index.html").replaceAll("`","``") // Must escape backticks.
 
-const output = stratagems.map(item => `${ending}Case "${item.key}":${ending}tStratagem(${JSON.stringify(item.code)})`).join('');
+const output = stratagems.map(item => `${ending}Case "${item.key}":${ending}\tStratagem(${JSON.stringify(item.code)})`).join('');
 
 
 let file = part1 + version + part2 + output + part3 + html + part4;
