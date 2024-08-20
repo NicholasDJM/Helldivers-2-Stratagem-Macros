@@ -26,6 +26,9 @@ ExitApp
 
 update:
 
+if (options["updates"] = false) {
+	ExitApp
+}
 
 releaseType := RegExMatch(A_ScriptName, "\.exe$") > 0 ? "exe" : "ahk" ; Which release should we target? The script, or the executable?
 fileLocation := releaseType = "exe" ? 

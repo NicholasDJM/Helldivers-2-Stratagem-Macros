@@ -1,42 +1,20 @@
 .token {
 	&.comment {
-		color: rgb(50 50 50)
+		color: light-dark(rgb(50 50 50),rgb(200 200 200))
 	}
 	&.number,&.directive {
 		color: rgb(255 128 0)
 	}
 	&.string {
-		color: rgb(48 167 18)
+		color: light-dark(rgb(48 167 18),rgb(97 221 67))
 	}
 	&.symbol,&.constant {
-		color: rgb(0 81 255)
+		color: light-dark(rgb(0 81 255),rgb(0 127 255))
 	}
 	&.builtin,&.command{
-		color: rgb(221 151 0)
+		color: light-dark(rgb(221 151 0),rgb(255 245 100))
 	}
 	&.keyword {
-		color: rgb(179 7 164)
-	}
-}
-@media screen and (prefers-color-scheme: dark) {
-	.token {
-		&.comment {
-			color: rgb(127 127 127)
-		}
-		&.number,&.directive {
-			color: rgb(255 128 0)
-		}
-		&.string {
-			color: rgb(97 221 67)
-		}
-		&.symbol,&.constant {
-			color: rgb(0 127 255)
-		}
-		&.builtin,&.command{
-			color: rgb(255 245 100 / 1)
-		}
-		&.keyword {
-			color: rgb(166 115 162 / 1)
-		}
+		color: light-dark(rgb(179 7 164),rgb(166 115 162 / 1))
 	}
 }

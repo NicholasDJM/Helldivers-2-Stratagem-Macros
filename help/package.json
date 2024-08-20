@@ -47,12 +47,26 @@
 			]
 		}
 	},
+	"browerslist": [
+		"last 5 versions, not dead and supports es6-module"
+	],
+	"postcss": {
+		"plugins": {
+			"postcss-preset-env": {
+				"stage": false,
+				"features": {
+					"light-dark-function": true
+				}
+			}
+		}
+	},
 	"dependencies": {
 		"@picocss/pico": "^2.0.6",
 		"alpinejs": "^3.14.1",
 		"base64-string": "^1.1.3",
 		"fuse.js": "^7.0.0",
 		"lightningcss": "^1.26.0",
+		"postcss-preset-env": "^10.0.2",
 		"prismjs": "^1.29.0",
 		"terser": "^5.31.5",
 		"vite": "^5.4.0",

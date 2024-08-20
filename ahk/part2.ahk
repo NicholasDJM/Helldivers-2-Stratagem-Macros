@@ -4,17 +4,18 @@ options := Map()
 options["timing"] := 150
 options["secondaryTiming"] := 10
 options["steamPath"] := "C:\Program Files (x86)\Steam"
+options["updates"] := true
 
 
 
 try Loop Read "./options.toml" {
-	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*[\d]+$") > 0) {
-		options["timing"] := RegExReplace(A_LoopReadLine, "^delay\s*=\s*", "")
+	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
+		options["timing"] := RegExReplace(RegExReplace(A_LoopReadLine, "^delay\s*=\s*", ""), "#.*$")
 	}
-	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*[\d]+$") > 0) {
+	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
 		options["secondaryTiming"] := RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", "")
 	}
-	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')$") > 0) {
+	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$") > 0) {
 		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
 		options["SteamPath"] := RegExReplace(
 			RegExReplace(
@@ -22,6 +23,9 @@ try Loop Read "./options.toml" {
 				"^[`"']", ""),
 			"[`"']$", ""
 		)
+	}
+	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
+		options["updates"] := false
 	}
 }
 
@@ -73,11 +77,13 @@ Loop A_Args.Length {
 			case "holdDelay":
 				options["secondaryTiming"] := split[2]
 			case "path":
-				options["steamPath"] := split[2]
+				options["steamPath"] := RegExReplace(RegExReplace(split[2], "^[`"']"), "[`"']$")
 				; This doesn't work. Strings don't have a length property.
 				;if (options["steamPath"][options["steamPath"].Length] = "\") { ; Remove trailing backslash.
 					;options["steamPath"] := SubStr(options["steamPath"], 1 options["steamPath"].Length - 1)
 				;}
+			case "updates":
+				options["updates"] := split[2] = "true" ? true : false
 			default:
 				TrayTip("`"" . split[1] . "`" is not a valid flag.", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}

@@ -24,7 +24,6 @@ function download(data: string, filename: string) {
 	const enc = new Base64()
 	const a = document.createElement("a"),
 	b = "data:text/plain;base64," + enc.urlEncode(data)
-	console.log(filename)
 	a.setAttribute("href", b);
 	a.setAttribute("download", filename);
 	document.body.append(a);
@@ -32,15 +31,12 @@ function download(data: string, filename: string) {
 	a.remove();
 }
 
-Prism.plugins.toolbar.registerButton("download-file", env => {
-	const pre = env.element.parentNode as HTMLPreElement,
-		button = document.createElement("button"),
-		filename = pre.dataset.filename ?? "file.txt";
-	button.textContent = "Download"
-	button.addEventListener("click", event => {
-	download(env.element.textContent, filename)
-	})
-	return button
+
+Prism.plugins.toolbar.registerButton("download-file", {
+	text: "Download",
+	onClick: env => {
+		download(env.element.textContent, env.element.parentNode.dataset.filename ?? "file.txt")
+	}
 })
 
 

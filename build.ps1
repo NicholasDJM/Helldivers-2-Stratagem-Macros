@@ -28,7 +28,7 @@ Invoke-Script -command "node .\build.mjs" -message "Failed to build AutoHotkey s
 
 Invoke-Script -command "node .\build.mjs" -message "Failed to build README file." -location .\md
 
-Invoke-Script -command "tar.exe -czf 'Helldivers 2 Macros.ahk.tar.gz' 'Helldivers 2 Macros.ahk'" -message "Failed to compress archive." -location .
+Invoke-Script -command "tar.exe -czf 'Helldivers 2 Macros.ahk.tar.gz' 'Helldivers 2 Macros.ahk'" -message "Failed to compress script." -location .
 
 Write-Output "[32mComplete[0m"
 
