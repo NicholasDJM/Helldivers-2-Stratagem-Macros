@@ -17,7 +17,7 @@ try Loop Read "./options.toml" {
 	}
 	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$") > 0) {
 		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
-		options["SteamPath"] := RegExReplace(
+		options["steamPath"] := RegExReplace(
 				RegExReplace(
 					RegExReplace(A_LoopReadLine, "steamPath\s*=\s*"),
 				"^[`"']"),
