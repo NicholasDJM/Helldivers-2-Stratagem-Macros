@@ -38,7 +38,7 @@ try Loop Read "./options.toml" {
 				RegExReplace(
 					RegExReplace(A_LoopReadLine, "steamPath\s*=\s*"),
 				"^[`"']"),
-			"[`"'](#.*)?$")
+			"[`"']\s*(#.*)?$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
 		options["updates"] := false
