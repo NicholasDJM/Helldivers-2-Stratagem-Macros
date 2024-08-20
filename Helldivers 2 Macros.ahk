@@ -27,10 +27,10 @@ options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true
 try Loop Read "./options.toml" {
 	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
-		options["timing"] := RegExReplace(RegExReplace(A_LoopReadLine, "^delay\s*=\s*", ""), "#.*$")
+		options["timing"] := RegExReplace(RegExReplace(A_LoopReadLine, "^delay\s*=\s*", ""), "\s*#.*$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
-		options["secondaryTiming"] := RegExReplace(RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", ""), "#.*$")
+		options["secondaryTiming"] := RegExReplace(RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", ""), "\s*#.*$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$") > 0) {
 		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
