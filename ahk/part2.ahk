@@ -19,11 +19,9 @@ try Loop Read "./options.toml" {
 		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
 		options["SteamPath"] := RegExReplace(
 				RegExReplace(
-					RegExReplace(
-						RegExReplace(A_LoopReadLine, "steamPath\s*=\s*"),
-					"^[`"']"),
-				"[`"']$"),
-			"#.*$")
+					RegExReplace(A_LoopReadLine, "steamPath\s*=\s*"),
+				"^[`"']"),
+			"[`"'](#.*)?$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
 		options["updates"] := false
