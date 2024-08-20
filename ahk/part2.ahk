@@ -13,16 +13,17 @@ try Loop Read "./options.toml" {
 		options["timing"] := RegExReplace(RegExReplace(A_LoopReadLine, "^delay\s*=\s*", ""), "#.*$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
-		options["secondaryTiming"] := RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", "")
+		options["secondaryTiming"] := RegExReplace(RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", ""), "#.*$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$") > 0) {
 		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
 		options["SteamPath"] := RegExReplace(
-			RegExReplace(
-				RegExReplace(A_LoopReadLine, "steamPath\s*=\s*", ""),
-				"^[`"']", ""),
-			"[`"']$", ""
-		)
+				RegExReplace(
+					RegExReplace(
+						RegExReplace(A_LoopReadLine, "steamPath\s*=\s*"),
+					"^[`"']"),
+				"[`"']$"),
+			"#.*$")
 	}
 	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
 		options["updates"] := false
