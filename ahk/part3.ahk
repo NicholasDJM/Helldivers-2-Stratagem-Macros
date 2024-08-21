@@ -66,6 +66,7 @@ if (!FileExist("./optionas.toml")) {
 delay = 150 # Default 150
 holdDelay = 10 # Default 10
 steamPath = "C:\Program Files (x86)\Steam" # Default "C:\Program Files (x86)\Steam"
+updates = true # Default is true
 )", "options.toml")
 } else {
 	MsgBox("Cannot generate options file, file already exists.", appname, MsgBoxEnums["Error"])

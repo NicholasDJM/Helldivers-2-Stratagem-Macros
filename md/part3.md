@@ -25,5 +25,5 @@ This script is only for Windows. This script has been tested on Windows 10 22H2,
 ## Usage
 
 ### Using with AutoHotkey
-This AHK script allows you to call your favourite stratagem. In this case, mine is the Recoilless Rifle, and the Patriot Exosuit. You can modify it as you see fit. This particular script will call in the Recoilless rifle on mouse 4, and the Patriot Exosuit on mouse 5.
+This AHK script allows you to call your favourite stratagem. You can modify it as you see fit. This particular script will call in the Recoilless Rifle on mouse 4, the Patriot Exosuit on mouse 5, and the Hellbomb on the H key.
 ```ahk

@@ -1,4 +1,4 @@
-# Helldivers 2 Stratagem Macros ![Version 21](https://img.shields.io/badge/Version-21-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
+# Helldivers 2 Stratagem Macros ![Version 22](https://img.shields.io/badge/Version-22-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
@@ -25,39 +25,38 @@ This script is only for Windows. This script has been tested on Windows 10 22H2,
 ## Usage
 
 ### Using with AutoHotkey
-This AHK script allows you to call your favourite stratagem. In this case, mine is the Recoilless Rifle, and the Patriot Exosuit. You can modify it as you see fit. This particular script will call in the Recoilless rifle on mouse 4, and the Patriot Exosuit on mouse 5.
+This AHK script allows you to call your favourite stratagem. You can modify it as you see fit. This particular script will call in the Recoilless Rifle on mouse 4, the Patriot Exosuit on mouse 5, and the Hellbomb on the H key.
 ```ahk
 #Requires AutoHotkey >=2.0
 SendMode "Event"
 SetWorkingDir A_ScriptDir
-title := "HELLDIVERS™ 2"
-XButton1:: { ; Mouse Browser Back button
-	if (winActive(title)) {
+macro(stratagem) {
+	if (WinActive("HELLDIVERS™ 2")) {
 		try {
-			Run('"Helldivers 2 Macros.ahk" "Recoilless Rifle"')
+			Run('"Helldivers 2 Macros.ahk" "' . stratagem . '"')
 		} catch {
 			TrayTip("Could not run Helldivers 2 Macros script.")
 		}
 	}
 }
+XButton1:: { ; Mouse Browser Back button
+	macro("recoilless rifle")
+}
 XButton2:: { ; Mouse Browser Forward button
-	if (winActive(title)) {
-		try {
-			Run('"Helldivers 2 Macros.ahk" "Patriot Exosuit"')
-		} catch {
-			TrayTip("Could not run Helldivers 2 Macros script.")
-		}
-	}
+	macro("patriot exosuit")
+}
+H:: { ; H key
+	macro("hellbomb")
 }
 ```
 Look at [AutoHotkey's key list](https://www.autohotkey.com/docs/v2/KeyList.htm) for a complete list of keys that can be bound.
 
 ### Using with Elgato Stream Deck
 
-![A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch "Helldivers 2 Macros.ahk" with an argument of "recoilless rifle".](/help/public/ExampleUsageWithStreamDeck.webp)
+![A screenshot of Elgato Stream Deck software, showing BarRaider's Advanced Launcher action configured to launch "Helldivers 2 Macros.ahk" with an argument of "recoilless rifle".](/help/public/ExampleUsageWithStreamDeck.webp)
 
 1. Open the Elgato Stream Deck software.
-2. Ensure [Barraider's Advanced Launcher](https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125) plugin is installed.
+2. Ensure [BarRaider's Advanced Launcher](https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125) plugin is installed.
 3. Add "Advanced Launcher" action to a button.
 4. In the action's settings, click on "Choose file...", and select the macro script.
 5. In the "Arguments" text field, add your desired stratagem, in quotes.

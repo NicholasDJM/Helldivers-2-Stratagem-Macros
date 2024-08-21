@@ -1,22 +1,21 @@
 #Requires AutoHotkey >=2.0
 SendMode "Event"
 SetWorkingDir A_ScriptDir
-title := "HELLDIVERS™ 2"
-XButton1:: { ; Mouse Browser Back button
-	if (winActive(title)) {
+macro(stratagem) {
+	if (WinActive("HELLDIVERS™ 2")) {
 		try {
-			Run('"Helldivers 2 Macros.ahk" "Recoilless Rifle"')
+			Run('"Helldivers 2 Macros.ahk" "' . stratagem . '"')
 		} catch {
 			TrayTip("Could not run Helldivers 2 Macros script.")
 		}
 	}
 }
+XButton1:: { ; Mouse Browser Back button
+	macro("recoilless rifle")
+}
 XButton2:: { ; Mouse Browser Forward button
-	if (winActive(title)) {
-		try {
-			Run('"Helldivers 2 Macros.ahk" "Patriot Exosuit"')
-		} catch {
-			TrayTip("Could not run Helldivers 2 Macros script.")
-		}
-	}
+	macro("patriot exosuit")
+}
+H:: { ; H key
+	macro("hellbomb")
 }

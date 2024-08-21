@@ -13,6 +13,7 @@
 				<section>
 					<h1>HELLDIVERS™ 2 Stratagem Macros</h1>
 					<p>Helldivers 2 Stratagem Macros is an AutoHotkey macro script, that will automatically input the correct sequence of keys to call in a stratagem.</p>
+					<p>The script will read the correct keys for each Steam user, requiring zero manual configuration.</p>
 					<p>You can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck.</p>
 				</section>
 				<section>
@@ -26,6 +27,7 @@
 					<h2>Syntax</h2>
 					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order.</p>
 					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] ["generate options.toml"] [delay] [holdDelay] [path]</code>
+					<p>If an option contains spaces, you must surround it with quotation marks.</p>
 					<ul>
 						<li><code>Stratagem Name</code> - This is the name of a stratagem you wish to use. See the Stratagem list below.</li>
 						<li><code>"update macros"</code> - Enter this verbatim to run the auto updater.</li>
@@ -40,6 +42,7 @@
 						<li>Call in the Patriot Exosuit: <code>"Helldivers 2 Macros.ahk" "patriot exosuit"</code></li>
 						<li>Call in the Autocannon with a key delay of 250 milliseconds: <code>"Helldivers 2 Macros.ahk" autocannon delay=500</code></li>
 						<li>Call in the Recoilless Rifle with a key hold delay of 50 milliseconds: <code>"Helldivers 2 Macros.ahk" "recoilless rifle" holdDelay=500</code></li>
+						<li>Call in the Eagle 500kg Bomb, with the path to Steam on drive D: <code>"Helldivers 2 Macros.ahk" "eagle 500kg bomb" "steamPath=D:\Steam"</code></li>
 					</ul>
 				</section>
 				<section class="grid">
@@ -74,7 +77,7 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 								<li>In the "Arguments" text field, add your desired stratagem, in quotes.</li>
 							</ol>
 							<div class="center">
-								<img alt="A screenshot of Elgato Stream Deck software, showing Barraider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;." height="299px" width="569px" src="../public/ExampleUsageWithStreamDeck.webp"/>
+								<img alt="A screenshot of Elgato Stream Deck software, showing BarRaider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;." height="299px" width="569px" src="../public/ExampleUsageWithStreamDeck.webp"/>
 							</div>
 						</div>
 					</details>

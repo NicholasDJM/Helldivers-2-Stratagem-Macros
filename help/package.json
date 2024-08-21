@@ -47,19 +47,6 @@
 			]
 		}
 	},
-	"browerslist": [
-		"last 5 versions, not dead and supports es6-module"
-	],
-	"postcss": {
-		"plugins": {
-			"postcss-preset-env": {
-				"stage": false,
-				"features": {
-					"light-dark-function": true
-				}
-			}
-		}
-	},
 	"dependencies": {
 		"@picocss/pico": "^2.0.6",
 		"alpinejs": "^3.14.1",
