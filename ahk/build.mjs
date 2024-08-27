@@ -1,8 +1,8 @@
 import { readFileSync, writeFileSync } from "node:fs"
-import {join} from "node:path"
-import {cwd} from "node:process";
-import {stratagems} from "../help/src/stratagems.js"
-const ending = "\r\n" // Change this if compiling on Linux. Although, I don't know why you would be, as this entire repo is dedicated to a tool that only runs on Windows.
+import { join } from "node:path"
+import { cwd } from "node:process";
+import { stratagems } from "../help/src/stratagems.js"
+import { EOL as ending } from "node:os";
 
 // Constructs the AutoHotkey script, using dynamic data, including the version number, and the entire list of Stratagems.
 
