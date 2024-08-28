@@ -258,7 +258,7 @@ Stratagem(code) {
 		Sleep(options["timing"])
 		for index, value in code {
 			if (keys.Has(value)) {
-				KeyDownUp(keys[value], options["timing"])
+				KeyDownUp(keys[value], options["secondaryTiming"])
 			} else {
 				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 				Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).

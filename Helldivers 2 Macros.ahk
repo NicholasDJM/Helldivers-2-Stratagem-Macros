@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 23
+version := 24
 options := Map()
 options["timing"] := 150
 options["secondaryTiming"] := 10
@@ -215,38 +215,29 @@ if (!keys.Has("menu")){
 	keys["menu"] := "ctrl"
 	key_menu_type := "hold"
 }
+KeyDownUp(key, timing) {
+	Send("{" . key . " Down}")
+	Sleep(timing)
+	Send("{" . key . " Up}")
+}
 Stratagem(code) {
 	if (WinActive("HELLDIVERS™ 2")) {
 		switch (key_menu_type) {
 			case "hold":
 				Send("{" . keys["menu"] . " DOWN}")
-				
 			case "doubletap":
-				Send("{" . keys["menu"] . " DOWN}")
+				KeyDownUp(keys["menu"], options["secondaryTiming"])
 				Sleep(options["secondaryTiming"])
-				Send("{" . keys["menu"] . " UP}")
-				Sleep(options["secondaryTiming"])
-				Send("{" . keys["menu"] . " DOWN}")
-				Sleep(options["secondaryTiming"])
-				Send("{" . keys["menu"] . " UP}")
-				
+				KeyDownUp(keys["menu"], options["secondaryTiming"])
 			case "longpress":
-				Send("{" . keys["menu"] . " DOWN}")
-				Sleep(500)
-				Send("{" . keys["menu"] . " UP}")
-				Sleep(options("timing"))
-				
+				KeyDownUp(keys["menu"], 500)
 			default:
-				Send("{" . keys["menu"] . " DOWN}")
-				Sleep(10)
-				Send("{" . keys["menu"] . " UP}")
+				KeyDownUp(keys["menu"], 10)
 		}
 		Sleep(options["timing"])
 		for index, value in code {
 			if (keys.Has(value)) {
-				Send("{" . keys[value] . " Down}")
-				Sleep(options["secondaryTiming"])
-				Send("{" . keys[value] . " Up}")
+				KeyDownUp(keys[value], options["secondaryTiming"])
 			} else {
 				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 				Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
