@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 22
+version := 23
 options := Map()
 options["timing"] := 150
 options["secondaryTiming"] := 10
@@ -216,9 +216,7 @@ if (!keys.Has("menu")){
 	key_menu_type := "hold"
 }
 Stratagem(code) {
-	title := "HELLDIVERS™ 2"
-	
-	if (WinActive(title)) {
+	if (WinActive("HELLDIVERS™ 2")) {
 		switch (key_menu_type) {
 			case "hold":
 				Send("{" . keys["menu"] . " DOWN}")
@@ -245,39 +243,22 @@ Stratagem(code) {
 		}
 		Sleep(options["timing"])
 		for index, value in code {
-				if (value = "up") {
-					Send("{" . keys["up"] . " Down}")
-					Sleep(options["secondaryTiming"])
-					Send("{" . keys["up"] . " Up}")
-				}
-				else if (value = "left") {
-					Send("{" . keys["left"] . " Down}")
-					Sleep(options["secondaryTiming"])
-					Send("{" . keys["left"] . " Up}")
-				}
-				else if (value = "right") {
-					Send("{" . keys["right"] . " Down}")
-					Sleep(options["secondaryTiming"])
-					Send("{" . keys["right"] . " Up}")
-				}
-				else if (value = "down") {
-					Send("{" . keys["down"] . " Down}")
-					Sleep(options["secondaryTiming"])
-					Send("{" . keys["down"] . " Up}")
-				} else {
-					TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
-					Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
-					ExitApp
-				}
+			if (keys.Has(value)) {
+				Send("{" . keys[value] . " Down}")
+				Sleep(options["secondaryTiming"])
+				Send("{" . keys[value] . " Up}")
+			} else {
+				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+				Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
+				ExitApp
+			}
 			Sleep(options["timing"])
 		}
+		Send("{" . keys["menu"] . " UP}")
 	} else {
 		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)
 		ExitApp
-	}
-	if (key_menu_type = "hold" && WinActive(title)) {
-		Send("{" . keys["menu"] . " UP}")
 	}
 }
 userinput := StrLower(options["stratagem"]) ; Change all characters to lower case.
