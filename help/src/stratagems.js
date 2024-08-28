@@ -10,14 +10,18 @@
 /**
  *  Game version that the Stratagem list is aligned with.
  */
-export const version = "01.001.002",
+export const version = "01.001.005",
 	/**
+	 * ```ts
+	 * interface Stratagem {
+	 * 	key: string,
+	 * 	type: string[],
+	 * 	icon?: string,
+	 * 	code: string[],
+	 * 	displayName?: string
+	 * }
+	 * ```
 	 * @type {Stratagem[]}
-	 * @property {string} key
-	 * @property {string[]} type
-	 * @property {string} [icon]
-	 * @property {string[]} code
-	 * @property {string} [displayName]
 	 */
 	stratagems = [
 		// Weapons
@@ -49,6 +53,9 @@ export const version = "01.001.002",
 		{ key: "orbital gas strike", type: ["orbital"], icon: "https://helldivers.wiki.gg/images/c/cd/Orbital_Gas_Strike_Stratagem_Icon.png", code: ["right","right","down","right"] },
 		{ key: "orbital smoke strike", type: ["orbital"], icon: "https://helldivers.wiki.gg/images/b/bc/Orbital_Smoke_Strike_Stratagem_Icon.png", code: ["right","right","down","up"] },
 		{ key: "orbital ems strike", type: ["orbital"], icon: "https://helldivers.wiki.gg/images/1/16/Orbital_EMS_Strike_Stratagem_Icon.png", code: ["right","right","left","down"], displayName: "Orbital EMS Strike" },
+		/* Coming soon! Just need to complete the next Major Order.
+		{ key: "orbital napalm barrage", type: ["orbital"], icon:"", code: ["right"]},
+		*/
 		// Eagle Airstrikes
 		{ key: "eagle strafing run", type: ["eagle"], icon: "https://helldivers.wiki.gg/images/f/f3/Eagle_Strafing_Run_Stratagem_Icon.png", code: ["up","right","right"] },
 		{ key: "eagle airstrike", type: ["eagle"], icon: "https://helldivers.wiki.gg/images/7/72/Eagle_Airstrike_Stratagem_Icon.png", code: ["up","right","down","right"] },
