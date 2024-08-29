@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 25
+version := 26
 options := Map()
 options["timing"] := 150
 options["secondaryTiming"] := 10
@@ -416,6 +416,9 @@ Default:
 	TrayTip("Cannot find `"" . options["stratagem"] . "`" macro. Run the script without any arguments for instructions.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
 }
+if (options["updates"] = false) {
+	ExitApp
+}
 try {
 	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 	try {
@@ -434,9 +437,6 @@ try {
 }
 ExitApp
 update:
-if (options["updates"] = false) {
-	ExitApp
-}
 releaseType := RegExMatch(A_ScriptName, "\.exe$") > 0 ? "exe" : "ahk" ; Which release should we target? The script, or the executable?
 fileLocation := releaseType = "exe" ? 
 	"https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk.tar.gz"

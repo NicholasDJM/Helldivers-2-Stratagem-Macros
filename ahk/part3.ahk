@@ -6,6 +6,10 @@ Default:
 
 
 
+if (options["updates"] = false) {
+	ExitApp
+}
+
 try {
 	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
 	try {
@@ -25,10 +29,6 @@ try {
 ExitApp
 
 update:
-
-if (options["updates"] = false) {
-	ExitApp
-}
 
 releaseType := RegExMatch(A_ScriptName, "\.exe$") > 0 ? "exe" : "ahk" ; Which release should we target? The script, or the executable?
 fileLocation := releaseType = "exe" ? 
