@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs"
 import {join} from "node:path"
 import {cwd} from "node:process";
-import {stratagems, version as hd2version} from "../help/src/stratagems.js"
+import {stratagems, version as hd2version} from "../help/src/js/stratagems.js"
 
 // Constructs README.md with dynamic data, such as the script version number, and example code.
 // Since the dynamic data is used elsewhere, having to manually update in the README is just wasted time.

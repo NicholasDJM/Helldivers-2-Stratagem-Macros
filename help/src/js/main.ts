@@ -2,10 +2,10 @@ import Alpine from "alpinejs";
 globalThis.Alpine = Alpine;
 import Fuse from "fuse.js";
 import "@picocss/pico/css/pico.amber.min.css";
-import "./main.css";
+import "/css/main.css";
 import Prism from "prismjs";
 globalThis.Prism = Prism
-import "./highlight.css"
+import "/css/highlight.css";
 import "prismjs/plugins/toolbar/prism-toolbar.js";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js";
 import "prismjs/components/prism-autohotkey.min.js";

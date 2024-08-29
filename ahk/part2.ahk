@@ -274,14 +274,16 @@ Stratagem(code) {
 				KeyDownUp(keys[value], options["secondaryTiming"])
 			} else {
 				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
-				Sleep(5000) ; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
+				Sleep(5000)
+				; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
 				ExitApp
 			}
 			Sleep(options["timing"])
 		}
 		Send("{" . keys["menu"] . " UP}")
 		if (playing) {
-			Sleep(options["audio"]) ; If we're playing audio, we need delay the script exiting so the audio can finish playing. By default, it's 5000 milliseconds.
+			Sleep(options["audio"])
+			; If we're playing audio, we need delay the script exiting so the audio can finish playing. By default, it's 5000 milliseconds.
 		}
 	} else {
 		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
@@ -290,9 +292,13 @@ Stratagem(code) {
 	}
 }
 
-userinput := StrLower(options["stratagem"]) ; Change all characters to lower case.
-userinput := StrReplace(userinput, "-", A_Space) ; Replace dashes with spaces. Things like Anti-Material Rifle have dashes in their names, but we want just letters and spaces.
-userinput := StrReplace(userinput, "recoiless rifle", "recoilless rifle") ; Recoilless Rifle has two Ls. I mix this up all the time, so rather than telling the user "too bad!", we just fix it.
-userinput := StrReplace(userinput, "anti personal minefield", "anti personnel minefield") ; Ditto
+userinput := StrLower(options["stratagem"])
+; Change all characters to lower case.
+userinput := StrReplace(userinput, "-", A_Space)
+; Replace dashes with spaces. Things like Anti-Material Rifle have dashes in their names, but we want just letters and spaces.
+userinput := StrReplace(userinput, "recoiless rifle", "recoilless rifle")
+; Recoilless Rifle has two Ls. I mix this up all the time, so rather than telling the user "too bad!", we just fix it.
+userinput := StrReplace(userinput, "anti personal minefield", "anti personnel minefield")
+; Ditto
 
 Switch userinput {
