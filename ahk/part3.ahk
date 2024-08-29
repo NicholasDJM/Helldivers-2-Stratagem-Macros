@@ -63,10 +63,11 @@ genOptions:
 if (!FileExist("./optionas.toml")) {
 	FileAppend("
 (
-delay = 150 # Default 150
-holdDelay = 10 # Default 10
+delay = 150 # Default is 150
+holdDelay = 10 # Default is 10
 steamPath = "C:\Program Files (x86)\Steam" # Default "C:\Program Files (x86)\Steam"
 updates = true # Default is true
+audio = 5000 # Default is 5000
 )", "options.toml")
 } else {
 	MsgBox("Cannot generate options file, file already exists.", appname, MsgBoxEnums["Error"])

@@ -5,17 +5,17 @@ options["timing"] := 150
 options["secondaryTiming"] := 10
 options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true
-
+options["audio"] := 5000
 
 
 try Loop Read "./options.toml" {
-	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
+	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*\d+\s*(#.*)?$")) {
 		options["timing"] := RegExReplace(RegExReplace(A_LoopReadLine, "^delay\s*=\s*", ""), "\s*#.*$")
 	}
-	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*[\d]+\s*(#.*)?$") > 0) {
+	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*\d+\s*(#.*)?$")) {
 		options["secondaryTiming"] := RegExReplace(RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", ""), "\s*#.*$")
 	}
-	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$") > 0) {
+	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$")) {
 		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
 		options["steamPath"] := RegExReplace(
 				RegExReplace(
@@ -25,6 +25,9 @@ try Loop Read "./options.toml" {
 	}
 	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
 		options["updates"] := false
+	}
+	if (RegExMatch(A_LoopReadLine, "^audio\s*=\s*\d+\s*(#.*)?$")) {
+		options["audio"] := RegExReplace(RegExReplace(A_LoopReadLine, "^audio\s*=\s*", ""), "\s*#.*$")
 	}
 }
 
@@ -83,6 +86,8 @@ Loop A_Args.Length {
 				;}
 			case "updates":
 				options["updates"] := split[2] = "true" ? true : false
+			case "audio":
+				options["audio"] := split[2]
 			default:
 				TrayTip("`"" . split[1] . "`" is not a valid flag.", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}
@@ -243,6 +248,14 @@ KeyDownUp(key, timing) {
 
 Stratagem(code) {
 	if (WinActive("HELLDIVERS™ 2")) {
+		playing := false
+		if (FileExist(options["stratagem"] . ".wav")) {
+			playing := true
+			try SoundPlay(options["stratagem"] . ".wav")
+		} else if (FileExist(options["stratagem"] . ".mp3")) {
+			playing := true
+			try SoundPlay(options["stratagem"] . ".mp3")
+		}
 		switch (key_menu_type) {
 			case "hold":
 				Send("{" . keys["menu"] . " DOWN}")
@@ -267,6 +280,9 @@ Stratagem(code) {
 			Sleep(options["timing"])
 		}
 		Send("{" . keys["menu"] . " UP}")
+		if (playing) {
+			Sleep(options["audio"]) ; If we're playing audio, we need delay the script exiting so the audio can finish playing. By default, it's 5000 milliseconds.
+		}
 	} else {
 		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)

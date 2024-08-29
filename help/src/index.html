@@ -36,6 +36,7 @@
 						<li><code>holdDelay</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>holdDelay=x</code>, but replace x with a number. Default is 10.</li>
 						<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
 						<li><code>updates</code> - Set this to false, if you want to disable automatic checks for new updates. Type out <code>updates=false</code>. Default is true.</li>
+						<li><code>audio</code> - Set this to a number equal or greater than than your longest audio file, in milliseconds. If you set to less, your audio will be cutoff. Type of <code>audio=x</code>, but replace x with a number. Default is 5000.</li>
 					</ul>
 					<h3>Examples</h3>
 					<ul>
@@ -56,6 +57,7 @@
 							<li><code>holdDelay</code> Change the default delay between key down and key up, in milliseconds.</li>
 							<li><code>steamPath</code> Change the default path to your Steam installation, where the steam.exe is located. Must surround the value in quotation marks.</li>
 							<li><code>updates</code> Change the default for automatic update checking. Set to <code>false</code> to disable.</li>
+							<li><code>audio</code> Change the default delay before exiting the script, if audio is playing, in milliseconds</li>
 						</ul>
 					</div>
 					<div>
@@ -91,6 +93,22 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 							</div>
 							<div>
 								<pre class="language-autohotkey" data-filename="example.ahk" ><code x-data="tools" x-text="example" ></code></pre>
+							</div>
+						</div>
+					</details>
+					<hr>
+					<details open>
+						<summary>Playing Audio Files</summary>
+						<div class="grid">
+							<div>
+								<p>You can have an audio file play automatically whenever you call in a stratagem. It can either be a <code>.wav</code> or <code>.mp3</code> file.</p>
+								<p>Name the file exactly like the stratagem name. You can use the list below, but don't use quotation marks.</p>
+							</div>
+							<div class="center">
+								<picture>
+									<source srcset="../public/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)">
+									<img src="../public/ExampleAudioFileUsageDark.webp" alt="Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;. ">
+								</picture>
 							</div>
 						</div>
 					</details>

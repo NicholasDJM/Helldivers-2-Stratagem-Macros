@@ -1,4 +1,4 @@
-# Helldivers 2 Stratagem Macros ![Version 24](https://img.shields.io/badge/Version-24-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
+# Helldivers 2 Stratagem Macros ![Version 25](https://img.shields.io/badge/Version-25-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
@@ -76,7 +76,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `01.001.002`.
+This list is up to date with Helldivers 2 version `01.001.005`.
 
 - Machine Gun
 - Anti Material Rifle
