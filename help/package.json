@@ -2,6 +2,9 @@
 	"private": "true",
 	"root": "true",
 	"type": "module",
+	"browserslist": [
+		"defaults and fully supports es6-module"
+	],
 	"scripts": {
 		"dev": "vite",
 		"build": "wireit",

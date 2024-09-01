@@ -12,7 +12,7 @@ export default defineConfig({
 	build: {
 		minify: "terser", // Minifies JS.
 		outDir: "../dist",
-		cssMinify: "lightningcss" // Minifies CSS.
+		cssMinify: "esbuild" // Minifies CSS. NOTE: LightningCSS was stripping away logical properties, and I couldn't get it to stop.
 	},
 	plugins: [
 		i18nextLoader({ // Language translations.

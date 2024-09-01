@@ -1,0 +1,1 @@
+If you're using the Console Ninja VS Code extension, and Vite isn't working, make sure to delete node_modules and reinstall dependencies, as Console Ninja can sometimes corrupt Vite, rendering it inoperable.

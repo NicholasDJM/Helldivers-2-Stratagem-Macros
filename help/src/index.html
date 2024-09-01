@@ -13,7 +13,7 @@
 				<section>
 					<span class="center centerText">
 						<h1>
-							<img src="https://cdn2.steamgriddb.com/logo_thumb/0abe10cc20cfedb109fd9cee834adc18.png" alt="HELLDIVERS™ 2" width="300">
+							<img src="https://cdn2.steamgriddb.com/logo_thumb/0abe10cc20cfedb109fd9cee834adc18.png" class="logo" alt="HELLDIVERS™ 2" width="400">
 							<br>
 							STRATAGEM MACROS
 						</h1>
@@ -71,7 +71,7 @@
 						</div>
 						<div>
 							<pre><code id="optionsExample"
-								class="language-toml" data-filename="options.toml" data-mime="application/toml"
+								class="language-toml" data-filename="options.toml" data-mime="application/toml" dir="ltr"
 >delay = 250 # Default 150
 holdDelay = 50 # Default 10
 steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
@@ -109,7 +109,7 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 								<p>Look at <a href="https://www.autohotkey.com/docs/v2/KeyList.htm" rel="noreferrer" target="_blank">AutoHotkey's key list</a> for a complete list of keys that can be bound.</p>
 							</div>
 							<div>
-								<pre><code id="ahkExample" class="language-autohotkey" data-filename="example.ahk" data-mime="application/ahk"><include src="example.ahk"></include></code>
+								<pre><code id="ahkExample" class="language-autohotkey" data-filename="example.ahk" data-mime="application/ahk" dir="ltr"><include src="example.ahk"></include></code>
 								</pre>
 								<div class="justifyEnd">
 									<button x-data="tools" @click="download('ahkExample')">Download</button>
@@ -140,6 +140,7 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 						<summary>Stratagem list</summary>
 						<p>This is a list of stratagems that the script will accept. Click on one to copy it. This list is up to date with Helldivers 2 version <code x-data="tools" x-text="version"></code>.</p>
 						<search>
+							<!-- TODO PicoCSS doesn't reverse the border radius on grouped elements when document is RTL. -->
 							<fieldset role="search">
 								<input type="search" list="category" placeholder="Search" aria-label="Search" x-model="input"/>
 								<button class="outline" @click="input = ''" id="clear-button">Clear</button>

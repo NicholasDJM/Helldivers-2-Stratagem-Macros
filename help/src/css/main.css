@@ -152,7 +152,7 @@ ul.nobullets li {
 
 [href="#top"] {
 	position: fixed;
-	inset-inline-end: 1rem;
+	inset-inline-end: 1rem; /* TODO: LightningCSS is rewriting this to "right: 1em". We're targeting evergreen browsers, so this should not happen. */
 	inset-block-end: 1rem;
 	animation-name: top-button;
 	animation-duration: 250ms; /* Firefox requires scroll driven animations to have a minimum of 1ms. */
@@ -195,4 +195,9 @@ ul.nobullets li {
 	display: flex;
 	justify-content: end;
 	gap: .5em;
+}
+@media (prefers-color-scheme: light) {
+	.logo {
+		filter: invert();
+	}
 }
