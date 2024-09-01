@@ -20,10 +20,8 @@ import { Base64 } from "base64-string";
 interface HTMLCodeElement extends HTMLElement {}
 
 function download(data: string, filename: string, mime = "text/plain") {
-	const a = document.createElement("a"),
-		b = `data:${mime};base64,${new Base64().encode(data)}`;
-	console.log(b);
-	a.setAttribute("href", b);
+	const a = document.createElement("a")
+	a.setAttribute("href", `data:${mime};base64,${new Base64().encode(data)}`);
 	a.setAttribute("download", filename);
 	document.body.append(a);
 	a.click();
