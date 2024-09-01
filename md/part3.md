@@ -1,14 +1,12 @@
 -brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
-
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
+
 The script automatically uses in-game key bindings and reads the correct keys for each Steam user, eliminating the need for manual configuration.
 
 You can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck.
 
 This script is only for Windows. This script has been tested on Windows 10 22H2, but should work on Windows 11.
-
-
 
 ## Installation
 

@@ -17,6 +17,12 @@
 	&.keyword {
 		color: rgb(179 7 164)
 	}
+	&.key {
+		color: rgb(0 127 255);
+	}
+	&.function {
+		color: rgb(150, 0, 0);
+	}
 }
 @media screen and (prefers-color-scheme: dark) {
 	.token {
@@ -37,6 +43,9 @@
 		}
 		&.keyword {
 			color: rgb(166 115 162 / 1)
+		}
+		&.function {
+			color: rgb(255, 54, 54);
 		}
 	}
 }

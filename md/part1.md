@@ -1,1 +1,1 @@
-# Helldivers 2 Stratagem Macros ![Version 
+# HELLDIVERS™ 2 Stratagem Macros ![Version 

@@ -6,7 +6,9 @@
 		"dev": "vite",
 		"build": "wireit",
 		"lint": "wireit",
-		"lint:fix": "wireit"
+		"lint:fix": "wireit",
+		"format": "wireit",
+		"format:fix": "wireit"
 	},
 	"wireit": {
 		"lint:fix": {
@@ -29,6 +31,26 @@
 			],
 			"output": []
 		},
+		"format": {
+			"command": "biome format ./src",
+			"clean": false,
+			"files": [
+				"./src",
+				"./biome.json"
+			],
+			"output": []
+		},
+		"format:fix": {
+			"command": "biome format ./src --write",
+			"clean": false,
+			"files": [
+				"./src",
+				"./biome.json"
+			],
+			"output": [
+				"./src"
+			]
+		},
 		"build": {
 			"command": "vite build",
 			"files": [
@@ -43,21 +65,29 @@
 				"dist"
 			],
 			"dependencies": [
-				"lint:fix"
+				"lint:fix",
+				"format:fix"
 			]
 		}
 	},
 	"dependencies": {
 		"@picocss/pico": "^2.0.6",
+		"@vituum/vite-plugin-posthtml": "^1.1.0",
 		"alpinejs": "^3.14.1",
 		"base64-string": "^1.1.3",
 		"fuse.js": "^7.0.0",
+		"i18next": "^23.14.0",
+		"i18next-fluent": "^2.0.0",
+		"i18next-fluent-backend": "^1.0.0",
 		"lightningcss": "^1.26.0",
+		"posthtml-prism": "^2.0.1",
+		"posthtml-toc": "^1.0.3",
 		"prismjs": "^1.29.0",
 		"terser": "^5.31.5",
 		"vite": "^5.4.0",
 		"vite-imagetools": "^7.0.4",
 		"vite-plugin-html": "^3.2.2",
+		"vite-plugin-i18next-loader": "^2.0.13",
 		"vite-plugin-singlefile": "^2.0.2",
 		"wireit": "^0.14.7"
 	},

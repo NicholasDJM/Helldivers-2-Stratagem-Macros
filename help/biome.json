@@ -20,6 +20,12 @@
 		}
 	},
 	"formatter": {
-		"enabled": false
+		"enabled": true,
+		"lineEnding": "crlf",
+		"indentStyle": "tab",
+		"indentWidth": 4,
+		"ignore": [
+			"./src/js/stratagems.js"
+		]
 	}
 }

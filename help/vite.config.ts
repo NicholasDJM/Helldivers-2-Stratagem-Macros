@@ -1,9 +1,11 @@
 import { defineConfig } from "vite";
 import { viteSingleFile } from "vite-plugin-singlefile";
-import { createHtmlPlugin } from "vite-plugin-html";
+import { createHtmlPlugin as minifyHTML } from "vite-plugin-html";
 import { imagetools } from "vite-imagetools";
-// Tried using a CSS purger, but found it was too aggressive without a lot of fine tuning.
-// PicoCSS especially suffered. So we'll have to do with a larger file size.
+import i18nextLoader from "vite-plugin-i18next-loader";
+import posthtml from "@vituum/vite-plugin-posthtml";
+import prism from "posthtml-prism";
+import toc from "posthtml-toc"; // Note: posthtml-toc README is out of date, had to look into the code to find the correct options to pass to the plugin.
 
 export default defineConfig({
 	root: "./src",
@@ -13,10 +15,22 @@ export default defineConfig({
 		cssMinify: "lightningcss" // Minifies CSS.
 	},
 	plugins: [
+		i18nextLoader({ // Language translations.
+			paths: ["./locales"]
+		}),
+		posthtml({ // Enables <include> elements, to include other files directly in HTML.
+			plugins: [
+				prism(), // Parses <code> elements and generates HTML elements for styling syntax.
+				toc({
+					after: "#description",
+					title: "Table of Contents"
+				})
+			]
+		}),
 		imagetools(), // Tools to manipulate image files via JavaScript imports.
 		viteSingleFile({ // Inlines assets to HTML.
 			removeViteModuleLoader: true
 		}),
-		createHtmlPlugin() // Minifies HTML
+		minifyHTML() // Minifies HTML
 	],
 })

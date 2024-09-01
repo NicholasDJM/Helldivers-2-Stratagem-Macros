@@ -1,14 +1,12 @@
-# Helldivers 2 Stratagem Macros ![Version 27](https://img.shields.io/badge/Version-27-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
-
+# HELLDIVERS™ 2 Stratagem Macros ![Version 28](https://img.shields.io/badge/Version-28-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
+
 The script automatically uses in-game key bindings and reads the correct keys for each Steam user, eliminating the need for manual configuration.
 
 You can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck.
 
 This script is only for Windows. This script has been tested on Windows 10 22H2, but should work on Windows 11.
-
-
 
 ## Installation
 
@@ -79,9 +77,9 @@ This is a list of all the stratagems currently accepted. When passing these to t
 This list is up to date with Helldivers 2 version `01.001.005`.
 
 - Machine Gun
-- Anti Material Rifle
+- Anti-Material Rifle
 - Stalwart
-- Expendable Anti Tank
+- Expendable Anti-Tank
 - Recoilless Rifle
 - Flamethrower
 - Autocannon
@@ -96,8 +94,8 @@ This list is up to date with Helldivers 2 version `01.001.005`.
 - Quasar Cannon
 - Orbital Gatling Barrage
 - Orbital Airburst Strike
-- Orbital 120mm He Barrage
-- Orbital 380mm He Barrage
+- Orbital 120mm HE Barrage
+- Orbital 380mm HE Barrage
 - Orbital Walking Barrage
 - Orbital Laser
 - Orbital Railcannon Strike
@@ -120,9 +118,9 @@ This list is up to date with Helldivers 2 version `01.001.005`.
 - Shield Generator Pack
 - Shield Generator Relay
 - Tesla Tower
-- Anti Personnel Minefield
+- Anti-Personnel Minefield
 - Incendiary Mines
-- Anti Tank Mines
+- Anti-Tank Mines
 - HMG Emplacement
 - Machine Gun Sentry
 - Gatling Sentry

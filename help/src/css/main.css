@@ -188,3 +188,11 @@ ul.nobullets li {
 .center img {
 	object-fit: scale-down;
 }
+.centerText{
+	text-align: center;
+}
+.justifyEnd {
+	display: flex;
+	justify-content: end;
+	gap: .5em;
+}

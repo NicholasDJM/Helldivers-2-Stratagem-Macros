@@ -21,7 +21,7 @@ const part1 = read("part1.ahk"),
 	part4 = read("part4.ahk"),
 	version = read("..","version.txt"),
 	html = read("..","help","dist","index.html").replaceAll("`","``"), // Must escape backticks.
-	formatedStratagems = stratagems.map(item => `${ending}Case "${item.key}":${ending}\tStratagem(${JSON.stringify(item.code)})`).join('');
+	formatedStratagems = stratagems.map(item => `${ending}Case "${item.key.toLowerCase().replace("-", " ")}":${ending}\tStratagem(${JSON.stringify(item.code)})`).join('');
 
 let file = part1 + version + part2 + formatedStratagems + part3 + html + part4,
 	lines = file.split(ending),

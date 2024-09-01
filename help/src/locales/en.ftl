@@ -1,0 +1,2 @@
+title = "HELLDIVERS 2 Stratagem Macros",
+description = "Helldivers 2 Stratagem Macros is an AutoHotkey macro script, that will automatically input the correct sequence of keys to call in a stratagem.\nThe script will read the correct keys for each Steam user, requiring zero manual configuration.\nYou can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck."
