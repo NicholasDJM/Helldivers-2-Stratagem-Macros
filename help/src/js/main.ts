@@ -6,7 +6,17 @@ import "/css/main.css";
 import "/css/highlight.css";
 import { stratagems, version } from "./stratagems.js";
 import { Base64 } from "base64-string";
-//import resources from "virtual:i18next-loader";
+import i18n, { type InitOptions } from "i18next";
+//@ts-expect-error Module is virtual module, typing is not available.
+import resources from "virtual:i18next-loader";
+
+const i18nextOptions: InitOptions = {
+	lng: "en",
+	resources,
+};
+
+i18n.init(i18nextOptions);
+globalThis.i18n = i18n;
 
 // TODO: Move base64 encoding to build step.
 // TODO: Import example.ahk in build step.
@@ -20,7 +30,7 @@ import { Base64 } from "base64-string";
 interface HTMLCodeElement extends HTMLElement {}
 
 function download(data: string, filename: string, mime = "text/plain") {
-	const a = document.createElement("a")
+	const a = document.createElement("a");
 	a.setAttribute("href", `data:${mime};base64,${new Base64().encode(data)}`);
 	a.setAttribute("download", filename);
 	document.body.append(a);
@@ -33,7 +43,6 @@ const fuse = new Fuse(stratagems, {
 	threshold: 0.4,
 });
 Alpine.data("tools", () => ({
-	//resources, // TODO Integrate Fluent files into vite-plugin-i18next-loader.
 	version,
 	download(id: string) {
 		const codeElement = document.querySelector("#" + id) as HTMLCodeElement,
@@ -115,21 +124,21 @@ Alpine.data("tools", () => ({
 	},
 	border(type: string[]) {
 		// TODO Move colours to CSS, and apply classes instead of using CSS variables.
-		for (const t of type)
-			switch (t) {
-				case "weapon":
-				case "backpack":
-				case "vehicle":
-					return "#2288a7";
-				case "mission":
-					// We want mission before eagle, as "eagle rearm" has both, but is mission coloured.
-					return "#c9b269";
-				case "orbital":
-				case "eagle":
-					return "#ba2f23";
-				case "defense":
-					return "#326021";
-			}
+		// biome-ignore format: No, stop that. Code is already pretty.
+		for (const t of type) switch (t) {
+			case "weapon":
+			case "backpack":
+			case "vehicle":
+				return "#2288a7";
+			case "mission":
+				// We want mission before eagle, as "eagle rearm" has both, but is mission coloured.
+				return "#c9b269";
+			case "orbital":
+			case "eagle":
+				return "#ba2f23";
+			case "defense":
+				return "#326021";
+		}
 	},
 }));
 

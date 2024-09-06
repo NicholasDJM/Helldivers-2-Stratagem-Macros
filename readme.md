@@ -1,4 +1,4 @@
-# HELLDIVERS™ 2 Stratagem Macros ![Version 28](https://img.shields.io/badge/Version-28-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
+# HELLDIVERS™ 2 Stratagem Macros ![Version 29](https://img.shields.io/badge/Version-29-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
 
@@ -16,9 +16,9 @@ This script is only for Windows. This script has been tested on Windows 10 22H2,
 
 3. Then, download my script, <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">Helldivers 2 Macros.ahk</a> (Right click on link, and "Save Link as")
 
-4. Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will download and overwrite any file called "version.txt", and any file called "help.html". Make sure not to save any file with those names.
+4. Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will overwrite any files called "version.txt", "help.html", and "play.ahk". Make sure not to save any file with those names.
 
-5. Finally, run the script without any arguments to read the most up-to-date instructions.
+5. Finally, run the script without any arguments to read the most up-to-date instructions. You can double-click on the file in Windows Explorer to open the instructions.
 
 ## Usage
 
@@ -32,6 +32,12 @@ macro(stratagem) {
 	if (WinActive("HELLDIVERS™ 2")) {
 		try {
 			Run('"Helldivers 2 Macros.ahk" "' . stratagem . '"')
+			/*
+				You could add options to the end of the string.
+				For example, you could set the delay between keys to 200 milliseconds:
+				Run('"Helldivers 2 Macros.ahk" "' . stratagem . '" "delay=200"')
+				Run "Helldivers 2 Macros.ahk" without any arguments to access the instruction manual.
+			*/
 		} catch {
 			TrayTip("Could not run Helldivers 2 Macros script.")
 		}
@@ -103,6 +109,7 @@ This list is up to date with Helldivers 2 version `01.001.005`.
 - Orbital Gas Strike
 - Orbital Smoke Strike
 - Orbital EMS Strike
+- Orbital Napalm Barrage
 - Eagle Strafing Run
 - Eagle Airstrike
 - Eagle Cluster Bomb

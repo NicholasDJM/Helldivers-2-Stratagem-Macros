@@ -5,7 +5,6 @@ options["timing"] := 150
 options["secondaryTiming"] := 10
 options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true
-options["audio"] := 5000
 
 
 try Loop Read "./options.toml" {
@@ -25,9 +24,6 @@ try Loop Read "./options.toml" {
 	}
 	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
 		options["updates"] := false
-	}
-	if (RegExMatch(A_LoopReadLine, "^audio\s*=\s*\d+\s*(#.*)?$")) {
-		options["audio"] := RegExReplace(RegExReplace(A_LoopReadLine, "^audio\s*=\s*", ""), "\s*#.*$")
 	}
 }
 
@@ -86,13 +82,11 @@ Loop A_Args.Length {
 				;}
 			case "updates":
 				options["updates"] := split[2] = "true" ? true : false
-			case "audio":
-				options["audio"] := split[2]
 			default:
 				TrayTip("`"" . split[1] . "`" is not a valid flag.", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}
 	} else {
-		; Otherwise, we can assume it's a Stragaem name or command.
+		; Otherwise, we can assume it's a Stratagem name or command.
 		if (A_Args[A_Index] = "update macros") {
 			goto update
 		}
@@ -131,7 +125,7 @@ Translate(key) {
 
 state := "findstratagem"
 
-inputfile := options["steamPath"] . "\userdata\" . SteamID . "\553850\remote\input_settings.config"
+configFile := options["steamPath"] . "\userdata\" . SteamID . "\553850\remote\input_settings.config"
 
 key_found_up := false
 key_found_down := false
@@ -145,7 +139,7 @@ lastLine := ""
 
 try {
 ; We must only read a file once! It's very expensive time wise to read a file, and the player expects the action to be immediate.
-Loop Read inputfile{
+Loop Read configFile{
 	loopindex := loopindex + 1
 	if (state = "findstratagem" && A_LoopReadLine = "Stratagem = {"){
 		state := "stratagem"
@@ -248,13 +242,20 @@ KeyDownUp(key, timing) {
 
 Stratagem(code) {
 	if (WinActive("HELLDIVERS™ 2")) {
-		playing := false
-		if (FileExist(options["stratagem"] . ".wav")) {
-			playing := true
-			try SoundPlay(options["stratagem"] . ".wav")
-		} else if (FileExist(options["stratagem"] . ".mp3")) {
-			playing := true
-			try SoundPlay(options["stratagem"] . ".mp3")
+		fileExt := [".wav", ".mp3"]
+		for ext in FileExt {
+			if (FileExist(userinput . ext)) {
+				playFile := "play.ahk"
+				Try FileDelete(playFile)
+				data := "
+				(
+#Requires AutoHotkey >=v2.0
+SetWorkingDir A_ScriptDir
+try SoundPlay(A_Args[1], true)
+				)"
+				try FileAppend(data, playFile)
+				try Run(playFile . ' "' . userinput . ext . '"')
+			}
 		}
 		switch (key_menu_type) {
 			case "hold":
@@ -281,10 +282,6 @@ Stratagem(code) {
 			Sleep(options["timing"])
 		}
 		Send("{" . keys["menu"] . " UP}")
-		if (playing) {
-			Sleep(options["audio"])
-			; If we're playing audio, we need delay the script exiting so the audio can finish playing. By default, it's 5000 milliseconds.
-		}
 	} else {
 		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)

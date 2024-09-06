@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html x-data="tools" :lang="i18n.language" :dir="i18n.dir">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Manual - HELLDIVERS™ 2 Stratagem Macros</title>
+	<title x-text="i18n.t('main:pageTitle')"></title>
 	<script type="module" src="js/main.ts"></script>
 </head>
 	<body>
@@ -12,30 +12,29 @@
 			<article>
 				<section>
 					<span class="center centerText">
-						<h1>
-							<img src="https://cdn2.steamgriddb.com/logo_thumb/0abe10cc20cfedb109fd9cee834adc18.png" class="logo" alt="HELLDIVERS™ 2" width="400">
+						<h1 class="monospace">
+							<img src="https://cdn2.steamgriddb.com/logo_thumb/0abe10cc20cfedb109fd9cee834adc18.png" class="logo" :alt="i18n.t('main:logoAlt')" width="400">
 							<br>
-							STRATAGEM MACROS
+							<span x-text="i18n.t('main:title')"></span>
 						</h1>
 					</span>
 					<div id="description">
-						<p>HELLDIVERS™ 2 Stratagem Macros is an AutoHotkey macro script, that will automatically input the correct sequence of keys to call in a stratagem.</p>
-						<p>The script will read the correct keys for each Steam user, requiring zero manual configuration.</p>
-						<p>You can execute these macros either through your own AutoHotKey scripts, or through Elgato Stream Deck.</p>
+						<template x-for="text in i18n.t('main:description').split('\n')">
+							<p x-text="text"></p>
+						</template>
 					</div>
 				</section>
 				<section>
 					<h2 id="installation">Installation</h2>
 					<ol>
-						<li>Ensure <a href="https://www.autohotkey.com" rel="noreferrer" target="_blank">AutoHotkey 2</a> or later is installed.</li>
-						<li>Download the <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" rel="noreferrer" download="Helldivers 2 Macros.ahk" target="_blank">macro script</a> to it's own folder, with nothing else in it. (You may need to right click on the link, and select "Save Link as")</li>
+						<li>Ensure <a href="https://www.autohotkey.com">AutoHotkey 2</a> or later is installed.</li>
+						<li>Download the <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">macro script</a> to it's own folder, with nothing else in it. (You may need to right click on the link, and select "Save Link as")</li>
 					</ol>
 				</section>
 				<section>
 					<h2 id="syntax">Syntax</h2>
-					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order.</p>
+					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order. If an option contains spaces, you must surround it with quotation marks.</p>
 					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] ["generate options.toml"] [delay] [holdDelay] [path] [audio]</code>
-					<p>If an option contains spaces, you must surround it with quotation marks.</p>
 					<ul>
 						<li><code>Stratagem Name</code> - This is the name of a stratagem you wish to use. See the Stratagem list below.</li>
 						<li><code>"update macros"</code> - Enter this verbatim to run the auto updater.</li>
@@ -44,7 +43,6 @@
 						<li><code>holdDelay</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>holdDelay=x</code>, but replace x with a number. Default is 10.</li>
 						<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
 						<li><code>updates</code> - Set this to false, if you want to disable automatic checks for new updates. Type out <code>updates=false</code>. Default is true.</li>
-						<li><code>audio</code> - Set this to a number equal or greater than than your longest audio file, in milliseconds. If you set to less, your audio will be cutoff. Type out <code>audio=x</code>, but replace x with a number. Default is 5000.</li>
 					</ul>
 					<h3>Examples</h3>
 					<ul>
@@ -66,17 +64,13 @@
 								<li><code>holdDelay</code> Change the default delay between key down and key up, in milliseconds.</li>
 								<li><code>steamPath</code> Change the default path to your Steam installation, where the steam.exe is located. Must surround the value in quotation marks.</li>
 								<li><code>updates</code> Change the default for automatic update checking. Set to <code>false</code> to disable.</li>
-								<li><code>audio</code> Change the default delay before exiting the script if audio is playing, in milliseconds.</li>
 							</ul>
 						</div>
 						<div>
-							<pre><code id="optionsExample"
-								class="language-toml" data-filename="options.toml" data-mime="application/toml" dir="ltr"
->delay = 250 # Default 150
-holdDelay = 50 # Default 10
-steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
+							<h3>Example Options.toml file</h3>
+							<pre><code id="optionsExample" class="language-toml" data-filename="options.toml" data-mime="application/toml" dir="ltr"><include src="exampleOptions.toml"></include></code></pre>
 							<div class="justifyEnd">
-								<button x-data="tools" @click="download('optionsExample')">Download</button>
+								<button @click="download('optionsExample')">Download</button>
 							</div>
 						</div>
 					</div>
@@ -109,10 +103,11 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 								<p>Look at <a href="https://www.autohotkey.com/docs/v2/KeyList.htm" rel="noreferrer" target="_blank">AutoHotkey's key list</a> for a complete list of keys that can be bound.</p>
 							</div>
 							<div>
-								<pre><code id="ahkExample" class="language-autohotkey" data-filename="example.ahk" data-mime="application/ahk" dir="ltr"><include src="example.ahk"></include></code>
-								</pre>
+								<h3>Example AutoHotkey script</h3>
+								<pre><code id="ahkExample" class="language-autohotkey" data-filename="example.ahk" data-mime="application/ahk" dir="ltr"
+									><include src="example.ahk"></include></code></pre>
 								<div class="justifyEnd">
-									<button x-data="tools" @click="download('ahkExample')">Download</button>
+									<button @click="download('ahkExample')">Download</button>
 								</div>
 							</div>
 						</div>
@@ -138,7 +133,7 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 					<hr>
 					<details x-data="{input: ''}">
 						<summary>Stratagem list</summary>
-						<p>This is a list of stratagems that the script will accept. Click on one to copy it. This list is up to date with Helldivers 2 version <code x-data="tools" x-text="version"></code>.</p>
+						<p>This is a list of stratagems that the script will accept. Click on one to copy it. This list is up to date with Helldivers 2 version <code x-text="version"></code>.</p>
 						<search>
 							<!-- TODO PicoCSS doesn't reverse the border radius on grouped elements when document is RTL. -->
 							<fieldset role="search">
@@ -156,11 +151,11 @@ steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"</code></pre>
 							</datalist>
 						</search>
 						<p x-init="$el.remove()">Loading Stratagem Data...</p>
-						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input"></p>
+						<p x-show="search()==''" x-text="'Cannot find any results for '+input"></p>
 						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
 						<ul class="minHeight nobullets">
-							<template x-data="tools" x-for="value in search()" :key="value.item.key">
-								<li tabindex="0" aria-role="button" class="stratagem" @click.throttle.6000ms="copyStratagem()" @keydown.enter.throttle.6000ms="copyStratagem()" :style="'--colour:'+border(value.item.type)" :data-key="value.item.key">
+							<template x-for="value in search()" :key="value.item.key">
+								<li tabindex="0" aria-role="button" class="stratagem" :class="value.item.type.reduce((acc, value)=>{return acc + ' ' + value})" @click.throttle.6000ms="copyStratagem()" @keydown.enter.throttle.6000ms="copyStratagem()" :data-key="value.item.key">
 									<template x-if="value.item.icon">
 										<span class="overlay">
 											<img :src="value.item.icon" class="icon" loading="lazy" width="50px" height="50px" :alt="value.item.key + ' icon'">

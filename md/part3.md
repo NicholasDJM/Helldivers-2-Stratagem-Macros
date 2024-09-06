@@ -16,9 +16,9 @@ This script is only for Windows. This script has been tested on Windows 10 22H2,
 
 3. Then, download my script, <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">Helldivers 2 Macros.ahk</a> (Right click on link, and "Save Link as")
 
-4. Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will download and overwrite any file called "version.txt", and any file called "help.html". Make sure not to save any file with those names.
+4. Once my script has downloaded, place it somewhere in it's own folder, alone. Don't put anything else there. The script will modify itself when updating, and also will overwrite any files called "version.txt", "help.html", and "play.ahk". Make sure not to save any file with those names.
 
-5. Finally, run the script without any arguments to read the most up-to-date instructions.
+5. Finally, run the script without any arguments to read the most up-to-date instructions. You can double-click on the file in Windows Explorer to open the instructions.
 
 ## Usage
 

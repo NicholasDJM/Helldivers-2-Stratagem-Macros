@@ -17,7 +17,6 @@
 */
 #Requires AutoHotkey >=2.0
 #SingleInstance
-SendMode "Event"
-; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
+SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
 version := 

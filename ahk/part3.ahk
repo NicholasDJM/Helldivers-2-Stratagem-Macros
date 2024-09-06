@@ -1,5 +1,6 @@
 
 Default:
+	; TODO: Try a fuzzy search, and ask the player if they meant something else.
 	TrayTip("Cannot find `"" . options["stratagem"] . "`" macro. Run the script without any arguments for instructions.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
 }
@@ -9,6 +10,8 @@ Default:
 if (options["updates"] = false) {
 	ExitApp
 }
+
+; TODO Add a check for changelog. Display a short message about what new features are available.
 
 try {
 	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")

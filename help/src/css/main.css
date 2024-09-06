@@ -201,3 +201,17 @@ ul.nobullets li {
 		filter: invert();
 	}
 }
+
+/* Icon border colours, matches in-game colours. */
+.weapon,.backpack,.vehicle {
+	--colour: #2288a7;
+}
+.mission {
+	--colour: #c9b269;
+}
+.eagle:not(.mission),.orbital {
+	--colour: #ba2f23;
+}
+.defense {
+	--colour: #326021;
+}
