@@ -25,14 +25,14 @@
 					</div>
 				</section>
 				<section>
-					<h2 id="installation">Installation</h2>
+					<h2 id="installation" x-text="i18n.t('main:installation')">Installation</h2>
 					<ol>
 						<li>Ensure <a href="https://www.autohotkey.com">AutoHotkey 2</a> or later is installed.</li>
 						<li>Download the <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk">macro script</a> to it's own folder, with nothing else in it. (You may need to right click on the link, and select "Save Link as")</li>
 					</ol>
 				</section>
 				<section>
-					<h2 id="syntax">Syntax</h2>
+					<h2 id="syntax" x-text="i18n.t('main:syntax')">Syntax</h2>
 					<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order. If an option contains spaces, you must surround it with quotation marks.</p>
 					<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] ["generate options.toml"] [delay] [holdDelay] [path] [audio]</code>
 					<ul>
@@ -43,6 +43,7 @@
 						<li><code>holdDelay</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>holdDelay=x</code>, but replace x with a number. Default is 10.</li>
 						<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
 						<li><code>updates</code> - Set this to false, if you want to disable automatic checks for new updates. Type out <code>updates=false</code>. Default is true.</li>
+						<li><code>wait</code> - This delays calling in a stratagem, in milliseconds. Type out <code>wait=x</code>, but replace x with a number. Default is 0.</li>
 					</ul>
 					<h3>Examples</h3>
 					<ul>
@@ -53,17 +54,18 @@
 					</ul>
 				</section>
 				<section>
-					<h2 id="defaults">Changing the Defaults</h2>
+					<h2 id="defaults" x-text="i18n.t('main:defaults')">Changing the Defaults</h2>
 					<div class="grid">
 						<div>
 							<p>The defaults for the arguments can be loaded from a file, instead of specifying them everytime you call the script.</p>
 							<p>You can save a file in the same directory as the script, named <code>options.toml</code>. In this file, you must specify one option per line, followed by an equals sign, then the value.</p>
 							<p>Options can be overridden via command line flags. See Syntax above.</p>
 							<ul>
-								<li><code>delay</code> Change the default delay between different keystrokes, in milliseconds</li>
-								<li><code>holdDelay</code> Change the default delay between key down and key up, in milliseconds.</li>
-								<li><code>steamPath</code> Change the default path to your Steam installation, where the steam.exe is located. Must surround the value in quotation marks.</li>
-								<li><code>updates</code> Change the default for automatic update checking. Set to <code>false</code> to disable.</li>
+								<li><code>delay</code> - Change the default delay between different keystrokes, in milliseconds</li>
+								<li><code>holdDelay</code> - Change the default delay between key down and key up, in milliseconds.</li>
+								<li><code>steamPath</code> - Change the default path to your Steam installation, where the steam.exe is located. Must surround the value in quotation marks.</li>
+								<li><code>updates</code> - Change the default for automatic update checking. Set to <code>false</code> to disable.</li>
+								<li><code>wait</code> - Change the default delay before calling in a stratagem, in milliseconds.</li>
 							</ul>
 						</div>
 						<div>
@@ -76,7 +78,7 @@
 					</div>
 				</section>
 				<section>
-					<h2 id="usage">Usage</h2>
+					<h2 id="usage" x-text="i18n.t('main:usage')">Usage</h2>
 					<details>
 						<summary>Using with Elgato Stream Deck</summary>
 						<div class="grid">

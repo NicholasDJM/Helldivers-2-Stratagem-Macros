@@ -7,6 +7,7 @@
 
 # Maybe
 - Drop PicoCSS in favour of self made CSS
+- Add automatic input of multiple stratagems, by clicking the mouse to throw a stratagem, and calling the next one in, etc.
 
 # Wishful thinking
 - Port to Linux (AutoHotkey is not available on Linux)

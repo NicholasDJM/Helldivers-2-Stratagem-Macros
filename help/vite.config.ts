@@ -5,7 +5,7 @@ import { imagetools } from "vite-imagetools";
 import i18nextLoader from "vite-plugin-i18next-loader";
 import posthtml from "@vituum/vite-plugin-posthtml";
 import prism from "posthtml-prism";
-import toc from "posthtml-toc"; // Note: posthtml-toc README is out of date, had to look into the code to find the correct options to pass to the plugin.
+//import toc from "posthtml-toc"; // Note: posthtml-toc README is out of date, had to look into the code to find the correct options to pass to the plugin.
 import cssShaker from "posthtml-postcss-treeshaker";
 import { posthtmlExternalLink } from "posthtml-external-link";
 
@@ -26,10 +26,11 @@ export default defineConfig({
 		posthtml({ // Enables <include> elements, to include other files directly in HTML.
 			plugins: [
 				prism(), // Parses code elements and generates HTML elements for styling syntax.
-				toc({ // TODO: How to translate headings at build time, so I can continue to use this plugin?
+				/*toc({ // TODO: How to translate headings at build time, so I can continue to use this plugin?
 					after: "#description",
 					title: main.toc
-				}),
+				}),*/
+				// NOTE: Not using the TOC plugin until I can find a way to integrate i18n support.
 				cssShaker(),
 				posthtmlExternalLink(),
 				htmlnano() // Minifies HTML

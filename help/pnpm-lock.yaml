@@ -78,9 +78,6 @@ importers:
       '@types/alpinejs':
         specifier: ^3.13.10
         version: 3.13.10
-      '@types/prismjs':
-        specifier: ^1.26.4
-        version: 1.26.4
 
 packages:
 
@@ -557,9 +554,6 @@ packages:
 
   '@types/node@22.2.0':
     resolution: {integrity: sha512-bm6EG6/pCpkxDf/0gDNDdtDILMOHgaQBVOJGdwsqClnxA3xL6jtMv76rLBc006RVMWbmaf0xbmom4Z/5o2nRkQ==}
-
-  '@types/prismjs@1.26.4':
-    resolution: {integrity: sha512-rlAnzkW2sZOjbqZ743IHUhFcvzaGbqijwOu8QZnZCjfQzBqFE3s4lOTJEsxikImav9uzz/42I+O7YUs1mWgMlg==}
 
   '@vituum/vite-plugin-posthtml@1.1.0':
     resolution: {integrity: sha512-k5lzWzuKBN8z2iYSg9tC/boZRdeySR/GBxfbg2bsDtJW4TsgYml7XUPo9v1yf8oRRPXMse10ka0uX1qhHDVUFQ==}
@@ -1782,8 +1776,6 @@ snapshots:
     dependencies:
       undici-types: 6.13.0
     optional: true
-
-  '@types/prismjs@1.26.4': {}
 
   '@vituum/vite-plugin-posthtml@1.1.0(@types/node@22.2.0)(lightningcss@1.26.0)(terser@5.31.5)':
     dependencies:

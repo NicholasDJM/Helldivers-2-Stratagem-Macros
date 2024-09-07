@@ -39,6 +39,6 @@ Invoke-Script -command "deno run -A .\build.mjs" -message "Failed to build READM
 
 Invoke-Script -command "tar.exe -czf 'Helldivers 2 Macros.ahk.tar.gz' 'Helldivers 2 Macros.ahk'" -message "Failed to compress script."
 
-Write-Output "[32mComplete[0m"
+Write-Output "[32mBuild Complete[0m"
 
 # While I could use the `e escape code for the escape character, it won't show up in CMD.exe. So I'm using the literal escape character in this script.

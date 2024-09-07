@@ -65,7 +65,7 @@ ExitApp
 
 genOptions:
 
-if (!FileExist("./optionas.toml")) {
+if (!FileExist("./options.toml")) {
 	FileAppend("
 (
 delay = 150 # Default is 150

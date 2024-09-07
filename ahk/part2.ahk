@@ -1,30 +1,86 @@
 
 
 options := Map()
-options["timing"] := 150
-options["secondaryTiming"] := 10
+options["timing"] := 150 ; Delay between keys
+options["secondaryTiming"] := 10 ; How long to hold a key
 options["steamPath"] := "C:\Program Files (x86)\Steam"
-options["updates"] := true
+options["updates"] := true, ; Check for updates?
+options["delay"] := 0 ; Delay before sending inputs.
 
+/**
+ * Extract a number value from a TOML file.
+ * @param {String} line
+ * @param {String} key
+ * @returns {Number}
+*/
+tomlReadNumber(line, key) {
+	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
+		return Number(RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$"))
+	}
+}
+/**
+ * Extract a string value from a TOML file.
+ * @param {String} line
+ * @param {String} key
+ * @returns {String}
+*/
+tomlReadString(line, key) {
+	if (RegExMatch(line, "^\s*" . key . "\s*=\s*(`".*`"|'.*')\s*(#.*)?$")) {
+		return RegExReplace(
+				RegExReplace(
+					RegExReplace(
+						line,
+						"\s*" . key . "\s*=\s*"
+					),
+					"^[`"']"
+				),
+				"[`"']\s*(#.*)?$"
+			)
+	}
+}
+/**
+ * Extract a Windows path value from a TOML file.
+ * @param {String} line
+ * @param {String} key
+ * @returns {String}
+*/
+tomlReadPath(line, key) {
+	if (RegExMatch(line, "^\s*" . key . "\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$")) {
+	return RegExReplace(
+			RegExReplace(
+				RegExReplace(
+					line,
+					"\s*" . key . "\s*=\s*"
+				),
+				"^[`"']"
+			),
+			"[`"']\s*(#.*)?$"
+		)
+	}
+}
+/**
+ * Extract a boolean value from a TOML file.
+ * @param {String} line
+ * @param {String} key
+ * @returns {Number}
+*/
+tomlReadBoolean(line, key) {
+	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
+		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$") = "true" ? true : false
+	}
+}
 
 try Loop Read "./options.toml" {
-	if (RegExMatch(A_LoopReadLine, "^delay\s*=\s*\d+\s*(#.*)?$")) {
-		options["timing"] := RegExReplace(RegExReplace(A_LoopReadLine, "^delay\s*=\s*", ""), "\s*#.*$")
-	}
-	if (RegExMatch(A_LoopReadLine, "^holdDelay\s*=\s*\d+\s*(#.*)?$")) {
-		options["secondaryTiming"] := RegExReplace(RegExReplace(A_LoopReadLine, "^holdDelay\s*=\s*", ""), "\s*#.*$")
-	}
-	if (RegExMatch(A_LoopReadLine, "^steamPath\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$")) {
-		; Remember, in AutoHotkey, quotation marks must be escaped with a backtick.
-		options["steamPath"] := RegExReplace(
-				RegExReplace(
-					RegExReplace(A_LoopReadLine, "steamPath\s*=\s*"),
-				"^[`"']"),
-			"[`"']\s*(#.*)?$")
-	}
-	if (RegExMatch(A_LoopReadLine, "^updates\s*=\s*false\s*(#.*)?$")) {
-		options["updates"] := false
-	}
+	options["timing"] := tomlReadNumber(A_LoopReadLine, "delay")
+	options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay")
+	options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath")
+	options["updates"] := tomlReadString(A_LoopReadLine, "updates")
+	options["wait"] := tomlReadNumber(A_LoopReadLine, "wait")
+}
+catch {
+	TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
+	Sleep(5000)
+	ExitApp 1
 }
 
 
@@ -82,6 +138,8 @@ Loop A_Args.Length {
 				;}
 			case "updates":
 				options["updates"] := split[2] = "true" ? true : false
+			case "wait":
+				options["wait"] := split[2]
 			default:
 				TrayTip("`"" . split[1] . "`" is not a valid flag.", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}
@@ -242,6 +300,7 @@ KeyDownUp(key, timing) {
 
 Stratagem(code) {
 	if (WinActive("HELLDIVERS™ 2")) {
+		Sleep(options["wait"])
 		fileExt := [".wav", ".mp3"]
 		for ext in FileExt {
 			if (FileExist(userinput . ext)) {
