@@ -312,7 +312,7 @@ KeyDownUp(key, timing) {
 
 
 Stratagem(code) {
-	if (true){ ;WinActive("HELLDIVERS™ 2")) {
+	if (WinActive("HELLDIVERS™ 2")) {
 		Sleep(options["wait"])
 		fileExt := [".wav", ".mp3"]
 		for ext in FileExt {
