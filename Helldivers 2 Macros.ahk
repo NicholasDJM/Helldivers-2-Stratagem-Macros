@@ -25,7 +25,7 @@ options["timing"] := 150 ; Delay between keys
 options["secondaryTiming"] := 10 ; How long to hold a key
 options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true, ; Check for updates?
-options["delay"] := 0 ; Delay before sending inputs.
+options["wait"] := 0 ; Delay before sending inputs.
 /**
  * Extract a number value from a TOML file.
  * @param {String} line Line of text to search in.
@@ -35,7 +35,7 @@ options["delay"] := 0 ; Delay before sending inputs.
 */
 tomlReadNumber(line, key, default) {
 	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
-		return Number(RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$"))
+		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*(#.*)?$")
 	} else {
 		return default
 	}
@@ -184,7 +184,6 @@ Translate(key) {
 	}
 }
 state := "findstratagem"
-MsgBox(options["steamPath"])
 configFile := options["steamPath"] . "\userdata\" . SteamID . "\553850\remote\input_settings.config"
 key_found_up := false
 key_found_down := false
