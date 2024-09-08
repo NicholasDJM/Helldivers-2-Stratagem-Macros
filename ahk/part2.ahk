@@ -9,22 +9,26 @@ options["delay"] := 0 ; Delay before sending inputs.
 
 /**
  * Extract a number value from a TOML file.
- * @param {String} line
- * @param {String} key
+ * @param {String} line Line of text to search in.
+ * @param {String} key Key to search for.
+ * @param {Any} default Value to return if cannot find a match.
  * @returns {Number}
 */
-tomlReadNumber(line, key) {
+tomlReadNumber(line, key, default) {
 	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
 		return Number(RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$"))
+	} else {
+		return default
 	}
 }
 /**
  * Extract a string value from a TOML file.
- * @param {String} line
- * @param {String} key
+ * @param {String} line Line of text to search in.
+ * @param {String} key Key to search for.
+ * @param {Any} default Value to return if cannot find a match.
  * @returns {String}
 */
-tomlReadString(line, key) {
+tomlReadString(line, key, default) {
 	if (RegExMatch(line, "^\s*" . key . "\s*=\s*(`".*`"|'.*')\s*(#.*)?$")) {
 		return RegExReplace(
 				RegExReplace(
@@ -36,46 +40,54 @@ tomlReadString(line, key) {
 				),
 				"[`"']\s*(#.*)?$"
 			)
+	} else {
+		return default
 	}
 }
 /**
  * Extract a Windows path value from a TOML file.
- * @param {String} line
- * @param {String} key
+ * @param {String} line Line of text to search in.
+ * @param {String} key Key to search for.
+ * @param {Any} default Value to return if cannot find a match.
  * @returns {String}
 */
-tomlReadPath(line, key) {
+tomlReadPath(line, key, default) {
 	if (RegExMatch(line, "^\s*" . key . "\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$")) {
-	return RegExReplace(
-			RegExReplace(
+		return RegExReplace(
 				RegExReplace(
-					line,
-					"\s*" . key . "\s*=\s*"
+					RegExReplace(
+						line,
+						"\s*" . key . "\s*=\s*"
+					),
+					"^[`"']"
 				),
-				"^[`"']"
-			),
-			"[`"']\s*(#.*)?$"
-		)
+				"[`"']\s*(#.*)?$"
+			)
+	} else {
+		return default
 	}
 }
 /**
  * Extract a boolean value from a TOML file.
- * @param {String} line
- * @param {String} key
+ * @param {String} line Line of text to search in.
+ * @param {String} key Key to search for.
+ * @param {Any} default Value to return if cannot find a match.
  * @returns {Number}
 */
-tomlReadBoolean(line, key) {
+tomlReadBoolean(line, key, default) {
 	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
 		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$") = "true" ? true : false
+	} else {
+		return default
 	}
 }
 
 try Loop Read "./options.toml" {
-	options["timing"] := tomlReadNumber(A_LoopReadLine, "delay")
-	options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay")
-	options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath")
-	options["updates"] := tomlReadString(A_LoopReadLine, "updates")
-	options["wait"] := tomlReadNumber(A_LoopReadLine, "wait")
+	options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
+	options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
+	options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])
+	options["updates"] := tomlReadString(A_LoopReadLine, "updates", options["updates"])
+	options["wait"] := tomlReadNumber(A_LoopReadLine, "wait", options["wait"])
 }
 catch {
 	TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
@@ -182,6 +194,7 @@ Translate(key) {
 }
 
 state := "findstratagem"
+MsgBox(options["steamPath"])
 
 configFile := options["steamPath"] . "\userdata\" . SteamID . "\553850\remote\input_settings.config"
 
@@ -299,7 +312,7 @@ KeyDownUp(key, timing) {
 
 
 Stratagem(code) {
-	if (WinActive("HELLDIVERS™ 2")) {
+	if (true){ ;WinActive("HELLDIVERS™ 2")) {
 		Sleep(options["wait"])
 		fileExt := [".wav", ".mp3"]
 		for ext in FileExt {

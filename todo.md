@@ -4,6 +4,7 @@
 	(What about different models of Stream Deck? I only have Stream Deck Mini.)
 - Redo help.html stratagem list to be more accessible (make it semantically correct).
 - Redo help.html stratagem copy animation.
+- Create backup when updating. If an error occurs, revert to old version, disable auto updates, and inform user.
 
 # Maybe
 - Drop PicoCSS in favour of self made CSS
