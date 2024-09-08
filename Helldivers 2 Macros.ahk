@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := 31
+version := 32
 options := Map()
 options["timing"] := 150 ; Delay between keys
 options["secondaryTiming"] := 10 ; How long to hold a key
@@ -100,17 +100,18 @@ tomlReadBoolean(line, key, default) {
 		return default
 	}
 }
-try Loop Read "./options.toml" {
-	options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
-	options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
-	options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])
-	options["updates"] := tomlReadString(A_LoopReadLine, "updates", options["updates"])
-	options["wait"] := tomlReadNumber(A_LoopReadLine, "wait", options["wait"])
-}
-catch {
-	TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
-	Sleep(5000)
-	ExitApp 1
+if (FileExist("./options.toml")) {
+	try Loop Read "./options.toml" {
+		options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
+		options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
+		options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])
+		options["updates"] := tomlReadString(A_LoopReadLine, "updates", options["updates"])
+		options["wait"] := tomlReadNumber(A_LoopReadLine, "wait", options["wait"])
+	}
+	catch {
+		TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
+		Sleep(5000)
+	}
 }
 options["stratagem"] := "initial"
 appname := "Helldivers 2 Macros"

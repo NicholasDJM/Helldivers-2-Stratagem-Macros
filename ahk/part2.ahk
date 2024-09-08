@@ -81,18 +81,20 @@ tomlReadBoolean(line, key, default) {
 		return default
 	}
 }
-
-try Loop Read "./options.toml" {
-	options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
-	options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
-	options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])
-	options["updates"] := tomlReadString(A_LoopReadLine, "updates", options["updates"])
-	options["wait"] := tomlReadNumber(A_LoopReadLine, "wait", options["wait"])
-}
-catch {
-	TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
-	Sleep(5000)
-	ExitApp 1
+if (FileExist("./options.toml")) {
+	try Loop Read "./options.toml" {
+		; TODO: Replace variable assignment with function. Function should automatically assign variable if key is found in options.toml. Solves empty assign (default arg).
+		options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
+		options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
+		options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])
+		options["updates"] := tomlReadString(A_LoopReadLine, "updates", options["updates"])
+		options["wait"] := tomlReadNumber(A_LoopReadLine, "wait", options["wait"])
+	}
+	catch {
+		TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
+		Sleep(5000)
+		ExitApp
+	}
 }
 
 
