@@ -1,3 +1,5 @@
 delay = 250 # Default 150
 holdDelay = 50 # Default 10
 steamPath = "D:\Steam" # Default "C:\Program Files (x86)\Steam"
+updates = false # Default is true
+wait = 1000 # Default 0

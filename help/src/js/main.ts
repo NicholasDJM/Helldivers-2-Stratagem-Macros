@@ -59,7 +59,7 @@ Alpine.data("tools", () => ({
 		// TODO: I should rewrite this to use bubbling.
 		const timing = 7000; // Minimum 2000
 		navigator.clipboard
-			.writeText('"' + this.$el.textContent + '"')
+			.writeText('"' + this.$el.dataset.key + '"')
 			.then(() => {
 				this.$el.classList.add("copy", "fadein");
 				let current = timing - 2000;

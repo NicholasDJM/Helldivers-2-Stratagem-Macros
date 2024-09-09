@@ -20,7 +20,7 @@
 	&.key {
 		color: rgb(0 127 255);
 	}
-	&.function {
+	&.function,&.boolean {
 		color: rgb(150, 0, 0);
 	}
 }
@@ -44,7 +44,7 @@
 		&.keyword {
 			color: rgb(166 115 162 / 1)
 		}
-		&.function {
+		&.function,&.boolean {
 			color: rgb(255, 54, 54);
 		}
 	}
