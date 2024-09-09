@@ -1,4 +1,25 @@
+/*
+    Automatically enters stratagem codes for Helldivers 2
+    Copyright (C) 2024  Nicholas Miller
 
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published
+    by the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+#Requires AutoHotkey >=2.0
+#SingleInstance
+SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
+SetWorkingDir A_ScriptDir
+version := !INJECT(version)
 
 options := Map()
 options["timing"] := 150 ; Delay between keys
@@ -372,3 +393,103 @@ userinput := StrReplace(userinput, "anti personal minefield", "anti personnel mi
 ; Ditto
 
 Switch userinput {
+!INJECT(stratagems)
+Default:
+	; TODO: Try a fuzzy search, and ask the player if they meant something else.
+	TrayTip("Cannot find `"" . options["stratagem"] . "`" macro. Run the script without any arguments for instructions.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
+	Sleep(5000)
+}
+
+
+
+if (options["updates"] = false) {
+	ExitApp
+}
+
+; TODO Add a check for changelog. Display a short message about what new features are available.
+
+try {
+	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
+	try {
+		new:=FileRead("./version.txt")
+		if (Number(new) > version) {
+			TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, TrayEnums["Info"]+TrayEnums["LargeIcon"])
+			Sleep(5000)
+		}
+	} catch {
+		TrayTip("Could not read version file.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+		Sleep(5000)
+	}
+} catch {
+	TrayTip("Could not retrieve latest version.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
+	Sleep(5000)
+}
+ExitApp
+
+update:
+
+releaseType := RegExMatch(A_ScriptName, "\.exe$") > 0 ? "exe" : "ahk"
+; Which release should we target? The script, or the executable?
+
+fileLocation := releaseType = "exe" ? 
+	"https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers 2 Macros.ahk.tar.gz"
+  : "https://github.com/NicholasDJM/Helldivers-2-Stratagem-Macros/releases/download/v" . version . "/Helldivers 2 Macros.exe"
+
+try {
+	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/version.txt", "./version.txt")
+	try {
+		new := FileRead("./version.txt")
+		if (Number(new) > version) {
+			try {
+				Download(fileLocation, A_ScriptName . ".tar.gz")
+				RunWait("tar.exe -xzf 'Helldivers 2 Macros.ahk.tar.gz'")
+			} catch error {
+				MsgBox("Could not download update.",appname,MsgBoxEnums["Error"])
+			}
+		} else {
+			MsgBox("You already have the latest version.",appname,MsgBoxEnums["Info"])
+		}
+	} catch {
+		MsgBox("Could not read version file.",appname,MsgBoxEnums["Error"])
+	}
+} catch {
+	MsgBox("Could not retrieve latest version.",appname,MsgBoxEnums["Error"])
+}
+ExitApp
+
+
+genOptions:
+
+if (!FileExist("./options.toml")) {
+	FileAppend("
+(
+delay = 150 # Default is 150
+holdDelay = 10 # Default is 10
+steamPath = "C:\Program Files (x86)\Steam" # Default "C:\Program Files (x86)\Steam"
+updates = true # Default is true
+audio = 5000 # Default is 5000
+)", "options.toml")
+} else {
+	MsgBox("Cannot generate options file, file already exists.", appname, MsgBoxEnums["Error"])
+}
+
+ExitApp
+
+
+help:
+
+html := "
+(
+!INJECT(html)
+)"
+
+try {
+	FileDelete("./help.html")
+}
+try {
+	FileEncoding("UTF-8")
+	try FileAppend(html, "./help.html")
+	try Run("help.html")
+}
+
+ExitApp

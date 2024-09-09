@@ -3,6 +3,7 @@ import { join } from "node:path"
 import { cwd } from "node:process";
 import { stratagems } from "../help/src/js/stratagems.js"
 import { EOL } from "node:os";
+import { replaceInjectKeyword } from "./inject.mjs";
 
 // Constructs the AutoHotkey script, using dynamic data, including the version number, and the entire list of Stratagems.
 
@@ -15,10 +16,7 @@ function read(...p) {
 	return readFileSync(join(cwd(),...p)).toString("utf8")
 }
 
-const part1 = read("part1.ahk"),
-	part2 = read("part2.ahk"),
-	part3 = read("part3.ahk"),
-	part4 = read("part4.ahk"),
+const template = read("Helldivers 2 Macros.ahk"),
 	version = read("..","version.txt"),
 	html = read("..","help","dist","index.html").replaceAll("`","``"), // Must escape backticks.
 	formattedStratagems = stratagems.map(item => 
@@ -48,11 +46,13 @@ for (const line of html.split(EOL)) {
 	if (/^\s*\)".*/.test(line)) throw new Error("Cannot process file. AutoHotkey script will crash. If a line starts with `)\"`, it will prematurely end multiline variables. Not compiling.")
 }
 
-let file = part1 + version + part2 + formattedStratagems + part3 + html + part4,
+let file = replaceInjectKeyword(template, {
+		html,
+		version,
+		stratagems: formattedStratagems
+	}),
 	lines = file.split(EOL),
 	multilineComment = false;
-
-// TODO: Instead of manually importing ahk partials, parse for inject comments, thus making injection of content dynamic.
 
 // This sections removes empty lines, single line comments, and JSDoc comments from AutoHotkey scripts, but leaves multiline comments alone.
 // However, if a single line comment comes after some code on the same line, it's not removed.
