@@ -17,7 +17,8 @@
 */
 #Requires AutoHotkey >=2.0
 #SingleInstance
-SendMode "Event" ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
+SendMode "Event"
+; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
 version := !INJECT(version)
 
@@ -167,10 +168,6 @@ Loop A_Args.Length {
 				options["secondaryTiming"] := split[2]
 			case "path":
 				options["steamPath"] := RegExReplace(RegExReplace(split[2], "^[`"']"), "[`"']$")
-				; This doesn't work. Strings don't have a length property.
-				;if (options["steamPath"][options["steamPath"].Length] = "\") { ; Remove trailing backslash.
-					;options["steamPath"] := SubStr(options["steamPath"], 1 options["steamPath"].Length - 1)
-				;}
 			case "updates":
 				options["updates"] := split[2] = "true" ? true : false
 			case "wait":
