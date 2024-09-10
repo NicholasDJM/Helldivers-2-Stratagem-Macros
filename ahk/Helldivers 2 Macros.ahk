@@ -157,6 +157,8 @@ if (A_Args.Length = 0) {
 	goto help
 }
 
+; TODO Move argument parser to it's own function.
+
 Loop A_Args.Length {
 	split := StrSplit(A_Args[A_Index], "=")
 	if split.Length > 1 {

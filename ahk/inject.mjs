@@ -4,8 +4,6 @@
  * ```ts
  * 	findInjectAndReplace("!INJECT(test) World", {test: "Hello"}) // Returns "Hello World"
  * ```
- * **DO NOT EXECUTE WITH USER DATA** This function makes no attempts to sanitize inputs.  
- * This functions makes use of `variable[userinput]` syntax, which can escape expected scope.
  * @param {string} text - The input text containing !INJECT() keyword.
  * @param {Object<string, *>} vars - The variables to inject.
  * @returns {string} The modified text with inject keywords replaced.
@@ -14,6 +12,13 @@ export function replaceInjectKeyword(text, vars) {
 	const injectText = "!INJECT(";
 	let limit = text.split(injectText).length - 1;
 	let result = text;
+
+	let safeVars = Object.create(null)
+	for (let key in vars) {
+		if (vars.hasOwnProperty(key)) {
+			safeVars[key] = vars[key]
+		}
+	}
 	
 	while (limit > 0) {
 		let start = result.indexOf(injectText);
@@ -23,7 +28,7 @@ export function replaceInjectKeyword(text, vars) {
 		if (end === -1) break;
 		
 		let key = result.slice(start + injectText.length, end);
-		let value = vars[key] !== undefined ? vars[key] : "";
+		let value = safeVars[key] !== undefined ? safeVars[key] : "";
 		
 		result = result.slice(0, start) + value + result.slice(end + 1);
 
