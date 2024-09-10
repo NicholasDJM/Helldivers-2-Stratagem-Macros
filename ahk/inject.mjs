@@ -2,7 +2,7 @@
  * Finds and replaces special `!INJECT()` keywords in the given text.  
  * Example:
  * ```ts
- * 	findInjectAndReplace("!INJECT(test) World", {test: "Hello"}) // Returns "Hello World"
+ * 	replaceInjectKeyword("!INJECT(test) World", {test: "Hello"}) // Returns "Hello World"
  * ```
  * @param {string} text - The input text containing !INJECT() keyword.
  * @param {Object<string, *>} vars - The variables to inject.
