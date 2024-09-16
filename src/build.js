@@ -1,29 +1,23 @@
-import { readFileSync, writeFileSync } from "node:fs"
+import { writeFileSync } from "node:fs"
 import { join } from "node:path"
-import { cwd } from "node:process";
+import { cwd, env } from "node:process";
 import { stratagems } from "../help/src/js/stratagems.js"
 import { EOL } from "node:os";
-import { replaceInjectKeyword } from "./inject.mjs";
+import { includeFile, replaceInjectKeyword } from "./inject.js";
+import { read } from "./read.js";
+import { langLong } from "./lang.js";
 
 // Constructs the AutoHotkey script, using dynamic data, including the version number, and the entire list of Stratagems.
 
-/**
- * Read file contents. Path is relative to the current working directory.
- * @param {string[]} p
- * @returns {string}
- */
-function read(...p) {
-	return readFileSync(join(cwd(),...p)).toString("utf8")
-}
+
 
 const template = read("Helldivers 2 Macros.ahk"),
-	version = read("..","version.txt"),
 	html = read("..","help","dist","index.html").replaceAll("`","``"), // Must escape backticks.
 	formattedStratagems = stratagems.map(item => 
 		`${EOL
 		}Case "${item.key.toLowerCase().replace("-", " ")}":${EOL
 		}\tStratagem(${JSON.stringify(item.code)})`)
-		.join('');
+		.join('')
 
 for (const line of html.split(EOL)) {
 	/*
@@ -46,11 +40,14 @@ for (const line of html.split(EOL)) {
 	if (/^\s*\)".*/.test(line)) throw new Error("Cannot process file. AutoHotkey script will crash. If a line starts with `)\"`, it will prematurely end multiline variables. Not compiling.")
 }
 
-let file = replaceInjectKeyword(template, {
-		html,
-		version,
-		stratagems: formattedStratagems
-	}),
+
+let file = includeFile(
+		replaceInjectKeyword(template, {
+			html,
+			stratagems: formattedStratagems,
+			language: langLong
+		})
+	),
 	lines = file.split(EOL),
 	multilineComment = false;
 
@@ -63,8 +60,9 @@ for (let i = 0; i < lines.length; i++) {
 		jsDocComment = "\\s*\\/\\*\\*.*",
 		jsDocMiddle = "\\s*\\*.*",
 		multilineCommentEnd = ".*\\*\\/.*",
-		shouldRemoveLine = RegExp(`^(${ahkComment}|${emptyLine}|${jsDocComment}|${jsDocMiddle}|${multilineCommentEnd})$`),
-		isMultiLine = RegExp("^\\s*\\/\\*(?!\\*).*"); // Why is regex so god damn hard?! Thank you, AI chat bots for fixing this for me! I'm never touching this code again.
+		removeLineComment = ".*;!REMOVE().*", // Add ;!REMOVE() to any line to remove it from the final build.
+		shouldRemoveLine = RegExp(`^(${ahkComment}|${emptyLine}|${jsDocComment}|${jsDocMiddle}|${multilineCommentEnd}|${removeLineComment})$`),
+		isMultiLine = RegExp("^\\s*\\/\\*(?!\\*).*") // Why is regex so god damn hard?! Thank you, AI chat bots for fixing this for me! I'm never touching this code again.
 	if (!multilineComment) {
 		if (isMultiLine.test(lines[i])) {
 			multilineComment = true;
@@ -79,4 +77,4 @@ for (let i = 0; i < lines.length; i++) {
 }
 file = lines.join(EOL)
 
-writeFileSync(join(cwd(), "..", "Helldivers 2 Macros.ahk"), file)
+writeFileSync(join(cwd(), "..", "dist", `Helldivers 2 Macros.${language}.ahk`), file)

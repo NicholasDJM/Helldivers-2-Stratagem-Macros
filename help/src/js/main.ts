@@ -1,59 +1,18 @@
 import Alpine from "alpinejs";
 globalThis.Alpine = Alpine;
 import Fuse from "fuse.js";
-import "@picocss/pico/css/pico.amber.min.css";
-import "/css/main.css";
-import "/css/highlight.css";
-import { stratagems, version } from "./stratagems.js";
-import { Base64 } from "base64-string";
-import i18n, { type InitOptions } from "i18next";
-//@ts-expect-error Module is virtual module, typing is not available.
-import resources from "virtual:i18next-loader";
-
-const i18nextOptions: InitOptions = {
-	lng: "en",
-	resources,
-};
-
-i18n.init(i18nextOptions);
-globalThis.i18n = i18n;
-
-// TODO: Move base64 encoding to build step.
-// TODO: Import example.ahk in build step.
-// TODO: Setup i18n
-
-/**
- * An element that derives from the HTMLElement interface, but without implementing any additional properties or methods.
- *
- * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/code)
- */
-interface HTMLCodeElement extends HTMLElement {}
-
-function download(data: string, filename: string, mime = "text/plain") {
-	const a = document.createElement("a");
-	a.setAttribute("href", `data:${mime};base64,${new Base64().encode(data)}`);
-	a.setAttribute("download", filename);
-	document.body.append(a);
-	a.click();
-	a.remove();
-}
+import { stratagems } from "./stratagems.js";
 
 const fuse = new Fuse(stratagems, {
 	keys: ["key", "type"],
 	threshold: 0.4,
 });
 Alpine.data("tools", () => ({
-	version,
-	download(id: string) {
-		const codeElement = document.querySelector("#" + id) as HTMLCodeElement,
-			filename = codeElement.dataset.filename || "",
-			mime = codeElement.dataset.mime,
-			data = codeElement.textContent || "";
-		download(data, filename, mime);
-	},
 	search() {
+		this.$el.scrollIntoView(true);
 		if (this.$data.input) return fuse.search(this.$data.input);
 		return stratagems.map((item, refIndex) => ({ item, refIndex }));
+		// TODO: Remove stratagems import, and collect stratagems from HTML instead (data is generated at build step)
 	},
 	copyStratagem() {
 		// TODO: I should rewrite this to use bubbling.
@@ -98,7 +57,7 @@ Alpine.data("tools", () => ({
 							if (this.$el) {
 								// MUST check if element exists. Users can search, and Alpine will delete/add elements.
 								this.$el.classList.remove("fadeout", "copy");
-								element.textContent = element.dataset.original;
+								element.textContent = this.$el.dataset.key;
 							}
 							clearInterval(timer);
 						}, 250);

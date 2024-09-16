@@ -1,0 +1,5 @@
+{
+	appname: "HELLDIVERS™ 2 Stratagem Macros",
+	invalidOptions: '"Invalid `"options.toml`" file. Cannot parse file."',
+	
+}

@@ -15,12 +15,15 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+#Include "dummy.ahk" ;!REMOVE()
+#Include "toml.ahk" ;!REMOVE()
 #Requires AutoHotkey >=2.0
 #SingleInstance
 SendMode "Event"
 ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
-version := !INJECT(version)
+version := !INCLUDE("../version.txt")
+; TODO: Once the new localization update is available, this version variable won't be needed.
 
 options := Map()
 options["timing"] := 150 ; Delay between keys
@@ -28,81 +31,9 @@ options["secondaryTiming"] := 10 ; How long to hold a key
 options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true, ; Check for updates?
 options["wait"] := 0 ; Delay before sending inputs.
+options["language"] := !INJECT("language")
 
-/**
- * Extract a number value from a TOML file.
- * @param {String} line Line of text to search in.
- * @param {String} key Key to search for.
- * @param {Any} default Value to return if cannot find a match.
- * @returns {Number}
-*/
-tomlReadNumber(line, key, default) {
-	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
-		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*(#.*)?$")
-	} else {
-		return default
-	}
-}
-/**
- * Extract a string value from a TOML file.
- * @param {String} line Line of text to search in.
- * @param {String} key Key to search for.
- * @param {Any} default Value to return if cannot find a match.
- * @returns {String}
-*/
-tomlReadString(line, key, default) {
-	if (RegExMatch(line, "^\s*" . key . "\s*=\s*(`".*`"|'.*')\s*(#.*)?$")) {
-		return RegExReplace(
-				RegExReplace(
-					RegExReplace(
-						line,
-						"\s*" . key . "\s*=\s*"
-					),
-					"^[`"']"
-				),
-				"[`"']\s*(#.*)?$"
-			)
-	} else {
-		return default
-	}
-}
-/**
- * Extract a Windows path value from a TOML file.
- * @param {String} line Line of text to search in.
- * @param {String} key Key to search for.
- * @param {Any} default Value to return if cannot find a match.
- * @returns {String}
-*/
-tomlReadPath(line, key, default) {
-	if (RegExMatch(line, "^\s*" . key . "\s*=\s*(`"[a-zA-Z]:\\.+`"|'[a-zA-Z]:\\.+')\s*(#.*)?$")) {
-		return RegExReplace(
-				RegExReplace(
-					RegExReplace(
-						line,
-						"\s*" . key . "\s*=\s*"
-					),
-					"^[`"']"
-				),
-				"[`"']\s*(#.*)?$"
-			)
-	} else {
-		return default
-	}
-}
-/**
- * Extract a boolean value from a TOML file.
- * @param {String} line Line of text to search in.
- * @param {String} key Key to search for.
- * @param {Any} default Value to return if cannot find a match.
- * @returns {Number}
-*/
-tomlReadBoolean(line, key, default) {
-	if (RegExMatch(line, "^\s*" . key . "\s*=\s*\d+\s*(#.*)?$")) {
-		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$") = "true" ? true : false
-	} else {
-		return default
-	}
-}
+!INCLUDE("./toml.ahk")
 if (FileExist("./options.toml")) {
 	try Loop Read "./options.toml" {
 		; TODO: Replace variable assignment with function. Function should automatically assign variable if key is found in options.toml. Solves empty assign (default arg).
@@ -300,7 +231,7 @@ Loop Read configFile{
 	lastLine := A_LoopReadLine
 }
 } catch {
-	MsgBox("Steam path is incorrect. Are you sure Steam is installed at " . options["steamPath"] . "? " . appname . " will now quit.", appname, MsgBoxEnums["Error"] + MsgBoxEnums["OK"])
+	MsgBox("Steam path is incorrect. Are you sure Steam is installed at `"" . options["steamPath"] . "`"? " . appname . " will now quit.", appname, MsgBoxEnums["Error"] + MsgBoxEnums["OK"])
 	ExitApp(1)
 }
 
@@ -392,7 +323,7 @@ userinput := StrReplace(userinput, "anti personal minefield", "anti personnel mi
 ; Ditto
 
 Switch userinput {
-!INJECT(stratagems)
+!INJECT("stratagems")
 Default:
 	; TODO: Try a fuzzy search, and ask the player if they meant something else.
 	TrayTip("Cannot find `"" . options["stratagem"] . "`" macro. Run the script without any arguments for instructions.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
@@ -422,6 +353,36 @@ try {
 } catch {
 	TrayTip("Could not retrieve latest version.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
+}
+ExitApp
+
+newUpdate:
+
+
+fileLocation := "https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/dist/Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz"
+try {
+	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/dist/updates.txt", "./updates.txt")
+	loop read "updates.txt" {
+		updateLine := StrSplit(A_LoopReadLine, "=")
+		if (updateLine[1] = options["language"]) {
+			Run("cmd /c `"certutil.exe -hashfile " . A_ScriptName . " md5 > hash.txt`"")
+			newHash := updateLine[2]
+			line := 1
+			hash := ""
+			Loop Read "hash.txt" {
+				if (line = 2) {
+					hash := A_LoopReadLine
+					break
+				}
+			}
+
+			if (hash != newHash) {
+				Download(fileLocation, "Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz")
+				RunWait("tar.exe -xzf 'Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz")
+				FileMove("Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz", "Helldivers 2 Macros.ahk", true)
+			}
+		}
+	}
 }
 ExitApp
 
@@ -479,7 +440,7 @@ help:
 
 html := "
 (
-!INJECT(html)
+!INJECT("html")
 )"
 
 try {

@@ -1,6 +1,6 @@
-/.vscode
+.vscode/settings.json
 node_modules
-dist
+/help/dist
 .wireit
 help.html
 options.toml

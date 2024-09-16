@@ -1,5 +1,9 @@
 :root {
 	scroll-behavior: smooth;
+	color-scheme: light dark;
+}
+[x-cloak] {
+	display: none !important;
 }
 .copy {
 	--distance: 10px;
@@ -144,6 +148,9 @@ ul.nobullets li {
 	outline: 2px solid var(--pico-primary-border);
 	transition: background-image 500ms;
 }
+.stratagemNoScript {
+	padding: 0.25rem;
+}
 .toolbar {
 	display: flex;
 	gap: 0.5rem;
@@ -214,4 +221,31 @@ ul.nobullets li {
 }
 .defense {
 	--colour: #326021;
+}
+.title {
+	font-size: 30px;
+	font-weight: 800;
+	color: light-dark(black,white);
+	text-wrap:balance;
+}
+.mobile img{
+	width: 200px;
+}
+@media screen and (width < 700px) {
+	.mobile {
+		display: grid;
+		grid-template-rows: auto auto;
+		justify-content: center;
+	}
+	.mobile .title{
+		font-size: 20px;
+	}
+	.mobile img {
+		width: 100px;
+		object-fit: scale-down;
+	}
+	.mobileCenter {
+		display: flex;
+		justify-content: center;
+	}
 }

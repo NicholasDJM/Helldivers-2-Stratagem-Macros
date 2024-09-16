@@ -10,7 +10,7 @@
 const wiki = "https://helldivers.wiki.gg/images";
 
 /** Game version that the Stratagem list is aligned with. */
-export const version = "01.001.005",
+export const version = "01.001.007",
 	/**
 	 * Complete list of all Stratagems currently available in Helldivers 2.
 	 * Each one has a `code` property, a series of directional inputs, which is used to generate Case statements in the AutoHotkey script.

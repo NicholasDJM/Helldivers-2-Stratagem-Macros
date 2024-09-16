@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang='!INJECT("lang")' dir='!INJECT("dir")'>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="https://cdn2.steamgriddb.com/icon/0ec73496338b196fb1394ea142533248/32/256x256.png" type="image/png">
+		<title><Block name="title">HELLDIVERS™ 2 Stratagem Macros</Block></title>
+		<link rel="stylesheet" href="@picocss/pico/css/pico.amber.min.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/highlight.css">
+		<script type="module" src="js/main.ts"></script>
+	</head>
+	<body>
+		<a href="#top">
+			<button><Block name="back-to-top">Back to Top</Block></button>
+		</a>
+		<header>
+			<nav class="container-fluid mobile">
+				<ul>
+					<li class="centerText title">
+						<block name="logo">
+						</block>
+					</li>
+				</ul>
+				<ul class="mobileCenter">
+					<li><a href="#about">
+						<block name="nav-about">
+							About
+						</block>
+						</a></li>
+					<li><a href="#install">
+						<block name="nav-install">
+							Installation
+						</block>
+					</a>
+					</li>
+					<li><a href="#usage">
+						<block name="nav-usage">
+							Usage
+						</block>
+					</a></li>
+					<li>
+						<!-- TODO: This will lead to github.io docs site. -->
+						<details class="dropdown">
+							!INJECT("languageSwitch")
+						</details>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main class="container-fluid">
+			<article id="about">
+				<section>
+					<h1><block name="about-title"></block></h1>
+					<block name="about">
+					</block>
+				</section>
+			</article>
+			<article id="install">
+				<section>
+					<h2><block name="install-title"></block></h2>
+					<block name="install">
+					</block>
+				</section>
+				<section>
+					<h3><block name="syntax-title"></block></h3>
+					<block name="syntax">
+					</block>
+				</section>
+			</article>
+			<article id="usage">
+				<section>
+					<h2><block name="usage-title"></block></h2>
+					<details id="deck-howto">
+							<summary><block name="usage-deck-title"></block></summary>
+							<div class="grid">
+								<div>
+									<block name="usage-deck">
+									</block>
+								</div>
+								<div class="center">
+									<block name="usage-deck-image">
+									</block>
+								</div>
+							</div>
+					</details>
+					<hr>
+					<details id="ahk-howto">
+						<summary><block name="usage-ahk-title"></block></summary>
+						<div class="grid">
+							<div>
+								<block name="usage-ahk">
+								</block>
+							</div>
+							<div>
+								<h3><block name="usage-ahk-example-title"></block></h3>
+								<pre><code id="ahkExample" class="language-autohotkey" data-filename="example.ahk" data-mime="application/ahk" dir="ltr"
+									><include src="example.ahk"></include></code></pre>
+								<div class="justifyEnd">
+									<a href='!INJECT("ahkExample")'><button>
+										<block name="usage-ahk-example-download"></block>
+									</button></a>
+								</div>
+							</div>
+						</div>
+					</details>
+					<hr>
+					<details id="audio-howto">
+						<block name="usage-audio">
+							<summary>Playing Audio Files</summary>
+							<div class="grid">
+								<div>
+									<p>You can have an audio file play automatically whenever you call in a stratagem. It can either be a <code>.wav</code> or <code>.mp3</code> file.</p>
+									<p>Name the file exactly like the stratagem name you wish to call in, and it will be played automatically. You can use the list below, but don't use quotation marks.</p>
+								</div>
+								<div class="center">
+									<picture>
+										<source srcset="images/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
+										<img src="images/ExampleAudioFileUsageDark.webp" width="402" height="89"
+											alt="Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;."
+										/>
+									</picture>
+								</div>
+							</div>
+						</block>
+					</details>
+					<hr>
+					<details x-data="{input: ''}" id="stratagems">
+						<summary><block name="usage-stratagems-title"></block></summary>
+						<block name="usage-stratagems">
+						</block>
+						<search x-cloak>
+							<!-- TODO PicoCSS doesn't reverse the border radius on grouped elements when document is RTL. -->
+							<fieldset role="search">
+								<template x-ref="search"><block name="search"></block></template>
+								<input type="search" list="category" :placeholder="$refs.search.textContent" :aria-label="$refs.search.textContent" x-model="input"/>
+								<button class="outline" @click="input = ''" id="clear-button"><block name="search-clear"></block></button>
+							</fieldset>
+							<datalist id="category">
+								<block name="search-categories">
+								</block>
+							</datalist>
+						</search>
+						<noscript>
+							<ul class="nobullets">
+								<include src="./html/stratagems.html"></include>
+							</ul>
+						</noscript>
+						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input"></p>
+						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
+						<ul class="nobullets" x-cloak x-data="tools" id="list">
+							<template x-for="value in search()" :key="value.item.key">
+								<li tabindex="0" aria-role="button" class="stratagem" :class="value.item.type.join(' ')" @click.throttle.6000ms="copyStratagem()" @keydown.enter.throttle.6000ms="copyStratagem()" :data-key='value.item.key'>
+									<template x-if="value.item.icon">
+										<span class="overlay">
+											<img :src="value.item.icon" class="icon" loading="lazy" width="50px" height="50px" :alt='value.item.key + " icon"'>
+										</span>
+									</template>
+									<code spellcheck="false" x-text='value.item.displayName || value.item.key'></code>
+								</li>
+							</template>
+						</ul>
+					</details>
+				</section>
+				<hr>
+				<section>
+					<details>
+							<summary><block name="usage-defaults-title"></block></summary>
+							<div class="grid">
+								<div>
+									<block name="usage-defaults">
+									</block>
+								</div>
+								<div>
+									<h3><block name="usage-defaults-example-title"></block></h3>
+									<pre><code id="optionsExample" class="language-toml" data-filename="options.toml" data-mime="application/toml" dir="ltr"
+										><include src="exampleOptions.toml"></include></code></pre>
+									<div class="justifyEnd">
+										<a href='!INJECT("optionsExample")'><button>
+											<block name="usage-defaults-example-download"></block>
+										</button></a>
+									</div>
+								</div>
+							</div>
+					</details>
+				</section>
+			</article>
+		</main>
+	</body>
+</html>

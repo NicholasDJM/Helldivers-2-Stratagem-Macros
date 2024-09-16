@@ -1,0 +1,10 @@
+{
+	"recommendations": [
+		"adrianwilczynski.alpine-js-intellisense",
+		"sperovita.alpinejs-syntax-highlight",
+		"google.wireit",
+		"biomejs.biome",
+		"editorconfig.editorconfig",
+		"thqby.vscode-autohotkey2-lsp"
+	]
+}

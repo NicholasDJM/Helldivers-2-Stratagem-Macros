@@ -80,7 +80,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `01.001.005`.
+This list is up to date with Helldivers 2 version `01.001.007`.
 
 - Machine Gun
 - Anti-Material Rifle
@@ -119,8 +119,8 @@ This list is up to date with Helldivers 2 version `01.001.005`.
 - Eagle 500kg Bomb
 - Jump Pack
 - Supply Pack
-- Guard Dog Rover
-- Guard Dog
+- "Guard Dog" Rover
+- "Guard Dog"
 - Ballistic Shield Backpack
 - Shield Generator Pack
 - Shield Generator Relay
