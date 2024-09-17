@@ -24,20 +24,13 @@
 				</ul>
 				<ul class="mobileCenter">
 					<li><a href="#about">
-						<block name="nav-about">
-							About
-						</block>
-						</a></li>
+						<block name="nav-about"></block>
+					</a></li>
 					<li><a href="#install">
-						<block name="nav-install">
-							Installation
-						</block>
-					</a>
-					</li>
+						<block name="nav-install"></block>
+					</a></li>
 					<li><a href="#usage">
-						<block name="nav-usage">
-							Usage
-						</block>
+						<block name="nav-usage"></block>
 					</a></li>
 					<li>
 						<!-- TODO: This will lead to github.io docs site. -->
@@ -79,8 +72,9 @@
 									</block>
 								</div>
 								<div class="center">
-									<block name="usage-deck-image">
-									</block>
+									<img alt="!LOCALE('deck-screenshot-alt-description')"
+										height="299px" width="569px" src="images/ExampleUsageWithStreamDeck.webp"
+									/>
 								</div>
 							</div>
 					</details>
@@ -106,23 +100,23 @@
 					</details>
 					<hr>
 					<details id="audio-howto">
-						<block name="usage-audio">
-							<summary>Playing Audio Files</summary>
-							<div class="grid">
-								<div>
+						<summary><block name="usage-audio-title">Playing Audio Files</block></summary>
+						<div class="grid">
+							<div>
+								<block name="usage-audio">
 									<p>You can have an audio file play automatically whenever you call in a stratagem. It can either be a <code>.wav</code> or <code>.mp3</code> file.</p>
 									<p>Name the file exactly like the stratagem name you wish to call in, and it will be played automatically. You can use the list below, but don't use quotation marks.</p>
-								</div>
-								<div class="center">
-									<picture>
-										<source srcset="images/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
-										<img src="images/ExampleAudioFileUsageDark.webp" width="402" height="89"
-											alt="Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;."
-										/>
-									</picture>
-								</div>
+								</block>
 							</div>
-						</block>
+							<div class="center">
+								<picture>
+									<source srcset="images/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
+									<img src="images/ExampleAudioFileUsageDark.webp" width="402" height="89"
+										alt="!LOCALE('audio-screenshot-alt-description')"
+									/>
+								</picture>
+							</div>
+						</div>
 					</details>
 					<hr>
 					<details x-data="{input: ''}" id="stratagems">

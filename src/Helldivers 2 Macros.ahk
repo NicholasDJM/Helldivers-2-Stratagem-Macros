@@ -37,6 +37,7 @@ options["language"] := !INJECT("language")
 if (FileExist("./options.toml")) {
 	try Loop Read "./options.toml" {
 		; TODO: Replace variable assignment with function. Function should automatically assign variable if key is found in options.toml. Solves empty assign (default arg).
+		; TODO: This is broken. Must complete toml.ahk, and switch to `options := parse()`
 		options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
 		options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
 		options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])

@@ -100,6 +100,7 @@
 		"cssnano": "^7.0.6",
 		"fuse.js": "^7.0.0",
 		"htmlnano": "^2.1.1",
+		"i18next": "^23.15.1",
 		"posthtml-noopener": "^1.0.5",
 		"posthtml-postcss-treeshaker": "^0.3.0",
 		"posthtml-prism": "^2.0.1",

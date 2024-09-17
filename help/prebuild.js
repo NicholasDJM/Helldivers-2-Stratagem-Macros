@@ -2,9 +2,12 @@ import { writeFileSync, existsSync } from "node:fs";
 import { cwd, env } from "node:process";
 import { join } from "node:path";
 import { stratagems, version } from "./src/js/stratagems.js"
-import { replaceInjectKeyword, includeFile } from "../src/inject.js";
+import { parse } from "../src/inject.js";
 import { read } from "../src/read.js";
 import { Base64 } from "base64-string";
+import { langLong, langShort } from "../src/lang.js";
+import i18next from "i18next";
+
 
 // Generates a list of stratagems, concatenates files.
 // This is the pre-build script, and must be executed before "vite build"
@@ -14,33 +17,41 @@ import { Base64 } from "base64-string";
 		How do I copy characters that are not ASCII? I can only visually see the characters, and I can't copy/paste.
 */
 
-const lang = env.LANG?.split(".")[0].split("-")[0] || "en",
-	lang2 = env.LANG?.split(".")[0].toLowerCase() || "en-ca";
+i18next.init({ // Only using i18next to get the language writing direction.
+	// Wouldn't need it otherwise. W're not using its translation functions,
+	// As I'm using full HTML files written in each language, rather than key-values.
+	lng: langLong
+})
 
-writeFileSync(join(cwd(), "src", "html", "layout.html"), includeFile(replaceInjectKeyword(read("src", "html", "layout_template.html"), {
+parse("src/html/layout_template.html", "src/html/layout.html", {
 	ahkExample: `data:application/autohotkey;base64,${new Base64().encode(read("example.ahk"))}`,
-	optionsExample: `data:application/toml;base64,${new Base64().encode(read("optionsExample.toml"))}`
-})))
+	optionsExample: `data:application/toml;base64,${new Base64().encode(read("optionsExample.toml"))}`,
+	lang: i18next.language,
+	dir: i18next.dir(),
+	languageSwitch: "" // TODO: languageSwitch, generate list of supported languages, with native names.
+	/*
+		template:
+		<summary>current language</summary>
+		<ul>
+			<li><a href="">List of languages.</a></li>
+		</ul>
+	*/
+	// Hrefs will be blank until I can setup a website with "github.io".
+});
 
 /**
  * @param {string} lang
  */
 function write(lang) {
-	writeFileSync(
-		join(cwd(), "src", "index.html"),
-		replaceInjectKeyword(
-			read("src", "locales", lang+".html"),
-			{
-				version
-			}
-		)
-	)
+	parse(`./src/locales/${lang}.html`, "./src/index.html", {
+		version
+	})
 }
 
-if ( existsSync(join(cwd(), "locales", lang2+".html")) ) {
-	write(lang2) // Check for language-dialect first
-} else if ( existsSync(join(cwd(), "locales", lang+".html")) ) {
-	write(lang) // And then check for language only
+if ( existsSync(join(cwd(), "locales", langLong+".html")) ) {
+	write(langLong)
+} else if ( existsSync(join(cwd(), "locales", langShort+".html")) ) {
+	write(langShort)
 } else {
 	throw new Error("Cannot find HTML file for current language.")
 }
