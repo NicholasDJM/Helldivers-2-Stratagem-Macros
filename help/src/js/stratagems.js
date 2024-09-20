@@ -10,7 +10,7 @@
 const wiki = "https://helldivers.wiki.gg/images";
 
 /** Game version that the Stratagem list is aligned with. */
-export const version = "01.001.005",
+export const version = "01.001.100",
 	/**
 	 * Complete list of all Stratagems currently available in Helldivers 2.
 	 * Each one has a `code` property, a series of directional inputs, which is used to generate Case statements in the AutoHotkey script.
@@ -44,9 +44,7 @@ export const version = "01.001.005",
 		{ key: "Laser Cannon", type: ["weapon", "laser"], icon: wiki+"/c/c3/Laser_Cannon_Stratagem_Icon.png", code: ["down","left","down","up","left"] },
 		{ key: "Arc Thrower", type: ["weapon"], icon: wiki+"/1/10/Arc_Thrower_Stratagem_Icon.png", code: ["down","left","down","up","left","left"] },
 		{ key: "Quasar Cannon", type: ["weapon"], icon: wiki+"/8/87/Quasar_Cannon_Stratagem_Icon.png", code: ["down","down","up","left","right"] },
-		/* Upcoming in the new Warbond: Chemical Agents!
-		{ key: "Sterilizer", type: ["weapon"], code: ["down"]}
-		*/
+		{ key: "Sterilizer", type: ["weapon"], code: ["down", "left", "up", "down", "left"] },
 		// Orbitals
 		{ key: "Orbital Gatling Barrage", type: ["orbital"], icon: wiki+"/f/f6/Orbital_Gatling_Barrage_Stratagem_Icon.png", code: ["right","down","left","up","up"] },
 		{ key: "Orbital Airburst Strike", type: ["orbital"], icon: wiki+"/2/28/Orbital_Airburst_Strike_Stratagem_Icon.png", code: ["right","right","right"] },
@@ -73,9 +71,7 @@ export const version = "01.001.005",
 		{ key: "Supply Pack", type: ["backpack"], icon: wiki+"/6/61/Supply_Pack_Stratagem_Icon.png", code: ["down","left","down","up","up","down"] },
 		{ key: "Guard Dog Rover", type: ["backpack","laser", "guard dog"], icon: wiki+"/6/6f/Guard_Dog_Rover_Stratagem_Icon.png", code: ["down","up","left","up","right","right"], displayName: `"Guard Dog" Rover` },
 		{ key: "Guard Dog", type: ["backpack", "guard dog"], icon: wiki+"/7/73/Guard_Dog_Stratagem_Icon.png", code: ["down","up","left","up","right","down"], displayName: `"Guard Dog"` },
-		/* Upcoming in the new Warbond: Chemical Agents!
-		{ key: "Guard Dog Dog Breath", type: ["backpack", "guard dog"], code: ["down"], displayName: `"Guard Dog" Dog Breath`}
-		*/
+		{ key: "Guard Dog Dog Breath", type: ["backpack", "guard dog"], code: ["down", "up", "left", "up", "right", "up"], displayName: `"Guard Dog" Dog Breath` },
 		{ key: "Ballistic Shield Backpack", type: ["backpack"], icon: wiki+"/3/37/Ballistic_Shield_Backpack_Stratagem_Icon.png", code: ["down","left","down","down","up","left"] },
 		{ key: "Shield Generator Pack", type: ["backpack"], icon: wiki+"/9/99/Shield_Generator_Pack_Stratagem_Icon.png", code: ["down","up","left","right","left","right"] },
 		// Defense

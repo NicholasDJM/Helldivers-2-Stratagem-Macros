@@ -1,4 +1,4 @@
-# HELLDIVERS™ 2 Stratagem Macros ![Version 33](https://img.shields.io/badge/Version-33-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
+# HELLDIVERS™ 2 Stratagem Macros ![Version 34](https://img.shields.io/badge/Version-34-brightgreen?style=plastic) [![License AGPL 3.0](https://img.shields.io/github/license/NicholasDJM/Helldivers-2-Stratagem-Macros?color=blue&style=plastic)](/LICENSE.txt) ![Only for Microsoft Windows](https://img.shields.io/badge/Only%20for-Windows-blue?style=plastic)
 
 This is an AutoHotKey macro script, which can be called to automatically enter any Stratagem code in Helldivers 2.
 
@@ -80,7 +80,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `01.001.005`.
+This list is up to date with Helldivers 2 version `01.001.100`.
 
 - Machine Gun
 - Anti-Material Rifle
@@ -98,6 +98,7 @@ This list is up to date with Helldivers 2 version `01.001.005`.
 - Laser Cannon
 - Arc Thrower
 - Quasar Cannon
+- Sterilizer
 - Orbital Gatling Barrage
 - Orbital Airburst Strike
 - Orbital 120mm HE Barrage
@@ -119,8 +120,9 @@ This list is up to date with Helldivers 2 version `01.001.005`.
 - Eagle 500kg Bomb
 - Jump Pack
 - Supply Pack
-- Guard Dog Rover
-- Guard Dog
+- "Guard Dog" Rover
+- "Guard Dog"
+- "Guard Dog" Dog Breath
 - Ballistic Shield Backpack
 - Shield Generator Pack
 - Shield Generator Relay
