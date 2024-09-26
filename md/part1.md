@@ -1,1 +1,0 @@
-# HELLDIVERS™ 2 Stratagem Macros ![Version 

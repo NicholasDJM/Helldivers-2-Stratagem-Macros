@@ -25,27 +25,7 @@ This script is only for Windows. This script has been tested on Windows 10 22H2,
 ### Using with AutoHotkey
 This AHK script allows you to call your favourite stratagem. You can modify it as you see fit. This particular script will call in the Recoilless Rifle on mouse 4, the Patriot Exosuit on mouse 5, and the Hellbomb on the H key.
 ```ahk
-#Requires AutoHotkey >=2.0
-SendMode "Event"
-SetWorkingDir A_ScriptDir
-macro(stratagem) {
-	if (WinActive("HELLDIVERS™ 2")) {
-		try {
-			Run('"Helldivers 2 Macros.ahk" "' . stratagem . '"')
-		} catch {
-			TrayTip("Could not run Helldivers 2 Macros script.")
-		}
-	}
-}
-XButton1:: { ; Mouse Browser Back button
-	macro("recoilless rifle")
-}
-XButton2:: { ; Mouse Browser Forward button
-	macro("patriot exosuit")
-}
-H:: {
-	macro("hellbomb")
-})
+!INJECT("example")
 ```
 Look at [AutoHotkey's key list](https://www.autohotkey.com/docs/v2/KeyList.htm) for a complete list of keys that can be bound.
 
@@ -74,80 +54,9 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `01.001.100)`
+This list is up to date with Helldivers 2 version `!INJECT("version")`
 
-- Machine Gun
-- Anti-Material Rifle
-- Stalwart
-- Expendable Anti-Tank
-- Recoilless Rifle
-- Flamethrower
-- Autocannon
-- Heavy Machine Gun
-- Airburst Rocket Launcher
-- Commando
-- Railgun
-- Spear
-- Grenade Launcher
-- Laser Cannon
-- Arc Thrower
-- Quasar Cannon
-- Sterilizer
-- Orbital Gatling Barrage
-- Orbital Airburst Strike
-- Orbital 120mm HE Barrage
-- Orbital 380mm HE Barrage
-- Orbital Walking Barrage
-- Orbital Laser
-- Orbital Railcannon Strike
-- Orbital Precision Strike
-- Orbital Gas Strike
-- Orbital Smoke Strike
-- Orbital EMS Strike
-- Orbital Napalm Barrage
-- Eagle Strafing Run
-- Eagle Airstrike
-- Eagle Cluster Bomb
-- Eagle Napalm Strike
-- Eagle Smoke Strike
-- Eagle 110mm Rocket Pods
-- Eagle 500kg Bomb
-- Jump Pack
-- Supply Pack
-- &quot;Guard Dog&quot; Rover
-- &quot;Guard Dog&quot;
-- &quot;Guard Dog&quot; Dog Breath
-- Ballistic Shield Backpack
-- Shield Generator Pack
-- Shield Generator Relay
-- Tesla Tower
-- Anti-Personnel Minefield
-- Incendiary Mines
-- Anti-Tank Mines
-- HMG Emplacement
-- Machine Gun Sentry
-- Gatling Sentry
-- Mortar Sentry
-- Autocannon Sentry
-- Rocket Sentry
-- EMS Mortar Sentry
-- Patriot Exosuit
-- Emancipator Exosuit
-- Reinforce
-- SOS Beacon
-- Resupply
-- Eagle Rearm
-- SSSD Delivery
-- Prospecting Drill
-- Super Earth Flag
-- Hellbomb
-- Upload Data
-- Seismic Probe
-- SEAF Artillery
-- Orbital Illumination Flare
-- Dark Fluid Vessel
-- Tectonic Drill
-- Hive Breaker Drill)
+!INJECT("stratagems")
 
 # License
 

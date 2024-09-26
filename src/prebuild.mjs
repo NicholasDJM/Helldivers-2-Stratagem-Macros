@@ -1,12 +1,14 @@
 import { writeFileSync, existsSync } from "node:fs";
-import { cwd, env } from "node:process";
+import { cwd } from "node:process";
 import { join } from "node:path";
-import { stratagems, version } from "./src/js/stratagems.js"
-import { parse } from "../src/inject.js";
-import { read } from "../src/read.js";
-import { Base64 } from "base64-string";
-import { langLong, langShort } from "../src/lang.js";
-import i18next from "i18next";
+import { stratagems, version } from "../help/src/js/stratagems.js"
+import { parse } from "./inject.js";
+import { read } from "./read.mjs";
+//@ts-expect-error
+import { Base64 } from "npm:base64-string"; // NPM protocol only works in Deno.
+import { langLong, langShort } from "./lang.mjs"
+//@ts-expect-error
+import i18next from "npm:i18next";
 
 
 // Generates a list of stratagems, concatenates files.
@@ -23,9 +25,9 @@ i18next.init({ // Only using i18next to get the language writing direction.
 	lng: langLong
 })
 
-parse("src/html/layout_template.html", "src/html/layout.html", {
-	ahkExample: `data:application/autohotkey;base64,${new Base64().encode(read("example.ahk"))}`,
-	optionsExample: `data:application/toml;base64,${new Base64().encode(read("optionsExample.toml"))}`,
+parse("../help/src/html/layout_template.html", "../help/src/html/layout.html", {
+	ahkExample: `data:application/autohotkey;base64,${new Base64().encode(read("../help/src/example.ahk"))}`,
+	optionsExample: `data:application/toml;base64,${new Base64().encode(read("../help/src/exampleOptions.toml"))}`,
 	lang: i18next.language,
 	dir: i18next.dir(),
 	languageSwitch: "" // TODO: languageSwitch, generate list of supported languages, with native names.
@@ -43,17 +45,18 @@ parse("src/html/layout_template.html", "src/html/layout.html", {
  * @param {string} lang
  */
 function write(lang) {
-	parse(`./src/locales/${lang}.html`, "./src/index.html", {
+	parse(`../help/src/locales/${lang}.html`, "../help/src/index.html", {
 		version
 	})
 }
 
-if ( existsSync(join(cwd(), "locales", langLong+".html")) ) {
+if ( existsSync(join(cwd(), "..", "help", "src", "locales", langLong+".html")) ) {
 	write(langLong)
-} else if ( existsSync(join(cwd(), "locales", langShort+".html")) ) {
+} else if ( existsSync(join(cwd(), "..", "help", "src", "locales", langShort+".html")) ) {
 	write(langShort)
 } else {
-	throw new Error("Cannot find HTML file for current language.")
+	const e = `Cannot find HTML file for current language. [${langLong}]`;
+	throw new Error(e)
 }
 
 const formattedStratagems = stratagems.map(value => {
@@ -62,10 +65,13 @@ const formattedStratagems = stratagems.map(value => {
 	}).join(" ")
 	const img = value.icon
 		? `<span class="overlay ${types}">
-				<img class="icon" src="${value.icon}" alt="${(value.displayName || value.key) + " icon"}" width="50px" height="50px" class="icon">
-			</span>`
+		<img class="icon" src="${value.icon}" alt="${(value.displayName || value.key) + " icon"}" width="50px" height="50px"/>
+	</span>`
 		: ""
-	return `<li class="stratagemNoScript" data-types="${types}" data-key="${value.key}">${img}${value.displayName || value.key}</li>`
+	return `<li class="stratagemNoScript" data-types="${types}" data-key="${value.key}">
+	${img}
+	${value.displayName || value.key}
+</li>`
 }).join("\n");
 
-writeFileSync(join(cwd(), "src", "html", "stratagems.html"), formattedStratagems)
+writeFileSync(join(cwd(), "..", "help", "src", "html", "stratagems.html"), formattedStratagems)

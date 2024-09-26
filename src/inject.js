@@ -1,10 +1,10 @@
 import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { cwd } from "node:process";
-import { read } from "./read.js";
+import { read } from "./read.mjs";
 //@ts-expect-error TypeScript can't get typings from Internet based modules.
 import JSON5 from "https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.min.mjs"
-import { langShort, langLong } from "./lang.js";
+import { langShort, langLong } from "./lang.mjs";
 import { writeFileSync } from "node:fs";
 
 
@@ -17,7 +17,8 @@ if (existsSync(join(cwd(), "locales", `${langLong}.json5`))) {
 } else if (existsSync(join(cwd(), "locales", `${langShort}.json5`))) {
 	locales = read("locales", `${langShort}.json5`)
 } else {
-	throw new Error("Cannot find language file for current language.")
+	const e = `Cannot find language file for current language. [${langLong}]`;
+	throw new Error(e)
 }
 
 locales = JSON5.parse(locales);

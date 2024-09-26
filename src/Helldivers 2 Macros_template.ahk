@@ -31,18 +31,17 @@ options["secondaryTiming"] := 10 ; How long to hold a key
 options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true, ; Check for updates?
 options["wait"] := 0 ; Delay before sending inputs.
-options["language"] := !INJECT("language")
+options["language"] := !INJECT("language") ; Preferred language. Will download relevent files if possible.
 
 !INCLUDE("./toml.ahk")
 if (FileExist("./options.toml")) {
 	try Loop Read "./options.toml" {
-		; TODO: Replace variable assignment with function. Function should automatically assign variable if key is found in options.toml. Solves empty assign (default arg).
-		; TODO: This is broken. Must complete toml.ahk, and switch to `options := parse()`
-		options["timing"] := tomlReadNumber(A_LoopReadLine, "delay", options["timing"])
-		options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay", options["secondaryTiming"])
-		options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath", options["steamPath"])
-		options["updates"] := tomlReadString(A_LoopReadLine, "updates", options["updates"])
-		options["wait"] := tomlReadNumber(A_LoopReadLine, "wait", options["wait"])
+		options["timing"] := tomlReadNumber(A_LoopReadLine, "delay") || options["timing"]
+		options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay") || options["secondaryTiming"]
+		options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath") || options["steamPath"]
+		options["updates"] := tomlReadBoolean(A_LoopReadLine, "updates") || options["updates"]
+		options["wait"] := tomlReadNumber(A_LoopReadLine, "wait") || options["wait"]
+		options["language"] := tomlReadString(A_LoopReadLine, "language") || options["language"]
 	}
 	catch {
 		TrayTip("Invalid `"options.toml`" file. Cannot parse file.")

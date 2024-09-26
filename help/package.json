@@ -9,7 +9,6 @@
 		"preset": "safe"
 	},
 	"scripts": {
-		"prebuild": "deno run -A build.js",
 		"dev": "vite --open",
 		"dev:network": "vite --host --open",
 		"build": "wireit",
@@ -62,17 +61,6 @@
 				"format:fix"
 			]
 		},
-		"pre-build": {
-			"clean": false,
-			"command": "pnpm prebuild",
-			"files": [
-				"./src"
-			],
-			"output": [],
-			"dependencies": [
-				"prep"
-			]
-		},
 		"build": {
 			"command": "vite build",
 			"files": [
@@ -87,7 +75,7 @@
 				"dist"
 			],
 			"dependencies": [
-				"pre-build"
+				"prep"
 			]
 		}
 	},

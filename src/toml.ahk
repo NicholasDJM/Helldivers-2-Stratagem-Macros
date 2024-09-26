@@ -34,7 +34,6 @@ tomlReadNumber(line, key) {
  * Use only if you need to directly read a value. You should use tomlParse().
  * @param {String} line Line of text to search in.
  * @param {String} key Key to search for.
- * @param {Any} default Value to return if cannot find a match.
  * @returns {String}
 */
 tomlReadString(line, key) {
@@ -84,13 +83,14 @@ tomlReadBoolean(line, key) {
 		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$") = "true" ? true : false
 	}
 }
+; REMOVE_START()
 
 ; These regexes should match the majority of content in TOML files.
 ; These only capture the key-values, etc. It does not discern the syntax, which needs to be parsed to correctly get the data.
 tomlCommentRegex := "\s*(?:#.*)?" ; TOML Comment regex
-tomlKeyValueRegex := "^\s*(\w+)\s*=\s*(.+)" . tomlCommentRegex . "$" ; TOML Key/Value regex
-tomlObjectHeaderRegex := "^\s*\[(.+)\]" . tomlCommentRegex . "$" ; TOML Name of object entry regex
-tomlArrayHeaderRegex := "^\s*\[\[(.+)\]\]" . tomlCommentRegex . "$" ; TOML Name of array entry regex
+tomlKeyValueRegex := "^\s*(\w+)\s*=\s*(.+)\s*" . tomlCommentRegex . "$" ; TOML Key/Value regex
+tomlObjectHeaderRegex := "^\s*\[(.+)\]\s*" . tomlCommentRegex . "$" ; TOML Name of object entry regex
+tomlArrayHeaderRegex := "^\s*\[\[(.+)\]\]\s*" . tomlCommentRegex . "$" ; TOML Name of array entry regex
 tomlArrayRegex := "\[\s*(.*)(?:\s*,\s*(.*))*\s*\]"
 tomlObjectRegex := "\{\s*(?:(\w+)\s*=\s*(.*))(?:\s*,\s*(\w+)\s*=\s*(.*))*\s*\}"
 tomlMultiLineStringRegex := 's)^\s*(\w+)\s*=\s*(?:"""|`'`'`')([^\S\s])(?:"""|`'`'`')' . tomlCommentRegex . '$' ; TOML Multiline string
@@ -107,13 +107,36 @@ tomlParse(file) {
 		Loop Read file {
 			match := []
 			if (RegExMatch(A_LoopReadLine, tomlObjectHeaderRegex, &match)) {
+				; TODO: Move logic to function
 				state := "object"
-				split := StrSplit(match[1], ".")
-				if (StrSplit(match[1], ".").Length > 1) {
-					data[split[1]] = match[2]
+				construct := Map()
+				Loop Parse match[1], "." {
+					construct[A_LoopField]
 				}
 			}
 		}
 	}
 	return data
 }
+
+/**
+ * Turns an AutoHotkey object into a valid TOML file string, ready to be written to disk.
+ * @param {Map | VarRef<Map> | Object | VarRef<Object>} data 
+ * @returns {String}
+ */
+tomlStringify(data) {
+
+}
+
+/**
+ * Merge two objects together. Top layer overwrites bottom layer.  
+ * If passing a string, it must be valid TOML file contents.  
+ * @function tomlMerge
+ * @param {String | Map | VarRef<Object> | Object | VarRef<Map>} topLayer 
+ * @param {String | Map | VarRef<Object> | Object | VarRef<Map>} bottomLayer 
+ * @returns {Map}
+ */
+tomlMerge(topLayer, bottomLayer) {
+	; TODO
+}
+;REMOVE_END()

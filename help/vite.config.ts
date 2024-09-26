@@ -19,7 +19,7 @@ export default defineConfig({
 	plugins: [
 		posthtml({ // Adds <include src="">, <block name="">, and <extend src=""> elements.
 			plugins: [
-				externalLink(), // Any <a target="_blank"> tag will automatically get rel="noopener noreferrer" added.
+				//externalLink(), // Any <a target="_blank"> tag will automatically get rel="noopener noreferrer" added.
 				prism(), // Adds syntax highlighting to <pre class="language-x"><code></code></pre> elements, where x is the name of a language.
 				cssShaker(), // Removes unused CSS
 				htmlnano() // Minifies HTML, CSS via cssnano, and SVGs via SVGO.

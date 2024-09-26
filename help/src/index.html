@@ -1,0 +1,119 @@
+<extends src="./html/layout.html"></extends>
+	<block name="title">HELLDIVERS™ 2 Stratagem Macros</block>
+	<block name="back-to-top">Back to Top</block>
+	<block name="logo">
+		<img class="logo" src="https://cdn2.steamgriddb.com/logo_thumb/0abe10cc20cfedb109fd9cee834adc18.png" alt="HELLDIVERS™ 2">
+		STRATAGEM MACROS
+	</block>
+	<block name="nav-about">About</block>
+	<block name="nav-install">Install</block>
+	<block name="nav-usage">Usage</block>
+	<block name="about-title">About HELLDIVERS™ 2 Stratagem Macros</block>
+	<block name="about">
+		<p>HELLDIVERS™ 2 Stratagem Macros is an AutoHotkey macro script, that will automatically input the correct sequence of keys to call in a stratagem.</p>
+		<p>The script will read the correct keys for each Steam user, requiring zero manual configuration.</p>
+		<p>You can execute these macros either through your own AutoHotkey scripts, or through Elgato Stream Deck.</p>
+	</block>
+	<block name="install-title">How to Install Stratagem Macros</block>
+	<block name="install">
+		<ol>
+			<li>Ensure you have the latest version of Windows 10 or Windows 11. Specifically, Windows 10 22H2 or later.</li>
+			<li>Ensure <a href="https://www.autohotkey.com" target="_blank"> AutoHotkey 2</a> or later is installed.</li>
+			<li>Download my <a href="https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/Helldivers%202%20Macros.ahk" download="Helldivers 2 Macros.ahk" target="_blank">macro script</a> to it's own folder. (Right click on the link, and select "Save Link as")</li>
+		</ol>
+		<p>Please note: the script can overwrite files named <code>version.txt</code>, <code>options.toml</code>, <code>play.ahk</code>, <code>Helldivers 2 Macros.ahk.tar.gz</code>, and <code>Helldivers 2 Macros.ahk</code>. Make sure not to save anything with those names.</p>
+	</block>
+	<block name="syntax-title">Syntax</block>
+	<block name="syntax">
+		<p>Text surrounded in <code>&lt;angled brackets&gt;</code> are required, while text surrounded in <code>[square brackets]</code> are optional. Text surrounded in quotes is to be typed out verbatim. Any of the options can be set in any order. If an option contains spaces, you must surround it with quotation marks.</p>
+		<code>"Helldivers 2 Macros.ahk" &lt;Stratagem Name&gt; ["update macros"] ["generate options.toml"] [delay] [holdDelay] [path] [wait]</code>
+		<ul>
+			<li><code>Stratagem Name</code> - This is the name of a stratagem you wish to use. See the Stratagem list below.</li>
+			<li><code>"update macros"</code> - Enter this verbatim to run the auto updater.</li>
+			<li><code>"generate options.toml"</code> - Enter this verbatim to generate an options.toml file with the default options.</li>
+			<li><code>delay</code> - This controls the timing between keystrokes, in milliseconds. Type out <code>delay=x</code>, but replace x with a number. Default is 250.</li>
+			<li><code>holdDelay</code> - This controls the timing between the key down and key up events, in milliseconds. Type out <code>holdDelay=x</code>, but replace x with a number. Default is 10.</li>
+			<li><code>path</code> - This sets the path to your Steam installation. Type out <code>path=x</code>, but replace x with a path. Default is "C:\Program Files (x86)\Steam".</li>
+			<li><code>updates</code> - Set this to false, if you want to disable automatic checks for new updates. Type out <code>updates=false</code>. Default is true.</li>
+			<li><code>wait</code> - This delays calling in a stratagem, in milliseconds. Type out <code>wait=x</code>, but replace x with a number. Default is 0.</li>
+		</ul>
+		<p>Execute <code>Helldivers 2 Macros.ahk</code> without any arguments to open this instruction manual.</p>
+		<h3>Examples</h3>
+		<ul>
+			<li>Call in the Patriot Exosuit: <code>"Helldivers 2 Macros.ahk" "patriot exosuit"</code></li>
+			<li>Call in the Autocannon with a key delay of 250 milliseconds: <code>"Helldivers 2 Macros.ahk" autocannon delay=500</code></li>
+			<li>Call in the Recoilless Rifle with a key hold delay of 50 milliseconds: <code>"Helldivers 2 Macros.ahk" "recoilless rifle" holdDelay=500</code></li>
+			<li>Call in the Eagle 500kg Bomb, with the path to Steam on drive D: <code>"Helldivers 2 Macros.ahk" "eagle 500kg bomb" "steamPath=D:\Steam"</code></li>
+		</ul>
+	</block>
+	<block name="usage-title">How to use Stratagem Macros</block>
+	<block name="usage-deck-title">Using with Elgato Stream Deck</block>
+	<block name="usage-deck">
+		<ol>
+			<li>Open the Elgato Stream Deck software.</li>
+			<li>Ensure <a href="https://marketplace.elgato.com/product/advanced-launcher-d9a289e4-9f61-4613-9f86-0069f5897125" rel="noreferrer" target="_blank">BarRaiders's Advanced Launcher</a> plugin is installed.</li>
+			<li>Add "Advanced Launcher" action to a button.</li>
+			<li>In the action's settings, click on "Choose file...", and select the macro script.</li>
+			<li>In the "Arguments" text field, add your desired stratagem, in quotes.</li>
+		</ol>
+		<p>Please note: You cannot use the standard "Open" action, as it does not allow for specifying arguments, which is required by the script.</p>
+	</block>
+	<block name="usage-ahk-title">Using with AutoHotkey</block>
+	<block name="usage-ahk">
+		<p>This example <abbr title="AutoHotkey" class="">AHK</abbr> script allows you to call your favourite stratagem. In this case, mine is the Recoilless Rifle, and the Patriot Exosuit. You can modify it as you see fit. This particular script will call in the Recoilless Rifle on <kbd>Mouse 4</kbd>, the Patriot Exosuit on <kbd>Mouse 5</kbd>, and the Hellbomb on the <kbd>H</kbd> key.</p>
+		<p>Once this script is saved somewhere, double click on it in Explorer to start the script. AutoHotkey will now listen for the buttons listed in the script.</p>
+		<p>Look at <a href="https://www.autohotkey.com/docs/v2/KeyList.htm" target="_blank">AutoHotkey's key list</a> for a complete list of keys that can be bound.</p>
+	</block>
+	<block name="usage-ahk-example-title">Example AutoHotkey Script</block>
+	<block name="usage-ahk-example-download">Download</block>
+	<block name="usage-audio-title">Playing Audio Files</block>
+		<div class="grid">
+			<div>
+				<p>You can have an audio file play automatically whenever you call in a stratagem. It can either be a <code>.wav</code> or <code>.mp3</code> file.</p>
+				<p>Name the file exactly like the stratagem name you wish to call in, and it will be played automatically. You can use the list below, but don't use quotation marks.</p>
+			</div>
+			<div class="center">
+				<picture>
+					<source srcset="images/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
+					<img src="images/ExampleAudioFileUsageDark.webp" width="402" height="89"
+						alt="Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;."
+					/>
+				</picture>
+			</div>
+		</div>
+	</block>
+	<block name="usage-stratagems-title">List of Stratagems</block>
+	<block name="usage-stratagems">
+		<p x-cloak x-data="tools">
+			This is a list of stratagems that the script will accept. Click on one to copy it. This list is up to date with Helldivers 2 version <code>01.001.100)</code>.
+		</p>
+	</block>
+	<block name="search">Search</block>
+	<block name="search-clear">Clear</block>
+	<block name="search-categories">
+		<option value="weapons">Support Weapon Stratagems</option>
+		<option value="backpack">Backpack Stratagems</option>
+		<option value="eagle">Eagle Airstrike Stratagems</option>
+		<option value="orbital">Orbital Stratagems</option>
+		<option value="defense">Defensive Stratagems</option>
+		<option value="emplacement">Emplacement Stratagems</option>
+		<option value="sentry">Sentry Stratagems</option>
+		<option value="vehicle">Vehicle Stratagems</option>
+		<option value="mission">Mission Stratagems</option>
+	</block>
+	<block name="usage-defaults-title">Changing the Defaults</block>
+	<block name="usage-defaults">
+		<p>The defaults for the arguments can be loaded from a file, instead of specifying them everytime you call the script.</p>
+		<p>You can save a file in the same directory as the script, named <code>options.toml</code>. In this file, you must specify one option per line, followed by an equals sign, then the value.</p>
+		<p>Options can be overridden via command line flags. See Syntax above.</p>
+		<ul>
+			<li><code>delay</code> - Change the default delay between different keystrokes, in milliseconds</li>
+			<li><code>holdDelay</code> - Change the default delay between key down and key up, in milliseconds.</li>
+			<li><code>steamPath</code> - Change the default path to your Steam installation, where the steam.exe is located. Must surround the value in quotation marks.</li>
+			<li><code>updates</code> - Change the default for automatic update checking. Set to <code>false</code> to disable.</li>
+			<li><code>wait</code> - Change the default delay before calling in a stratagem, in milliseconds.</li>
+		</ul>
+	</block>
+	<block name="usage-defaults-example-title">Example &quot;options.toml&quot; File</block>
+	<block name="usage-defaults-example-download">Download</block>
+</extends>

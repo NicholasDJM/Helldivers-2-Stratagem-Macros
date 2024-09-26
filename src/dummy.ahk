@@ -25,7 +25,7 @@ INJECT(name) {
  * Remember to prefix the function with an exclamation mark.  
  */
 REMOVE() {
-	; Dummy function. Look into inject.js for actual logic.
+	; Dummy function. Look into build.js for actual logic.
 }
 /**
  * Inlines a file at build time. If you just need to import a file, use AutoHotkey's native #Include directive.  
@@ -62,4 +62,16 @@ INCLUDE(filename) {
  */
 LOCALE(key) {
 	; Dummy function. Look into inject.js for actual logic.
+}
+/**
+ * Removes all lines after until !REMOVE_END()
+ */
+REMOVE_START() {
+	; Dummy function. Look into build.js for actual logic.
+}
+/**
+ * Stops removing all lines since !REMOVE_START()
+ */
+REMOVE_END() {
+	; Dummy function. Look into build.js for actual logic.
 }

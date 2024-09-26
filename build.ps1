@@ -31,6 +31,11 @@ function Invoke-Script {
 	}
 }
 
+if ([System.IO.File]::Exists(".\dist\updates.txt")) {
+	Write-Host "Clearing updates.txt..."
+	Remove-Item ".\dist\updates.txt"
+}
+
 function Invoke-Language {
 	param (
 		[string]$language
@@ -38,21 +43,21 @@ function Invoke-Language {
 	Process {
 		$env:LANG = "$language.UTF-8"
 
-		Invoke-Script -command "deno run -A prebuild.js" -message "Failed to run pre-build script." -location .\help
+		Invoke-Script -command "deno run -A prebuild.mjs" -message "Failed to run pre-build script." -location .\src
 
 		Invoke-Script -command "pnpm build" -message "Failed to build HTML." -location .\help
 		
-		Invoke-Script -command "deno run -A postbuild.js" -message "Failed to run post-build script." -location .\help
+		Invoke-Script -command "node postbuild.mjs" -message "Failed to run post-build script." -location .\src
 
-		Invoke-Script -command "deno run -A .\build.js" -message "Failed to build AutoHotkey script." -location .\src
-		# TODO: Merge md/build.mjs and src/build.js
+		Invoke-Script -command "deno run -A .\build.mjs" -message "Failed to build AutoHotkey script." -location .\src
 		
-		Invoke-Script -command "tar.exe -czf '.\dist\Helldivers 2 Macros.$language.ahk.tar.gz' '.\dist\Helldivers 2 Macros.language.ahk'" -message "Failed to compress script."
+		Invoke-Script -command "tar.exe -czf '.\Helldivers 2 Macros.$language.ahk.tar.gz' '.\Helldivers 2 Macros.$language.ahk'" -message "Failed to compress script." -location ".\dist"
 	}
 }
 
 # Contributers: Update this section to add more languages.
 Invoke-Language -language "en-CA"
+Invoke-Language -language "fr-CA"
 
 Write-Output "[32mBuild Complete[0m"
 
