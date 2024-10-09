@@ -31,7 +31,7 @@ options["secondaryTiming"] := 10 ; How long to hold a key
 options["steamPath"] := "C:\Program Files (x86)\Steam"
 options["updates"] := true, ; Check for updates?
 options["wait"] := 0 ; Delay before sending inputs.
-options["language"] := !INJECT("language") ; Preferred language. Will download relevent files if possible.
+options["language"] := "!INJECT('language')" ; Preferred language. Will download relevent files if possible.
 
 !INCLUDE("./toml.ahk")
 if (FileExist("./options.toml")) {
@@ -44,7 +44,7 @@ if (FileExist("./options.toml")) {
 		options["language"] := tomlReadString(A_LoopReadLine, "language") || options["language"]
 	}
 	catch {
-		TrayTip("Invalid `"options.toml`" file. Cannot parse file.")
+		TrayTip(!LOCALE("invalidOptions"))
 		Sleep(5000)
 		ExitApp
 	}
@@ -54,7 +54,7 @@ if (FileExist("./options.toml")) {
 
 options["stratagem"] := "initial"
 
-appname := "Helldivers 2 Macros"
+appname := "!LOCALE('appname')"
 
 
 MsgBoxEnums := Map()
@@ -89,6 +89,8 @@ if (A_Args.Length = 0) {
 }
 
 ; TODO Move argument parser to it's own function.
+; Argument parser should be flag agnostic. (Stores all key-values in a map variable, regardless if it is valid or not.)
+; Should also merge options.toml parsing somehow.
 
 Loop A_Args.Length {
 	split := StrSplit(A_Args[A_Index], "=")
@@ -106,7 +108,7 @@ Loop A_Args.Length {
 			case "wait":
 				options["wait"] := split[2]
 			default:
-				TrayTip("`"" . split[1] . "`" is not a valid flag.", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
+				TrayTip("!LOCALE('invalidFlag')", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}
 	} else {
 		; Otherwise, we can assume it's a Stratagem name or command.
@@ -231,7 +233,7 @@ Loop Read configFile{
 	lastLine := A_LoopReadLine
 }
 } catch {
-	MsgBox("Steam path is incorrect. Are you sure Steam is installed at `"" . options["steamPath"] . "`"? " . appname . " will now quit.", appname, MsgBoxEnums["Error"] + MsgBoxEnums["OK"])
+	MsgBox("!LOCALE('invalidSteamPath')", appname, MsgBoxEnums["Error"] + MsgBoxEnums["OK"])
 	ExitApp(1)
 }
 
@@ -298,6 +300,7 @@ try SoundPlay(A_Args[1], true)
 			if (keys.Has(value)) {
 				KeyDownUp(keys[value], options["secondaryTiming"])
 			} else {
+				; TODO: Locale
 				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 				Sleep(5000)
 				; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
@@ -307,6 +310,7 @@ try SoundPlay(A_Args[1], true)
 		}
 		Send("{" . keys["menu"] . " UP}")
 	} else {
+		; TODO: Locale
 		TrayTip("Helldivers 2 is not in focus.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)
 		ExitApp
@@ -326,6 +330,7 @@ Switch userinput {
 !INJECT("stratagems")
 Default:
 	; TODO: Try a fuzzy search, and ask the player if they meant something else.
+	; TODO: Locale
 	TrayTip("Cannot find `"" . options["stratagem"] . "`" macro. Run the script without any arguments for instructions.",appname,TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
 }
@@ -343,14 +348,17 @@ try {
 	try {
 		new:=FileRead("./version.txt")
 		if (Number(new) > version) {
+			; TODO: Locale
 			TrayTip("Version " . new . " is availave.`n`nRun this script with the `"update macros`" argument to auto update.",appname, TrayEnums["Info"]+TrayEnums["LargeIcon"])
 			Sleep(5000)
 		}
 	} catch {
+		; TODO: Locale
 		TrayTip("Could not read version file.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 		Sleep(5000)
 	}
 } catch {
+	; TODO: Locale
 	TrayTip("Could not retrieve latest version.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
 	Sleep(5000)
 }
@@ -421,6 +429,7 @@ ExitApp
 genOptions:
 
 if (!FileExist("./options.toml")) {
+	; TODO: Locale
 	FileAppend("
 (
 delay = 150 # Default is 150
@@ -430,6 +439,7 @@ updates = true # Default is true
 audio = 5000 # Default is 5000
 )", "options.toml")
 } else {
+	; TODO: Locale
 	MsgBox("Cannot generate options file, file already exists.", appname, MsgBoxEnums["Error"])
 }
 

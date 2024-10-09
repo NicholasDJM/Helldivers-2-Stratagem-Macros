@@ -7,3 +7,5 @@ options.toml
 changelog.txt
 debugahk.bat
 play.ahk
+/help/src/html/layout.html
+/help/src/index.html

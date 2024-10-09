@@ -1,20 +1,20 @@
-/** 
- * @typedef {Object} Stratagem
- * @property {string} key
- * @property {string[]} type
- * @property {string} [icon]
- * @property {string[]} code
- * @property {string} [displayName]
-*/
 
 const wiki = "https://helldivers.wiki.gg/images";
 
-/** Game version that the Stratagem list is aligned with. */
-export const version = "01.001.100",
+/** @typedef {import ("./types.d.ts").Stratagem} Stratagem */
+/** @typedef {import ("./types.d.ts").Version} Version */
+
+/**
+ * Game version that the Stratagem list is aligned with.  
+ * Format as `channel/version/build`  
+ * This can be out of date. When updating the list of Stratagems, also update this variable to the latest game version.
+ * @type {Version}
+ */
+export const version = "release/01.001.103/13512",
 	/**
 	 * Complete list of all Stratagems currently available in Helldivers 2.
 	 * Each one has a `code` property, a series of directional inputs, which is used to generate Case statements in the AutoHotkey script.
-	 * Some will have a display name, which should be used instead of the key.
+	 * Some will have a display name, which should be used instead of the key. The display name is always used in other languages.
 	 * ```ts
 	 * interface Stratagem {
 	 * 	key: string,
@@ -27,6 +27,7 @@ export const version = "01.001.100",
 	 * @type {Stratagem[]}
 	 */
 	stratagems = [
+		// TODO: How to generate names in other languages? This isn't a generated list. Maybe merge with another list tailored to specific language?
 		// Weapons
 		{ key: "Machine Gun", type: ["weapon", "machine gun"], icon: wiki+"/e/e0/Machine_Gun_Stratagem_Icon.png", code: ["down","left","down","up","right"] },
 		{ key: "Anti-Material Rifle", type: ["weapon"], icon: wiki+"/3/3c/Anti-Materiel_Rifle_Stratagem_Icon.png", code: ["down","left","right","up","down"] },
@@ -57,7 +58,7 @@ export const version = "01.001.100",
 		{ key: "Orbital Gas Strike", type: ["orbital"], icon: wiki+"/c/cd/Orbital_Gas_Strike_Stratagem_Icon.png", code: ["right","right","down","right"] },
 		{ key: "Orbital Smoke Strike", type: ["orbital"], icon: wiki+"/b/bc/Orbital_Smoke_Strike_Stratagem_Icon.png", code: ["right","right","down","up"] },
 		{ key: "Orbital EMS Strike", type: ["orbital"], icon: wiki+"/1/16/Orbital_EMS_Strike_Stratagem_Icon.png", code: ["right","right","left","down"] },
-		{ key: "Orbital Napalm Barrage", type: ["orbital", "fire"], code: ["right","right","down","left","right","up"] },
+		{ key: "Orbital Napalm Barrage", type: ["orbital", "fire"], icon: wiki+"/9/97/Orbital_Napalm_Barrage_Stratagem_Icon.png", code: ["right","right","down","left","right","up"] },
 		// Eagle Airstrikes
 		{ key: "Eagle Strafing Run", type: ["eagle"], icon: wiki+"/f/f3/Eagle_Strafing_Run_Stratagem_Icon.png", code: ["up","right","right"] },
 		{ key: "Eagle Airstrike", type: ["eagle"], icon: wiki+"/7/72/Eagle_Airstrike_Stratagem_Icon.png", code: ["up","right","down","right"] },
@@ -71,7 +72,7 @@ export const version = "01.001.100",
 		{ key: "Supply Pack", type: ["backpack"], icon: wiki+"/6/61/Supply_Pack_Stratagem_Icon.png", code: ["down","left","down","up","up","down"] },
 		{ key: "Guard Dog Rover", type: ["backpack","laser", "guard dog"], icon: wiki+"/6/6f/Guard_Dog_Rover_Stratagem_Icon.png", code: ["down","up","left","up","right","right"], displayName: `&quot;Guard Dog&quot; Rover` },
 		{ key: "Guard Dog", type: ["backpack", "guard dog"], icon: wiki+"/7/73/Guard_Dog_Stratagem_Icon.png", code: ["down","up","left","up","right","down"], displayName: `&quot;Guard Dog&quot;` },
-		{ key: "Guard Dog Dog Breath", type: ["backpack", "guard dog"], code: ["down", "up", "left", "up", "right", "up"], displayName: `&quot;Guard Dog&quot; Dog Breath` },
+		{ key: "Guard Dog Dog Breath", type: ["backpack", "guard dog"], icon: wiki+"/2/20/Guard_Dog_Dog_Breath_Stratagem_Icon.png", code: ["down", "up", "left", "up", "right", "up"], displayName: `&quot;Guard Dog&quot; Dog Breath` },
 		{ key: "Ballistic Shield Backpack", type: ["backpack"], icon: wiki+"/3/37/Ballistic_Shield_Backpack_Stratagem_Icon.png", code: ["down","left","down","down","up","left"] },
 		{ key: "Shield Generator Pack", type: ["backpack"], icon: wiki+"/9/99/Shield_Generator_Pack_Stratagem_Icon.png", code: ["down","up","left","right","left","right"] },
 		// Defense
@@ -102,7 +103,7 @@ export const version = "01.001.100",
 		{ key: "Seismic Probe", type: ["mission"], icon: wiki+"/7/74/Seismic_Probe_Stratagem_Icon.png", code: ["up","up","left","right","down","down"] },
 		{ key: "SEAF Artillery", type: ["mission"], icon: wiki+"/f/f7/SEAF_Artillery_Stratagem_Icon.png", code: ["right","up","up","down"] },
 		{ key: "Orbital Illumination Flare", type: ["mission"], icon: wiki+"/f/f9/Orbital_Illumination_Flare_Stratagem_Icon.png", code: ["right","right","left","left"] },
-		{ key: "Dark Fluid Vessel", type: ["mission"], code: ["up","left","right","down","up","up"] }, // Helldivers Wiki doesn't have these two icons, as of August 2024.
-		{ key: "Tectonic Drill", type: ["mission"], code: ["up","down","up","down","up","down"] },
+		{ key: "Dark Fluid Vessel", type: ["mission", "backpack"], code: ["up","left","right","down","up","up"] }, // Helldivers Wiki doesn't have this stratagem's icon, as of October 2024.
+		{ key: "Tectonic Drill", type: ["mission"], icon: wiki+"/0/02/Prospecting_Drill_Stratagem_Icon.png", code: ["up","down","up","down","up","down"] }, // TODO: This Stratagem's icon does not have it's own icon documented by the Helldivers Wiki, so we're using another stratagem's icon.
 		{ key: "Hive Breaker Drill", type: ["mission"], icon: wiki+"/0/02/Prospecting_Drill_Stratagem_Icon.png", code: ["left","up","down","right","down","down"] }
 	];

@@ -46,7 +46,11 @@ export function replaceInjectKeyword(text, vars) {
 		}
 	}
 
-	// Function to replace keywords based on the injectText and quote style
+	/**
+	 * Function to replace keywords based on the injectText and quote style
+	 * @param {string} injectText 
+	 * @param {string} quoteChar 
+	 */
 	const replaceKeywords = (injectText, quoteChar) => {
 		let limit = result.split(injectText).length - 1;
 		while (limit > 0) {
@@ -75,7 +79,7 @@ export function replaceInjectKeyword(text, vars) {
 				}
 			}
 
-			result = result.slice(0, start) + value + result.slice(end + 1);
+			result = result.slice(0, start) + value + result.slice(end + 2);
 			limit--;
 		}
 	};
@@ -109,19 +113,23 @@ export function includeFile(text) {
 	const injectTextDouble = '!INCLUDE("';
 	let result = text;
 
-	// Function to replace keywords based on the injectText and quote style
+	/**
+	 * Function to replace keywords based on the injectText and quote style
+	 * @param {string} injectText 
+	 * @param {string} quoteChar 
+	 */
 	const replaceKeywords = (injectText, quoteChar) => {
 		let limit = result.split(injectText).length - 1;
 		while (limit > 0) {
 			const start = result.indexOf(injectText);
 			if (start === -1) break;
 
-			const end = result.indexOf(quoteChar, start + injectText.length);
+			const end = result.indexOf(quoteChar+")", start + injectText.length);
 			if (end === -1) break;
 
 			const filename = result.slice(start + injectText.length, end);
 			const file = read(...filename.split("/")); // Assuming read is defined elsewhere
-			result = result.slice(0, start) + file + result.slice(end + 1);
+			result = result.slice(0, start) + file + result.slice(end + 2);
 			limit--;
 		}
 	};
@@ -145,18 +153,22 @@ export function replaceLocaleKeyword(text) {
 	const injectTextDouble = '!LOCALE("';
 	let result = text;
 
-	// Function to replace keywords based on the injectText and quote style
+	/**
+	 * Function to replace keywords based on the injectText and quote style
+	 * @param {string} injectText 
+	 * @param {string} quoteChar 
+	 */
 	const replaceKeywords = (injectText, quoteChar) => {
 		let limit = result.split(injectText).length - 1;
 		while (limit > 0) {
 			const start = result.indexOf(injectText);
 			if (start === -1) break;
 
-			const end = result.indexOf(quoteChar, start + injectText.length);
+			const end = result.indexOf(quoteChar+")", start + injectText.length);
 			if (end === -1) break;
 
 			const key = result.slice(start + injectText.length, end);
-			result = result.slice(0, start) + locales[key] + result.slice(end + 1);
+			result = result.slice(0, start) + locales[key] + result.slice(end + 2);
 			limit--;
 		}
 	};
@@ -170,8 +182,13 @@ export function replaceLocaleKeyword(text) {
 	return result;
 }
 
+
+
+// TODO: Having to manually setup parsing is becoming a chore. I should use something like globby to scan a entire directory. The "_template" suffix could be used to automatically create output files, sans suffix.
 /**
- * Automatically reads a template file and writes the output, using replaceInjectKeyword(), replaceLocaleKeyword(), and includeFile() functions, in that order.
+ * Automatically reads a template file and writes the output to a file, using {@link replaceInjectKeyword()}, {@link replaceLocaleKeyword()}, and {@link includeFile()} functions, in that order.  
+ * 
+ * If you need to modify the output, use {@link parseReturn()} instead.
  * @param {string} fileInput
  * @param {string} fileOutput 
  * @param {Record<string,string>} vars 
@@ -179,4 +196,16 @@ export function replaceLocaleKeyword(text) {
 export function parse(fileInput, fileOutput, vars) {
 	if (fileInput === fileOutput) throw new Error("Input cannot be the same as the output.");
 	writeFileSync(fileOutput, includeFile(replaceLocaleKeyword(replaceInjectKeyword(read(fileInput), vars))));
+}
+
+/**
+ * Automatically reads and returns output, using {@link replaceInjectKeyword()}, {@link replaceLocaleKeyword()}, and {@link includeFile()} functions, in that order.  
+ * 
+ * If you want to write to a file immediately, use {@link parse()} instead.
+ * @param {string} fileInput 
+ * @param {Record<string,string>} vars 
+ * @returns {string}
+ */
+export function parseReturn(fileInput, vars) {
+	return includeFile(replaceLocaleKeyword(replaceInjectKeyword(read(fileInput), vars)))
 }

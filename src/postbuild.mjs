@@ -1,24 +1,23 @@
 import { copyFile, writeFileSync } from "node:fs"
 import { langLong } from "./lang.mjs"
-import { hash } from "node:crypto";
+import { hash } from "node:crypto"; // Crypto API only exists in Node, not Deno.
 import { read } from "./read.mjs";
 import { existsSync } from "node:fs";
 import { EOL } from "node:os";
 import { join } from "node:path";
 import { cwd } from "node:process";
 
-// TODO Copy index.html to docs in root, using language code.
-// TODO Generate MD5 hash, append to /src/updates.txt, using language code.
+// This is the post-build script, which runs after "pnpm build".
 
-const file = "../help/dist/index.html"
-
+const file = "../help/dist/index.html",
+	updateFile = "../dist/updates.txt";
+/** @type {string} */
 const hashed = hash("md5", file)
 
-copyFile(file, `../dist/${langLong}.html`, error => {
+copyFile(file, `../docs/${langLong}.html`, (/** @type {any} */ error) => {
 	if (error) throw error;
 })
 
-const updateFile = "../dist/updates.txt"
 
 let contents = (existsSync(updateFile) ? read(updateFile) : "").split(EOL)
 

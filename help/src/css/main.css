@@ -1,3 +1,12 @@
+@import url("./animation.scss");
+@import url("./stratagems.css");
+@import url("./layout.scss");
+@import url("./highlight.css");
+/* TODO: This file is quickly becoming unwieldy, I should separate out the CSS and keep the related stuff together in their own files.
+	Additionally, I should double check if i'm actually using every class. I've just been adding and adding.
+	Maybe once I'm done the search function rework, (see main.ts), I should refactor all of this.
+*/
+/* Some basic styles and functions */
 :root {
 	scroll-behavior: smooth;
 	color-scheme: light dark;
@@ -5,6 +14,9 @@
 [x-cloak] {
 	display: none !important;
 }
+
+/* Lots of unorganized crap below */
+/* TODO: Even I've partially forgotten what all this does. I need to go through all of it and document it. */
 .copy {
 	--distance: 10px;
 	--border: rgb(0 255 0 / 0.75);
@@ -74,13 +86,7 @@ search {
 	z-index: 1;
 	padding-block-start: 15px
 }
-.icon {
-	block-size: 50px;
-	inline-size: 50px;
-	outline: var(--colour) 2px solid;
-	background-color:black;
-	transition: 500ms;
-}
+
 .overlay {
 	position: relative;
 	block-size:50px;
@@ -149,34 +155,11 @@ ul.nobullets li {
 	transition: background-image 500ms;
 }
 .stratagemNoScript {
-	padding: 0.25rem;
-}
-.toolbar {
-	display: flex;
-	gap: 0.5rem;
-	justify-content: end;
+	/* padding: 0.25rem; */
+	display: grid;
+	grid-template-columns: auto 1fr;
 }
 
-[href="#top"] {
-	position: fixed;
-	inset-inline-end: 1rem; /* TODO: LightningCSS is rewriting this to "right: 1em". We're targeting evergreen browsers, so this should not happen. */
-	inset-block-end: 1rem;
-	animation-name: top-button;
-	animation-duration: 250ms; /* Firefox requires scroll driven animations to have a minimum of 1ms. */
-	/* Also, scroll driven animations in Firefox are currently only available by enabling `layout.css.scroll-driven-animations.enabled` in `about:config` */
-	animation-timeline: scroll();
-	z-index: 100;
-}
-
-@keyframes top-button {
-	/* This animation will hide the button when at the top of the page, but show it when the page is scrolled. */
-	0% {
-		opacity: 0;
-	}
-	0.01% {
-		opacity: 1;
-	}
-}
 #clear-button {
 	--pico-background-color: var(--pico-card-background-color);
 }
@@ -186,6 +169,11 @@ ul.nobullets li {
 @media (prefers-color-scheme:dark) {
 	pre {
 		background-color: var(--pico-code-background-color) !important;
+	}
+}
+@media (prefers-color-scheme:light) {
+	.logo {
+		filter: invert();
 	}
 }
 .center {
@@ -198,18 +186,21 @@ ul.nobullets li {
 .centerText{
 	text-align: center;
 }
+.centerMarginVertical{
+	margin-block: auto;
+}
 .justifyEnd {
 	display: flex;
 	justify-content: end;
 	gap: .5em;
 }
-@media (prefers-color-scheme: light) {
-	.logo {
-		filter: invert();
-	}
-}
-
 /* Icon border colours, matches in-game colours. */
+/* TODO: Change these to match parent element's data-type attribute. Will save some bytes in final build.
+	Try this. If we use the already existing data-type attribute, we don't need to repeat the data in the element's class attribute.
+	```
+		li[data-type*="weapon"] img {}
+	```
+*/
 .weapon,.backpack,.vehicle {
 	--colour: #2288a7;
 }
@@ -227,6 +218,9 @@ ul.nobullets li {
 	font-weight: 800;
 	color: light-dark(black,white);
 	text-wrap:balance;
+}
+.title img {
+	margin-inline-end: .5rem;
 }
 .mobile img{
 	width: 200px;
@@ -248,4 +242,11 @@ ul.nobullets li {
 		display: flex;
 		justify-content: center;
 	}
+}
+.stratagemArrows {
+	display: inline-grid;
+	grid-template-rows: auto auto;
+}
+.hideArrows span{
+	display: none;
 }

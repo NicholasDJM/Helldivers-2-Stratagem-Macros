@@ -45,7 +45,7 @@ XButton2:: { ; Mouse Browser Forward button
 }
 H:: {
 	macro("hellbomb")
-})
+}
 ```
 Look at [AutoHotkey's key list](https://www.autohotkey.com/docs/v2/KeyList.htm) for a complete list of keys that can be bound.
 
@@ -74,7 +74,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `01.001.100)`
+This list is up to date with Helldivers 2 version `release/01.001.103/13512`
 
 - Machine Gun
 - Anti-Material Rifle
@@ -147,7 +147,7 @@ This list is up to date with Helldivers 2 version `01.001.100)`
 - Orbital Illumination Flare
 - Dark Fluid Vessel
 - Tectonic Drill
-- Hive Breaker Drill)
+- Hive Breaker Drill
 
 # License
 

@@ -19,7 +19,9 @@ const template = read("Helldivers 2 Macros_template.ahk"),
 		}\tStratagem(${JSON.stringify(item.code)})`)
 		.join('')
 
+let count = 0
 for (const line of html.split(EOL)) {
+	count++;
 	/*
 		In AutoHotkey, variables can span multiple lines if they're written as this:
 
@@ -35,9 +37,9 @@ for (const line of html.split(EOL)) {
 		```
 		So if a line inside the injected data contains that last bit, the `)"`,
 		it will prematurely end the multiline variable, causing data to leak,
-		and leave the AutoHotkey parser the potential to parse non AHK data.
+		and leave the AutoHotkey parser the potential to parse non-AHK data.
 	*/
-	if (/^\s*\)".*/.test(line)) throw new Error("Cannot process file. AutoHotkey script will crash. If a line starts with `)\"`, it will prematurely end multiline variables. Not compiling.")
+	if (/^\s*\)".*/.test(line)) throw new Error("Cannot process file. AutoHotkey script will crash. Line "+count+" starts with `)\"`, which will prematurely end a multiline variable. Not compiling.")
 }
 
 

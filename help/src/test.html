@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/module.esm.min.js" integrity="sha256-8AWUzlBlVGPd/aDeKURX6MD6028YlhgvZvbOp9s2uTw=" crossorigin="anonymous"></link>
+	<script type="module">
+		import Alpine from "https://cdn.jsdelivr.net/npm/alpinejs@3.14.1/dist/module.esm.min.js";
+		globalThis.Alpine = Alpine;
+		Alpine.start();
+	</script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.6/css/pico.min.css" integrity="sha256-3V/VWRr9ge4h3MEXrYXAFNw/HxncLXt9EB6grMKSdMI=" crossorigin="anonymous">
+	<style>
+		:root{scroll-behavior:smooth}
+		[x-cloak]{display:none!important}
+		.stratagems {
+			li button {
+				padding: .25rem;
+				display: grid;
+				grid-template-columns: auto 1fr;
+				gap: 0.25rem;
+				img {
+					margin-block: auto;
+				}
+			}
+		}
+		.stratagem {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			gap: 0.5rem;
+		}
+		.stratagem::before {
+			content: "";
+			display: inline-block;
+			background-image: url(attr("data-icon")); /*This doesn't work.*/
+			background-size: contain;
+			inline-size: 50px;
+			block-size: 50px;
+			margin-block: auto;
+			border: 2px solid var(--stratagemBorderColour);
+		}
+		:root {
+			--urlRecoillessRifleIcon: url("https://helldivers.wiki.gg/images/7/70/Recoilless_Rifle_Stratagem_Icon.png");
+		}
+		.stratagem[data-type*="weapon"]::before,.stratagem[data-type*="vehicle"]::before,.stratagem[data-type*="backpack"]::before{
+			--stratagemBorderColour: #2288a7;
+		}
+		.stack {
+			display: grid;
+			grid-template-rows: auto auto;
+		}
+		ul.nobullets {
+			padding-inline-start: 0;
+		}
+		ul.nobullets li {
+			list-style: none !important; /*Override PicoCSS styles*/
+		}
+		.arrow {
+			display: inline-block;
+			background-image: url("https://helldivers.wiki.gg/images/5/51/Up_Arrow.png");
+			background-size: contain;
+			inline-size: 24px;
+			block-size: 24px;
+			animation-name: fadein;
+			animation-delay: var(--arrowFadeDelay);
+			animation-fill-mode: both;
+		}
+		.arrowRight {
+			transform: rotate(0.25turn);
+		}
+		.arrowDown {
+			transform: rotate(0.5turn);
+		}
+		.arrowLeft {
+			transform: rotate(0.75turn);
+		}
+		.arrows {
+		}
+		@keyframes fadein {
+			from {
+				opacity: 0;
+			}
+			to {
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+<body>
+	<header class="container-fluid">
+		<nav>
+			<ul>
+				<li><h1>Welcome</h1></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="container-fluid">
+		<article>
+			<h1>Hello World</h1>
+			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, modi. Itaque illo, consectetur ullam doloremque rerum quisquam architecto quidem consequuntur rem, reprehenderit facere atque culpa nobis perferendis provident. Quasi, labore.</p>
+		</article>
+		<article>
+			<ul class="nobullets stratagems">
+				<li
+					class="stratagem"
+					data-name="recoilless rifle"
+					data-type="['weapon', 'backpack', 'team reload']"
+					data-code="['down', 'left', 'right', 'right', 'left']"
+				>
+					<img src="https://helldivers.wiki.gg/images/7/70/Recoilless_Rifle_Stratagem_Icon.png" width="50px" height="50px"/>
+					<div class="stack">
+						<span>Recoilless Rifle</span>
+						<div class="arrows"><span class="arrow arrowDown fadeinArrow1"></span><span class="arrow arrowLeft fadeinArrow2"></span><span class="arrow arrowRight fadeinArrow3"></span><span class="arrow arrowRight fadeinArrow4"></span><span class="arrow arrowLeft fadeinArrow5"></span></div>
+					</div>
+				</li>
+			</ul>
+		</article>
+	</main>
+</body>
+</html>

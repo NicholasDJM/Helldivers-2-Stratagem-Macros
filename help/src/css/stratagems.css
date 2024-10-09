@@ -1,0 +1,7 @@
+.icon {
+	block-size: 50px;
+	inline-size: 50px;
+	outline: var(--colour) 2px solid;
+	background-color:black;
+	transition: 500ms;
+}

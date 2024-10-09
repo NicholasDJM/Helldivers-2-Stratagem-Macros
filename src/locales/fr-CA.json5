@@ -1,0 +1,4 @@
+{
+	appname: "Macros de stratagèmes HELLDIVERS™ 2",
+	invalidOptions: `"Impossible d'analyser « options.toml »."`
+}

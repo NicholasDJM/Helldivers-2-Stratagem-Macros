@@ -94,6 +94,7 @@
 		"posthtml-prism": "^2.0.1",
 		"posthtml-toc": "^1.0.3",
 		"prismjs": "^1.29.0",
+		"sass-embedded": "^1.79.4",
 		"svgo": "^3.3.2",
 		"terser": "^5.31.5",
 		"vite": "^5.4.0",

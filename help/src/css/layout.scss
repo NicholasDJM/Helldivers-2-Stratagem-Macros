@@ -1,0 +1,28 @@
+.stack {
+	display: grid;
+}
+@for $i from 1 through 6 {
+	.stack:has(:nth-last-child(n + #{$i})) {
+		grid-template-rows: repeat(#{$i}, auto);
+	}
+}
+[href="#top"] {
+	position: fixed;
+	inset-inline-end: 1rem;
+	inset-block-end: 1rem;
+	animation-name: back-to-top-button;
+	animation-duration: 250ms; /* Firefox requires scroll driven animations to have a minimum of 1 millisecond. */
+	/* Scroll driven animations are available in Firefox behind a flag: `layout.css.scroll-driven-animations.enabled` in `about:config` */
+	animation-timeline: scroll();
+	z-index: 100;
+}
+
+@keyframes back-to-top-button {
+	/* This animation will hide the button when at the top of the page, but show it when the page is scrolled. */
+	0% {
+		opacity: 0;
+	}
+	0.01% {
+		opacity: 1;
+	}
+}

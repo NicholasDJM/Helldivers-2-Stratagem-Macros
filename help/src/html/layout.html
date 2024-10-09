@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang=')' dir='rtl)'>
+<!doctype html>
+<html lang='en-CA' dir='ltr'>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="icon" href="https://cdn2.steamgriddb.com/icon/0ec73496338b196fb1394ea142533248/32/256x256.png" type="image/png">
-		<title><Block name="title">HELLDIVERS™ 2 Stratagem Macros</Block></title>
+		<block name="page-title"></block>
 		<link rel="stylesheet" href="@picocss/pico/css/pico.amber.min.css">
 		<link rel="stylesheet" href="css/main.css">
-		<link rel="stylesheet" href="css/highlight.css">
 		<script type="module" src="js/main.ts"></script>
 	</head>
 	<body>
 		<a href="#top">
-			<button><Block name="back-to-top">Back to Top</Block></button>
+			<button><block name="back-to-top"></block></button>
 		</a>
 		<header>
 			<nav class="container-fluid mobile">
@@ -35,7 +34,10 @@
 					<li>
 						<!-- TODO: This will lead to github.io docs site. -->
 						<details class="dropdown">
-							)
+							<summary>English</summary>
+<ul>
+<li>English</li>
+</ul>
 						</details>
 					</li>
 				</ul>
@@ -45,8 +47,18 @@
 			<article id="about">
 				<section>
 					<h1><block name="about-title"></block></h1>
-					<block name="about">
-					</block>
+					<div class="grid">
+						<div style="display:none !important">
+							<!-- TODO: Create video introducing the program. -->
+							<video controls controlslist="nodownload">
+								<source src="./videos/en-CA/about.dark.webm" type="video/webm" media="(prefers-color-scheme: dark)">
+								<source src="./videos/en-CA/about.light.webm" type="video/webm">
+							</video>
+						</div>
+						<div>
+							<block name="about"></block>
+						</div>
+					</div>
 				</section>
 			</article>
 			<article id="install">
@@ -60,6 +72,10 @@
 					<block name="syntax">
 					</block>
 				</section>
+				<section>
+					<h3><block name="syntax-examples-title"></block></h3>
+					<block name="syntax-examples"></block>
+				</section>
 			</article>
 			<article id="usage">
 				<section>
@@ -72,8 +88,8 @@
 									</block>
 								</div>
 								<div class="center">
-									<img alt="undefined)"
-										height="299px" width="569px" src="images/ExampleUsageWithStreamDeck.webp"
+									<img alt="Screenshot of Elgato Stream Deck software, showing BarRaider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;."
+										height="299px" width="569px" src="images/en-CA/ExampleUsageWithStreamDeck.webp"
 									/>
 								</div>
 							</div>
@@ -91,56 +107,52 @@
 								<pre><code id="ahkExample" class="language-autohotkey" data-filename="example.ahk" data-mime="application/ahk" dir="ltr"
 									><include src="example.ahk"></include></code></pre>
 								<div class="justifyEnd">
-									<a href='data:application/autohotkey;base64,I1JlcXVpcmVzIEF1dG9Ib3RrZXkgPj0yLjANClNlbmRNb2RlICJFdmVudCINClNldFdvcmtpbmdEaXIgQV9TY3JpcHREaXINCm1hY3JvKHN0cmF0YWdlbSkgew0KCWlmIChXaW5BY3RpdmUoIkhFTExESVZFUlPihKIgMiIpKSB7DQoJCXRyeSB7DQoJCQlSdW4oJyJIZWxsZGl2ZXJzIDIgTWFjcm9zLmFoayIgIicgLiBzdHJhdGFnZW0gLiAnIicpDQoJCX0gY2F0Y2ggew0KCQkJVHJheVRpcCgiQ291bGQgbm90IHJ1biBIZWxsZGl2ZXJzIDIgTWFjcm9zIHNjcmlwdC4iKQ0KCQl9DQoJfQ0KfQ0KWEJ1dHRvbjE6OiB7IDsgTW91c2UgQnJvd3NlciBCYWNrIGJ1dHRvbg0KCW1hY3JvKCJyZWNvaWxsZXNzIHJpZmxlIikNCn0NClhCdXR0b24yOjogeyA7IE1vdXNlIEJyb3dzZXIgRm9yd2FyZCBidXR0b24NCgltYWNybygicGF0cmlvdCBleG9zdWl0IikNCn0NCkg6OiB7DQoJbWFjcm8oImhlbGxib21iIikNCn0=)'><button>
+									<a href='data:application/autohotkey;base64,I1JlcXVpcmVzIEF1dG9Ib3RrZXkgPj0yLjANClNlbmRNb2RlICJFdmVudCINClNldFdvcmtpbmdEaXIgQV9TY3JpcHREaXINCm1hY3JvKHN0cmF0YWdlbSkgew0KCWlmIChXaW5BY3RpdmUoIkhFTExESVZFUlPihKIgMiIpKSB7DQoJCXRyeSB7DQoJCQlSdW4oJyJIZWxsZGl2ZXJzIDIgTWFjcm9zLmFoayIgIicgLiBzdHJhdGFnZW0gLiAnIicpDQoJCX0gY2F0Y2ggew0KCQkJVHJheVRpcCgiQ291bGQgbm90IHJ1biBIZWxsZGl2ZXJzIDIgTWFjcm9zIHNjcmlwdC4iKQ0KCQl9DQoJfQ0KfQ0KWEJ1dHRvbjE6OiB7IDsgTW91c2UgQnJvd3NlciBCYWNrIGJ1dHRvbg0KCW1hY3JvKCJyZWNvaWxsZXNzIHJpZmxlIikNCn0NClhCdXR0b24yOjogeyA7IE1vdXNlIEJyb3dzZXIgRm9yd2FyZCBidXR0b24NCgltYWNybygicGF0cmlvdCBleG9zdWl0IikNCn0NCkg6OiB7DQoJbWFjcm8oImhlbGxib21iIikNCn0='><button>
 										<block name="usage-ahk-example-download"></block>
 									</button></a>
+									<button x-cloak @click="copy" x-data="tools"><block name="usage-ahk-example-copy"></block></button>
 								</div>
 							</div>
 						</div>
 					</details>
 					<hr>
 					<details id="audio-howto">
-						<summary><block name="usage-audio-title">Playing Audio Files</block></summary>
+						<summary><block name="usage-audio-title"></block></summary>
 						<div class="grid">
 							<div>
 								<block name="usage-audio">
-									<p>You can have an audio file play automatically whenever you call in a stratagem. It can either be a <code>.wav</code> or <code>.mp3</code> file.</p>
-									<p>Name the file exactly like the stratagem name you wish to call in, and it will be played automatically. You can use the list below, but don't use quotation marks.</p>
 								</block>
 							</div>
 							<div class="center">
 								<picture>
-									<source srcset="images/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
-									<img src="images/ExampleAudioFileUsageDark.webp" width="402" height="89"
-										alt="undefined)"
+									<source srcset="images/en-CA/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
+									<img src="images/en-CA/ExampleAudioFileUsageDark.webp" width="402" height="89"
+										alt="Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;."
 									/>
 								</picture>
 							</div>
 						</div>
 					</details>
 					<hr>
-					<details x-data="{input: ''}" id="stratagems">
+					<details x-data="{input: ''}" id="stratagems" open>
 						<summary><block name="usage-stratagems-title"></block></summary>
 						<block name="usage-stratagems">
 						</block>
 						<search x-cloak>
 							<!-- TODO PicoCSS doesn't reverse the border radius on grouped elements when document is RTL. -->
+							<template x-ref="search"><block name="search"></block></template>
 							<fieldset role="search">
-								<template x-ref="search"><block name="search"></block></template>
 								<input type="search" list="category" :placeholder="$refs.search.textContent" :aria-label="$refs.search.textContent" x-model="input"/>
 								<button class="outline" @click="input = ''" id="clear-button"><block name="search-clear"></block></button>
 							</fieldset>
 							<datalist id="category">
-								<block name="search-categories">
-								</block>
+								<block name="search-categories"></block>
 							</datalist>
 						</search>
-						<noscript>
-							<ul class="nobullets">
-								<include src="./html/stratagems.html"></include>
-							</ul>
-						</noscript>
-						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input"></p>
+						<ul class="nobullets" id="list" x-data="tools" @click="bubbleCopy">
+							<include src="./html/stratagems.html"></include>
+						</ul>
+						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input" x-cloak></p>
 						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
 						<ul class="nobullets" x-cloak x-data="tools" id="list">
 							<template x-for="value in search()" :key="value.item.key">
@@ -155,9 +167,7 @@
 							</template>
 						</ul>
 					</details>
-				</section>
-				<hr>
-				<section>
+					<hr>
 					<details>
 							<summary><block name="usage-defaults-title"></block></summary>
 							<div class="grid">
@@ -170,7 +180,7 @@
 									<pre><code id="optionsExample" class="language-toml" data-filename="options.toml" data-mime="application/toml" dir="ltr"
 										><include src="exampleOptions.toml"></include></code></pre>
 									<div class="justifyEnd">
-										<a href='data:application/toml;base64,ZGVsYXkgPSAyNTAgIyBEZWZhdWx0IDE1MA0KaG9sZERlbGF5ID0gNTAgIyBEZWZhdWx0IDEwDQpzdGVhbVBhdGggPSAiRDpcU3RlYW0iICMgRGVmYXVsdCAiQzpcUHJvZ3JhbSBGaWxlcyAoeDg2KVxTdGVhbSINCnVwZGF0ZXMgPSBmYWxzZSAjIERlZmF1bHQgaXMgdHJ1ZQ0Kd2FpdCA9IDEwMDAgIyBEZWZhdWx0IDA=)'><button>
+										<a href='data:application/toml;base64,ZGVsYXkgPSAyNTAgIyBEZWZhdWx0IDE1MA0KaG9sZERlbGF5ID0gNTAgIyBEZWZhdWx0IDEwDQpzdGVhbVBhdGggPSAiRDpcU3RlYW0iICMgRGVmYXVsdCAiQzpcUHJvZ3JhbSBGaWxlcyAoeDg2KVxTdGVhbSINCnVwZGF0ZXMgPSBmYWxzZSAjIERlZmF1bHQgaXMgdHJ1ZQ0Kd2FpdCA9IDEwMDAgIyBEZWZhdWx0IDA='><button>
 											<block name="usage-defaults-example-download"></block>
 										</button></a>
 									</div>

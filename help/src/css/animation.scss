@@ -1,0 +1,102 @@
+@use "sass:math";
+/**
+ * Creates a countdown. Use the "animationend" event in JavaScript to detect when the countdown is complete.
+ * This is primarily meant for countdowns of a few minutes. Precision can be lost in excess of an hour (3600 seconds).
+ * Because this is a brute force way to create a countdown, this will create a lot of CSS.
+ * @param {<number>} $start
+ * @param {<number>} $end
+ * @param {<custom-ident>} [$name]
+ */
+@mixin countdown($start, $end, $name) {
+	// Created with the help of AI.
+	$total: $start - $end;
+	content: "";
+	animation: #{$name} #{$start}s linear both;
+	@keyframes #{$name} {
+		@for $i from 0 through $total {
+			$percentage: ($i / $total) * 100%;
+			$time: $start - $i;
+			$minutes: floor($time / 60);
+			$seconds: $time % 60;
+			@if ($seconds < 10) {
+				$seconds: "0" + $seconds;
+			}
+			@if ($minutes < 10) {
+				$minutes: "0" + $minutes;
+			}
+			$formatted-time: $minutes + ":" + $seconds;
+			#{$percentage} { content: $formatted-time; }
+		}
+	}
+}
+  
+/**
+ * Creates a countdown with an "Impact" text at the end. Adds one second to the end to account for the extra text.
+ * @param {<number>} $start
+ * @param {<number>} $end
+ * @param {<custom-ident>} $name
+ */
+@mixin countdownHD2($start, $end, $name) {
+	// I do not fully understand how this work, but once again, thank you AI for helping me create this.
+	$total: $start - $end + 1;
+	content: "";
+	animation: #{$name} #{$start + 1}s linear both;
+	@keyframes #{$name} {
+		@for $i from 0 through $total {
+			$percentage: math.div($i, $total) * 100%;
+			$time: $start - $i;
+			// TODO: Update this to support minutes. See implementation of countdown mixin above.
+			@if ($time > 10) {
+				$time: "00:" + $time;
+			}
+			@else if ($time < 10 and $time >= 0){
+				$time: "00:0" + $time;
+			}
+			@else if ($time < 0) {
+				$time: "Impact";
+			}
+			#{$percentage} {content: $time;}
+		}
+	}
+}
+
+.countdown::after {
+	display:block;
+	@include countdownHD2(6, 0, "countdown");
+}
+
+@keyframes fadeinArrow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+.arrows > span {
+	$time: 150;
+	$size: 24px;
+	background-image: url("https://helldivers.wiki.gg/images/5/51/Up_Arrow.png");
+	background-size: contain;
+	display: inline-block;
+	inline-size: $size;
+	block-size: $size;
+	animation-name: fadeinArrow;
+	animation-fill-mode: both;
+	animation-duration: #{$time}ms;
+	animation-timing-function: linear;
+	&.right {
+		transform: rotate(.25turn);
+	}
+	&.down {
+		transform: rotate(.5turn);
+	}
+	&.left {
+		transform: rotate(.75turn);
+	}
+	@for $i from 1 through 8 {
+		&.arrows:nth-child(n + #{$i}) {
+			animation-delay: #{$time * $i - $time}ms;
+		}
+	}
+}

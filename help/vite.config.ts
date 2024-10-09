@@ -5,7 +5,6 @@ import htmlnano from "htmlnano";
 import posthtml from "@vituum/vite-plugin-posthtml";
 import prism from "posthtml-prism";
 import cssShaker from "posthtml-postcss-treeshaker";
-import externalLink from "posthtml-noopener";
 
 export default defineConfig({
 	root: "./src",
@@ -19,9 +18,8 @@ export default defineConfig({
 	plugins: [
 		posthtml({ // Adds <include src="">, <block name="">, and <extend src=""> elements.
 			plugins: [
-				//externalLink(), // Any <a target="_blank"> tag will automatically get rel="noopener noreferrer" added.
 				prism(), // Adds syntax highlighting to <pre class="language-x"><code></code></pre> elements, where x is the name of a language.
-				cssShaker(), // Removes unused CSS
+				//cssShaker(), //NOTE This doesn't appear to work. // Removes unused CSS
 				htmlnano() // Minifies HTML, CSS via cssnano, and SVGs via SVGO.
 			]
 		}),

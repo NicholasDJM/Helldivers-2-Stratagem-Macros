@@ -1,0 +1,40 @@
+{
+	// TODO: Trash this mess. Rewrite locale() to generate valid AHK code instead of embedding it directly into the string here.
+
+	// These are mostly for the AHK script, so you can add AHK code directly into these strings.
+	// Check out the AHK documentation for syntax.
+	//
+	// The dot operator is concatenation, which requires spaces around it, and sits outside the string. EX: "text" . var . "more text"
+	// Quotation marks must be escaped with the backtick character.
+	// Use backticks to surround the string to if you need both quoation marks and apostrophes inside the string.
+	// If using backticks to enclose the stirng, and you need the backtick character inside the string, escape it with a backslash.
+	//
+	// I'm sorry these are confusing, I'll try rewriting these to be more contributor friendly later.
+	appname: "HELLDIVERS™ 2 Stratagem Macros",
+	invalidOptions: '"Invalid `"options.toml`" file. Cannot parse file."',
+	invalidFlag: '`"" . split[1] . "`" is not a valid flag.', // split[1] is the variable for the current flag.
+	invalidSteamPath: 'Steam path is incorrect. Are you sure Steam is installed at `"" . options["steamPath"] . "`"?', // options["steamPath"] is the variable for the path.
+	// TODO: locale strings should be parsed at runtime, not build time. Embedding AHK code directly into the localization is confusing and bad.
+	/*
+		TODO: Revisit localization strategy. Should I continue with seperate builds for each language? Or should I package all languages into one?
+		- If packaging into one, the download size will balloon.
+			CON: Current size of script as of writing is already ~300kb, and gzipped is ~100kb.
+			PRO: More user-friendly. User only has to download a single file.
+		- If continue with multi-package, build system is really complex.
+			CON: I'm still working on the localization update, even after a week of work.
+				Plus I need to keep up with the updates to Helldivers 2, thus maintaining seperate branches,
+				one on the old update, one on the new.
+			PRO: Smaller download sizes, not wasting disk space on user's system.
+		
+		This whole macro script thing is gotten a lot of feature creep. So much for a tiny little niche program...
+	*/
+	/*
+		I think I have an idea: The main .ahk script will become a language selector, which will automatically download the correct language.
+		And all the other scripts will be just the old main script, but in different languages.
+	*/
+	
+	// HTML Section: The keys below are used in ./help files.
+	"helldivers-2-logo-alt": "HELLDIVERS™ 2",
+	"audio-screenshot-alt-description": "Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;.",
+	"deck-screenshot-alt-description": "Screenshot of Elgato Stream Deck software, showing BarRaider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;."
+}
