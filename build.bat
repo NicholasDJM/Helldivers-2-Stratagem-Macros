@@ -1,7 +1,10 @@
+@set DO_NOT_TRACK=true
+@REM Disables Bun's telemetry
 @powershell .\build.ps1
 @exit /b
 @REM Below won't work with new build system.
 @echo off
+:: TODO Move file size logic to separate script or sub-routine, and allow for multiple files to be watched, as well as a command to run.
 call filesize.cmd "Helldivers 2 Macros.ahk">%tmp%/%0_string.txt
 set /p ahkSize=<%tmp%/%0_string.txt
 call filesize.cmd "Helldivers 2 Macros.ahk.tar.gz">%tmp%/%0_string.txt

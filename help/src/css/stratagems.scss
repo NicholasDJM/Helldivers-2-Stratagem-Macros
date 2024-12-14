@@ -1,0 +1,51 @@
+@import url("./animation.scss");
+/* Icon Styles */
+.icon {
+	block-size: 50px;
+	inline-size: 50px;
+	outline: var(--colour) 2px solid;
+	background-color:black;
+	transition: 500ms;
+}
+[data-types*="weapon"],[data-types*="backpack"],[data-types*="vehicle"] {
+	--colour: #2288a7;
+}
+[data-types*="mission"] {
+	--colour: #c9b269;
+}
+[data-types*="eagle"]:not([data-types*="mission"]),[data-types*="orbital"] {
+	--colour: #ba2f23;
+}
+[data-types*="defense"] {
+	--colour: #326021;
+}
+/* Caution Stripes */
+.cautionStripes {
+	&::hover,&::focus-visible {
+		--cautionStripesDistance: 10px;
+		--cautionStripesColor: var(--pico-primary-border, yellow);
+		background-image: repeating-linear-gradient(45deg,var(--cautionStripesColor),var(--cautionStripesColor) var(--distance),black var(--distance),black calc(var(--distance) * 2));
+	}
+}
+
+/* Stratagem Directional Inputs */
+.stratagemArrows {
+	display: inline-grid;
+	grid-template-rows: auto auto;
+}
+.arrows.countdown span {
+	display: none;
+}
+
+/* Stratagem List and Search bar styles */
+/* Search bar styles */
+search {
+	position: sticky;
+	top:0;
+	z-index: 1;
+	padding-block-start: 15px
+}
+#clear-button {
+	--pico-background-color: var(--pico-card-background-color);
+}
+/* Stratagem list styles*/

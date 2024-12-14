@@ -2,8 +2,8 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { read } from "./read.mjs";
-//@ts-expect-error TypeScript can't get typings from Internet based modules.
 import JSON5 from "https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.min.mjs"
+
 import { langShort, langLong } from "./lang.mjs";
 import { writeFileSync } from "node:fs";
 

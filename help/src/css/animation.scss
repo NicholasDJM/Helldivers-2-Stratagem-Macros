@@ -8,7 +8,6 @@
  * @param {<custom-ident>} [$name]
  */
 @mixin countdown($start, $end, $name) {
-	// Created with the help of AI.
 	$total: $start - $end;
 	content: "";
 	animation: #{$name} #{$start}s linear both;
@@ -16,7 +15,7 @@
 		@for $i from 0 through $total {
 			$percentage: ($i / $total) * 100%;
 			$time: $start - $i;
-			$minutes: floor($time / 60);
+			$minutes: math.floor($time / 60);
 			$seconds: $time % 60;
 			@if ($seconds < 10) {
 				$seconds: "0" + $seconds;
@@ -73,7 +72,7 @@
 		opacity: 1;
 	}
 }
-.arrows > span {
+.arrows:not(.countdown) > span {
 	$time: 150;
 	$size: 24px;
 	background-image: url("https://helldivers.wiki.gg/images/5/51/Up_Arrow.png");
@@ -95,7 +94,7 @@
 		transform: rotate(.75turn);
 	}
 	@for $i from 1 through 8 {
-		&.arrows:nth-child(n + #{$i}) {
+		&:nth-child(n + #{$i}) {
 			animation-delay: #{$time * $i - $time}ms;
 		}
 	}

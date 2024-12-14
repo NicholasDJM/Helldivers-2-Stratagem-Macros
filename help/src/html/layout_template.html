@@ -147,8 +147,29 @@
 							</datalist>
 						</search>
 						<ul class="nobullets" id="list" x-data="tools" @click="bubbleCopy">
+							<!-- TODO: Somehow move this code to a template, that can be reused by prebuild.js and here. -->
+							<template x-fo="value in search()" :key="value.item.key">
+								<li class="stratagems" :data-types="JSON.stringify(value.item.type)" :data-key="value.item.key" :data-display="value.item.displayName || ''" :data-code="JSON.stringify(value.item.code)">
+									<button>
+										<template x-if="value.item.icon">
+											<span class="centerMarginVertical overlay">
+												<img :src="value.item.icon" :alt="value.item.displayName || value.item.key + ' icon'" class="icon" width="50px" height="50px">
+											</span>
+										</template>
+										<div class="stratagemArrows">
+											<span class="stratagemName" x-text="value.item.displayName || value.item.key"></span>
+											<div class="arrows">
+												<template x-for="arrow in value.item.code">
+													<span class="arrow"></span>
+												</template>
+											</div>
+										</div>
+									</button>
+								</li>
+							</template>
 							<include src="./html/stratagems.html"></include>
 						</ul>
+						<!-- TODO: Get "Can't find results" text from locale -->
 						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input" x-cloak></p>
 						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
 						<ul class="nobullets" x-cloak x-data="tools" id="list">
@@ -159,7 +180,7 @@
 											<img :src="value.item.icon" class="icon" loading="lazy" width="50px" height="50px" :alt='value.item.key + " icon"'>
 										</span>
 									</template>
-									<code spellcheck="false" x-text='value.item.displayName || value.item.key'></code>
+									<code spellcheck="false" x-text='value.item.modelName || "" + (value.item.displayName || value.item.key)'></code>
 								</li>
 							</template>
 						</ul>

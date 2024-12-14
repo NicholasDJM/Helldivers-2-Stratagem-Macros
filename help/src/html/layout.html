@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang='en-CA' dir='ltr'>
+<html lang='fr-CA' dir='ltr'>
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,10 +34,7 @@
 					<li>
 						<!-- TODO: This will lead to github.io docs site. -->
 						<details class="dropdown">
-							<summary>English</summary>
-<ul>
-<li>English</li>
-</ul>
+							<summary>Français</summary><ul><li><a href="https://NicholasDJM.github.io/Helldivers 2 Stratagem Macros/en-CA.html">English</a></li><li><a href="https://NicholasDJM.github.io/Helldivers 2 Stratagem Macros/fr-CA.html">Français</a></li></ul>
 						</details>
 					</li>
 				</ul>
@@ -51,8 +48,8 @@
 						<div style="display:none !important">
 							<!-- TODO: Create video introducing the program. -->
 							<video controls controlslist="nodownload">
-								<source src="./videos/en-CA/about.dark.webm" type="video/webm" media="(prefers-color-scheme: dark)">
-								<source src="./videos/en-CA/about.light.webm" type="video/webm">
+								<source src="./videos/fr-CA/about.dark.webm" type="video/webm" media="(prefers-color-scheme: dark)">
+								<source src="./videos/fr-CA/about.light.webm" type="video/webm">
 							</video>
 						</div>
 						<div>
@@ -88,8 +85,8 @@
 									</block>
 								</div>
 								<div class="center">
-									<img alt="Screenshot of Elgato Stream Deck software, showing BarRaider's Advanced Launcher action configured to launch &quot;Helldivers 2 Macros.ahk&quot; with an argument of &quot;recoilless rifle&quot;."
-										height="299px" width="569px" src="images/en-CA/ExampleUsageWithStreamDeck.webp"
+									<img alt="undefined"
+										height="299px" width="569px" src="images/fr-CA/ExampleUsageWithStreamDeck.webp"
 									/>
 								</div>
 							</div>
@@ -125,9 +122,9 @@
 							</div>
 							<div class="center">
 								<picture>
-									<source srcset="images/en-CA/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
-									<img src="images/en-CA/ExampleAudioFileUsageDark.webp" width="402" height="89"
-										alt="Screenshot of Windows Explorer, showing five files, &quot;Helldivers 2 Macros.ahk&quot;, &quot;help.html&quot;, &quot;options.toml&quot;, &quot;recoilless rifle.mp3&quot;, and &quot;version.txt&quot;."
+									<source srcset="images/fr-CA/ExampleAudioFileUsageLight.webp" media="(prefers-color-scheme:light)" width="402" height="89">
+									<img src="images/fr-CA/ExampleAudioFileUsageDark.webp" width="402" height="89"
+										alt="undefined"
 									/>
 								</picture>
 							</div>
@@ -150,8 +147,29 @@
 							</datalist>
 						</search>
 						<ul class="nobullets" id="list" x-data="tools" @click="bubbleCopy">
+							<!-- TODO: Somehow move this code to a template, that can be reused by prebuild.js and here. -->
+							<template x-fo="value in search()" :key="value.item.key">
+								<li class="stratagems" :data-types="JSON.stringify(value.item.type)" :data-key="value.item.key" :data-display="value.item.displayName || ''" :data-code="JSON.stringify(value.item.code)">
+									<button>
+										<template x-if="value.item.icon">
+											<span class="centerMarginVertical overlay">
+												<img :src="value.item.icon" :alt="value.item.displayName || value.item.key + ' icon'" class="icon" width="50px" height="50px">
+											</span>
+										</template>
+										<div class="stratagemArrows">
+											<span class="stratagemName" x-text="value.item.displayName || value.item.key"></span>
+											<div class="arrows">
+												<template x-for="arrow in value.item.code">
+													<span class="arrow"></span>
+												</template>
+											</div>
+										</div>
+									</button>
+								</li>
+							</template>
 							<include src="./html/stratagems.html"></include>
 						</ul>
+						<!-- TODO: Get "Can't find results" text from locale -->
 						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input" x-cloak></p>
 						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
 						<ul class="nobullets" x-cloak x-data="tools" id="list">
@@ -162,7 +180,7 @@
 											<img :src="value.item.icon" class="icon" loading="lazy" width="50px" height="50px" :alt='value.item.key + " icon"'>
 										</span>
 									</template>
-									<code spellcheck="false" x-text='value.item.displayName || value.item.key'></code>
+									<code spellcheck="false" x-text='value.item.modelName || "" + (value.item.displayName || value.item.key)'></code>
 								</li>
 							</template>
 						</ul>
@@ -180,7 +198,7 @@
 									<pre><code id="optionsExample" class="language-toml" data-filename="options.toml" data-mime="application/toml" dir="ltr"
 										><include src="exampleOptions.toml"></include></code></pre>
 									<div class="justifyEnd">
-										<a href='data:application/toml;base64,ZGVsYXkgPSAyNTAgIyBEZWZhdWx0IDE1MA0KaG9sZERlbGF5ID0gNTAgIyBEZWZhdWx0IDEwDQpzdGVhbVBhdGggPSAiRDpcU3RlYW0iICMgRGVmYXVsdCAiQzpcUHJvZ3JhbSBGaWxlcyAoeDg2KVxTdGVhbSINCnVwZGF0ZXMgPSBmYWxzZSAjIERlZmF1bHQgaXMgdHJ1ZQ0Kd2FpdCA9IDEwMDAgIyBEZWZhdWx0IDA='><button>
+										<a href='data:application/toml;base64,ZGVsYXkgPSAyNTAgIyBEZWZhdWx0IDE1MA0KaG9sZERlbGF5ID0gNTAgIyBEZWZhdWx0IDEwDQpzdGVhbVBhdGggPSAiRDpcXFN0ZWFtIiAjIERlZmF1bHQgIkM6XFByb2dyYW0gRmlsZXMgKHg4NilcU3RlYW0iDQp1cGRhdGVzID0gZmFsc2UgIyBEZWZhdWx0IGlzIHRydWUNCndhaXQgPSAxMDAwICMgRGVmYXVsdCAw'><button>
 											<block name="usage-defaults-example-download"></block>
 										</button></a>
 									</div>

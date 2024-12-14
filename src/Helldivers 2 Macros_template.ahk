@@ -18,30 +18,23 @@
 #Include "dummy.ahk" ;!REMOVE()
 #Include "toml.ahk" ;!REMOVE()
 #Requires AutoHotkey >=2.0
-#SingleInstance
+#SingleInstance Force
 SendMode "Event"
 ; Must be set to Event mode, Helldivers 2 doesn't like Input or Play modes.
 SetWorkingDir A_ScriptDir
 version := !INCLUDE("../version.txt")
 ; TODO: Once the new localization update is available, this version variable won't be needed.
 
-options := Map()
-options["timing"] := 150 ; Delay between keys
-options["secondaryTiming"] := 10 ; How long to hold a key
-options["steamPath"] := "C:\Program Files (x86)\Steam"
-options["updates"] := true, ; Check for updates?
-options["wait"] := 0 ; Delay before sending inputs.
-options["language"] := "!INJECT('language')" ; Preferred language. Will download relevent files if possible.
-
 !INCLUDE("./toml.ahk")
+
+
+
+options := Map()
+!INJECT("options")
+
 if (FileExist("./options.toml")) {
 	try Loop Read "./options.toml" {
-		options["timing"] := tomlReadNumber(A_LoopReadLine, "delay") || options["timing"]
-		options["secondaryTiming"] := tomlReadNumber(A_LoopReadLine, "holdDelay") || options["secondaryTiming"]
-		options["steamPath"] := tomlReadPath(A_LoopReadLine, "steamPath") || options["steamPath"]
-		options["updates"] := tomlReadBoolean(A_LoopReadLine, "updates") || options["updates"]
-		options["wait"] := tomlReadNumber(A_LoopReadLine, "wait") || options["wait"]
-		options["language"] := tomlReadString(A_LoopReadLine, "language") || options["language"]
+		!INJECT("optionsParse")
 	}
 	catch {
 		TrayTip(!LOCALE("invalidOptions"))
@@ -97,10 +90,11 @@ Loop A_Args.Length {
 	if split.Length > 1 {
 		; If argument has an = sign, it's a flag
 		switch split[1] {
+			; TODO: also generate this from build.ts
 			case "delay":
-				options["timing"] := split[2]
+				options["delay"] := split[2]
 			case "holdDelay":
-				options["secondaryTiming"] := split[2]
+				options["holdDelay"] := split[2]
 			case "path":
 				options["steamPath"] := RegExReplace(RegExReplace(split[2], "^[`"']"), "[`"']$")
 			case "updates":
@@ -257,9 +251,9 @@ if (!keys.Has("menu")){
 
 
 
-KeyDownUp(key, timing) {
+KeyDownUp(key, delay) {
 	Send("{" . key . " Down}")
-	Sleep(timing)
+	Sleep(delay)
 	Send("{" . key . " Up}")
 }
 
@@ -287,18 +281,18 @@ try SoundPlay(A_Args[1], true)
 			case "hold":
 				Send("{" . keys["menu"] . " DOWN}")
 			case "doubletap":
-				KeyDownUp(keys["menu"], options["secondaryTiming"])
-				Sleep(options["secondaryTiming"])
-				KeyDownUp(keys["menu"], options["secondaryTiming"])
+				KeyDownUp(keys["menu"], options["holdDelay"])
+				Sleep(options["holdDelay"])
+				KeyDownUp(keys["menu"], options["holdDelay"])
 			case "longpress":
 				KeyDownUp(keys["menu"], 500)
 			default:
 				KeyDownUp(keys["menu"], 10)
 		}
-		Sleep(options["timing"])
+		Sleep(options["delay"])
 		for index, value in code {
 			if (keys.Has(value)) {
-				KeyDownUp(keys[value], options["secondaryTiming"])
+				KeyDownUp(keys[value], options["holdDelay"])
 			} else {
 				; TODO: Locale
 				TrayTip("Incorrect direction for Stratagem.`nPlayers: Contact support at github.com/NicholasDJM/Helldivers-2-Stratagem-Macros.`nDevs: Check your code.",appname, TrayEnums["Error"]+TrayEnums["LargeIcon"])
@@ -306,7 +300,7 @@ try SoundPlay(A_Args[1], true)
 				; Notifications will immediately go away as soon as we display them if we don't sleep (if the script exits immediately).
 				ExitApp
 			}
-			Sleep(options["timing"])
+			Sleep(options["delay"])
 		}
 		Send("{" . keys["menu"] . " UP}")
 	} else {
@@ -365,8 +359,6 @@ try {
 ExitApp
 
 newUpdate:
-
-
 fileLocation := "https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/dist/Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz"
 try {
 	Download("https://raw.githubusercontent.com/NicholasDJM/Helldivers-2-Stratagem-Macros/main/dist/updates.txt", "./updates.txt")
@@ -382,13 +374,15 @@ try {
 					hash := A_LoopReadLine
 					break
 				}
+				line := line + 1
 			}
 
 			if (hash != newHash) {
 				Download(fileLocation, "Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz")
 				RunWait("tar.exe -xzf 'Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz")
-				FileMove("Helldivers 2 Macros." . options["language"] . ".ahk.tar.gz", "Helldivers 2 Macros.ahk", true)
+				FileMove("Helldivers 2 Macros." . options["language"] . ".ahk", "Helldivers 2 Macros.ahk", true)
 			}
+			break
 		}
 	}
 }
@@ -436,7 +430,6 @@ delay = 150 # Default is 150
 holdDelay = 10 # Default is 10
 steamPath = "C:\Program Files (x86)\Steam" # Default "C:\Program Files (x86)\Steam"
 updates = true # Default is true
-audio = 5000 # Default is 5000
 )", "options.toml")
 } else {
 	; TODO: Locale

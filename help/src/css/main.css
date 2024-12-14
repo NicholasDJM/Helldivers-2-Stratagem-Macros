@@ -1,5 +1,4 @@
-@import url("./animation.scss");
-@import url("./stratagems.css");
+@import url("./stratagems.scss");
 @import url("./layout.scss");
 @import url("./highlight.css");
 /* TODO: This file is quickly becoming unwieldy, I should separate out the CSS and keep the related stuff together in their own files.
@@ -16,76 +15,6 @@
 }
 
 /* Lots of unorganized crap below */
-/* TODO: Even I've partially forgotten what all this does. I need to go through all of it and document it. */
-.copy {
-	--distance: 10px;
-	--border: rgb(0 255 0 / 0.75);
-	position:relative;
-	background-image: repeating-linear-gradient(45deg,var(--border),var(--border) var(--distance),rgb(0 0 0 / 0.75) var(--distance),rgb(0 0 0 / 0.75) calc(var(--distance) * 2)) !important;
-	outline: 2px solid var(--border) !important;
-}
-.copy::after{
-	position: absolute;
-	content: "Copied to Clipboard!";
-	background-color: #00FF00;
-	color: black;
-	padding-inline: 10px;
-	padding-block: 2px;
-	margin-inline-start: 15px;
-	margin-block-start: 10px;
-	border-radius: 20px;
-	white-space: nowrap;
-	opacity: 0;
-	font-size:medium;
-	font-weight:normal;
-}
-.copy.failed::after {
-	content: "Failed to copy. Please manually copy text.";
-	background-color: #A00;
-	color:white;
-}
-.copy.failed {
-	background-image:repeating-linear-gradient(45deg,rgb(170 0 0 / 1),rgb(170 0 0 / 1) var(--distance),rgb(0 0 0 / 1) var(--distance),rgb(0 0 0 / 1) calc(var(--distance) * 2)) !important;
-	outline: 2px solid #A00 !important;
-}
-.copy.fadein::after {
-	animation-name: fadein;
-	animation-duration: 250ms;
-	animation-timing-function: linear;
-	animation-fill-mode: both;
-}
-.copy.fadeout::after {
-	animation-name: fadeout;
-	animation-duration: 250ms;
-	animation-timing-function: linear;
-	animation-fill-mode: both;
-}
-@keyframes fadein {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-@keyframes fadeout {
-	from {
-		opacity: 1;
-	}
-	to {
-		opacity: 0;
-	}
-}
-.minHeight {
-	min-block-size: 75vh;
-	scroll-padding-top: 15px;
-}
-search {
-	position: sticky;
-	top:0;
-	z-index: 1;
-	padding-block-start: 15px
-}
 
 .overlay {
 	position: relative;
@@ -105,6 +34,7 @@ search {
 	opacity: 0;
 	transition: opacity 500ms;
 }
+/* TODO: Move cooldown animation to animation.scss or stratagems.css*/
 .copy .overlay::after {
 	content: '';
 	backdrop-filter: grayscale() brightness(300%);
@@ -134,37 +64,10 @@ ul.nobullets {
 ul.nobullets li {
 	list-style: none !important;
 }
-.stratagem {
-	--size: 2px
-	font-size: larger;
-	font-weight: bolder;
-	cursor: pointer;
-	padding: 0.25rem;
-	padding-inline-start: 20px;
-	transition: background-image 500ms;
-	background-image: repeating-linear-gradient(45deg,rgb(0 0 0 / 0),rgb(0 0 0 / 0) var(--distance),rgb(0 0 0 / 0) var(--distance),rgb(0 0 0 / 0) calc(var(--distance) * 2));
-	inline-size: 100%;
-	/* display:inline-flex;
-	align-content: start;
-	align-items: center; */
-}
-.stratagem:hover,.stratagem:focus-visible {
-	--distance: 10px;
-	background-image: repeating-linear-gradient(45deg,var(--pico-primary-border),var(--pico-primary-border) var(--distance),black var(--distance),black calc(var(--distance) * 2));
-	outline: 2px solid var(--pico-primary-border);
-	transition: background-image 500ms;
-}
-.stratagemNoScript {
+.stratagems {
 	/* padding: 0.25rem; */
 	display: grid;
-	grid-template-columns: auto 1fr;
-}
-
-#clear-button {
-	--pico-background-color: var(--pico-card-background-color);
-}
-#example {
-	margin-inline: auto;
+	grid-template-columns: 1fr;
 }
 @media (prefers-color-scheme:dark) {
 	pre {
@@ -193,25 +96,6 @@ ul.nobullets li {
 	display: flex;
 	justify-content: end;
 	gap: .5em;
-}
-/* Icon border colours, matches in-game colours. */
-/* TODO: Change these to match parent element's data-type attribute. Will save some bytes in final build.
-	Try this. If we use the already existing data-type attribute, we don't need to repeat the data in the element's class attribute.
-	```
-		li[data-type*="weapon"] img {}
-	```
-*/
-.weapon,.backpack,.vehicle {
-	--colour: #2288a7;
-}
-.mission {
-	--colour: #c9b269;
-}
-.eagle:not(.mission),.orbital {
-	--colour: #ba2f23;
-}
-.defense {
-	--colour: #326021;
 }
 .title {
 	font-size: 30px;
@@ -242,11 +126,4 @@ ul.nobullets li {
 		display: flex;
 		justify-content: center;
 	}
-}
-.stratagemArrows {
-	display: inline-grid;
-	grid-template-rows: auto auto;
-}
-.hideArrows span{
-	display: none;
 }

@@ -6,6 +6,8 @@
 		grid-template-rows: repeat(#{$i}, auto);
 	}
 }
+
+/* Back to top button, with backshadow. Hides automatically when at top of page. */
 [href="#top"] {
 	position: fixed;
 	inset-inline-end: 1rem;
@@ -15,10 +17,13 @@
 	/* Scroll driven animations are available in Firefox behind a flag: `layout.css.scroll-driven-animations.enabled` in `about:config` */
 	animation-timeline: scroll();
 	z-index: 100;
+	box-shadow: 2px 2px 10px rgb(0 0 0 / 0.5);
 }
-
 @keyframes back-to-top-button {
-	/* This animation will hide the button when at the top of the page, but show it when the page is scrolled. */
+	/*
+		This animation will hide the button when at the top of the page, but show it when the page is scrolled.
+		If scroll-driven animations are not available, like in Firefox by default, the button will always be visible.
+	*/
 	0% {
 		opacity: 0;
 	}

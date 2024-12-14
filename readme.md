@@ -74,7 +74,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `release/01.001.103/13512`
+This list is up to date with Helldivers 2 version `release/01.001.104/13549`
 
 - Machine Gun
 - Anti-Material Rifle
@@ -124,6 +124,7 @@ This list is up to date with Helldivers 2 version `release/01.001.103/13512`
 - Anti-Personnel Minefield
 - Incendiary Mines
 - Anti-Tank Mines
+- Gas Mines
 - HMG Emplacement
 - Machine Gun Sentry
 - Gatling Sentry
@@ -138,6 +139,7 @@ This list is up to date with Helldivers 2 version `release/01.001.103/13512`
 - Resupply
 - Eagle Rearm
 - SSSD Delivery
+- SSSD Delivery 2
 - Prospecting Drill
 - Super Earth Flag
 - Hellbomb

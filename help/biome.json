@@ -25,7 +25,6 @@
 		"indentStyle": "tab",
 		"indentWidth": 4,
 		"ignore": [
-			"src/js/stratagems.js"
 		]
 	}
 }

@@ -1,3 +1,4 @@
+/* toml.ahk begin */
 /*
     Parses and extracts data from a TOML (Tom's Obvious, Minimal Language) file. Written entirely in AutoHotkey v2.
     Copyright (C) 2024  Nicholas Miller
@@ -83,60 +84,4 @@ tomlReadBoolean(line, key) {
 		return RegExReplace(RegExReplace(line, "^\s*" . key . "\s*=\s*", ""), "\s*#.*$") = "true" ? true : false
 	}
 }
-; REMOVE_START()
-
-; These regexes should match the majority of content in TOML files.
-; These only capture the key-values, etc. It does not discern the syntax, which needs to be parsed to correctly get the data.
-tomlCommentRegex := "\s*(?:#.*)?" ; TOML Comment regex
-tomlKeyValueRegex := "^\s*(\w+)\s*=\s*(.+)\s*" . tomlCommentRegex . "$" ; TOML Key/Value regex
-tomlObjectHeaderRegex := "^\s*\[(.+)\]\s*" . tomlCommentRegex . "$" ; TOML Name of object entry regex
-tomlArrayHeaderRegex := "^\s*\[\[(.+)\]\]\s*" . tomlCommentRegex . "$" ; TOML Name of array entry regex
-tomlArrayRegex := "\[\s*(.*)(?:\s*,\s*(.*))*\s*\]"
-tomlObjectRegex := "\{\s*(?:(\w+)\s*=\s*(.*))(?:\s*,\s*(\w+)\s*=\s*(.*))*\s*\}"
-tomlMultiLineStringRegex := 's)^\s*(\w+)\s*=\s*(?:"""|`'`'`')([^\S\s])(?:"""|`'`'`')' . tomlCommentRegex . '$' ; TOML Multiline string
-
-/**
- * 
- * @param {String} file 
- * @returns {Map}
- */
-tomlParse(file) {
-	data := Map()
-	if (FileExist(file)) {
-		state := "root"
-		Loop Read file {
-			match := []
-			if (RegExMatch(A_LoopReadLine, tomlObjectHeaderRegex, &match)) {
-				; TODO: Move logic to function
-				state := "object"
-				construct := Map()
-				Loop Parse match[1], "." {
-					construct[A_LoopField]
-				}
-			}
-		}
-	}
-	return data
-}
-
-/**
- * Turns an AutoHotkey object into a valid TOML file string, ready to be written to disk.
- * @param {Map | VarRef<Map> | Object | VarRef<Object>} data 
- * @returns {String}
- */
-tomlStringify(data) {
-
-}
-
-/**
- * Merge two objects together. Top layer overwrites bottom layer.  
- * If passing a string, it must be valid TOML file contents.  
- * @function tomlMerge
- * @param {String | Map | VarRef<Object> | Object | VarRef<Map>} topLayer 
- * @param {String | Map | VarRef<Object> | Object | VarRef<Map>} bottomLayer 
- * @returns {Map}
- */
-tomlMerge(topLayer, bottomLayer) {
-	; TODO
-}
-;REMOVE_END()
+/* toml.ahk end */

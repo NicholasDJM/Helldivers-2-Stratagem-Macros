@@ -10,19 +10,19 @@
  * Inject variables into script at build time.  
  * Remember to update your build system and add any desired variables.
  * Remember to prefix the function with an exclamation mark.  
- * Example:
- * ```ahk
- * 	version := !INJECT("version")
- * ```
  * @param {string} name - The name of the variable.
  * @returns {string} The variable's value
+ * @example
+ * 	version := !INJECT("version")
  */
 INJECT(name) {
 	; Dummy function. Look into inject.js for actual logic.
 }
 /**
  * Removes the line of text this function is on at build time.
- * Remember to prefix the function with an exclamation mark.  
+ * Remember to prefix the function with an exclamation mark and semicolon.  
+ * @example
+ * 	;!REMOVE()
  */
 REMOVE() {
 	; Dummy function. Look into build.js for actual logic.
