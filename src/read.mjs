@@ -7,5 +7,9 @@ import { cwd } from "node:process";
  * @returns {string}
  */
 export function read(...p) {
-	return readFileSync(join(cwd(),...p)).toString("utf8")
+	if (p[0] === undefined) throw new Error("Must provide a valid path.")
+	let path = p
+	path = path.filter(value=>value.length)
+	if (path.length === 0) throw new Error("Must provide a valid path.");
+	return readFileSync(join(cwd(),...path)).toString("utf8")
 }

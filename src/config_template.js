@@ -1,6 +1,17 @@
 // This file is used to generate config options. (CLI flags, config file)
 // Types: "number", "boolean", "path", or "string"
-[
+
+/**
+ * @typedef {Object} Data
+ * @property {string} name - The name of the data.
+ * @property {"number"|"path"|"string"|"boolean"} type - The type of the data.
+ * @property {string|number|boolean} defaultData - The default data value.
+ * @property {string} description - A description of the data.
+ */
+/**
+ * @type {Data[]}
+ */
+export const optionsData = [
 	{
 		name: "delay",
 		type: "number",

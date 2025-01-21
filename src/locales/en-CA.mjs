@@ -1,20 +1,8 @@
-{
-	// TODO: Trash this mess. Rewrite locale() to generate valid AHK code instead of embedding it directly into the string here.
-
-	// These are mostly for the AHK script, so you can add AHK code directly into these strings.
-	// Check out the AHK documentation for syntax.
-	//
-	// The dot operator is concatenation, which requires spaces around it, and sits outside the string. EX: "text" . var . "more text"
-	// Quotation marks must be escaped with the backtick character.
-	// Use backticks to surround the string to if you need both quotation marks and apostrophes inside the string.
-	// If using backticks to enclose the string, and you need the backtick character inside the string, escape it with a backslash.
-	//
-	// I'm sorry these are confusing, I'll try rewriting these to be more contributor friendly later.
+export default {
 	appname: "HELLDIVERS™ 2 Stratagem Macros",
 	invalidOptions: '"Invalid `"options.toml`" file. Cannot parse file."',
-	invalidFlag: '`"" . split[1] . "`" is not a valid flag.', // split[1] is the variable for the current flag.
-	invalidSteamPath: 'Steam path is incorrect. Are you sure Steam is installed at `"" . options["steamPath"] . "`"?', // options["steamPath"] is the variable for the path.
-	// TODO: locale strings should be parsed at runtime, not build time. Embedding AHK code directly into the localization is confusing and bad.
+	invalidFlag: '{{flag}} is not a valid flag.',
+	invalidSteamPath: 'Steam path is incorrect. Are you sure Steam is installed at "{{steamPath}}"?',
 	/*
 		TODO: Revisit localization strategy. Should I continue with separate builds for each language? Or should I package all languages into one?
 		- If packaging into one, the download size will balloon.

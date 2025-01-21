@@ -1,7 +1,7 @@
 import Alpine from "alpinejs";
 globalThis.Alpine = Alpine;
 import Fuse from "fuse.js";
-
+import type { Stratagem } from "./types.d.ts";
 document.addEventListener("alpine:init", () => {
 	const stratagems: Stratagem[] = [];
 	document

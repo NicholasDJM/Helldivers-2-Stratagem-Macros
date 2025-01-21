@@ -3,10 +3,13 @@ import { join } from "node:path"
 import { cwd } from "node:process";
 import { stratagems, version } from "../help/src/js/stratagems.js"
 import { EOL } from "node:os";
-import { parse, parseReturn } from "./inject.mjs"; // Requires Deno to import, as it uses web imports.
+import { parse, parseReturn } from "./inject.mjs"; // Requires Deno to import, as this module uses web imports.
 import { read } from "./read.mjs";
 import { langLong } from "./lang.mjs";
-import JSON5 from "https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.min.mjs" // Requires Deno to import
+import { optionsData } from "./config_template.js"
+import { actions } from "./actions.mjs";
+import { commands } from "./command_template.js";
+import { configOutput } from "./config_gen.mjs";
 
 
 // Constructs the AutoHotkey script, using dynamic data, including the version number, and the entire list of Stratagems.
@@ -19,28 +22,40 @@ interface Options {
 	description: string
 }
 
-let actions = Object.create(null);
+
 
 function buildAhk() {
-	const template = read("Helldivers 2 Macros_template.ahk"),
-		html = read("..","help","dist","index.html").replaceAll("`","``"), // Must escape backticks.
+	const html = read("..","help","dist","index.html").replaceAll("`","``"), // Must escape backticks.
 		formattedStratagems = stratagems.map(item => {
-			if (item.special) {
-				if (item.special.note) console.info(item.special.note)
-				if (item.special.action && item.special.action === "do not generate") return ""
-				if (item.special.action && item.special.action === "warn") console.warn("==================================================="); console.warn(`Warning: ${item.key} encountered, action set to warn against stratagem.`); console.warn("===================================================")
-				if (item.special.action && item.special.action === "fail") throw new Error(`Error: ${item.key} encountered, action set to fail build against stratagem.`);
-				if (item.special.specialAction && actions.hasOwnProperty(item.special.specialAction)) {
-					return actions[item.special.specialAction](item)
-				} else {
-					console.warn(`${item.key}: No such action as "${item.special.specialAction}"`)
+			// TODO Action handling should be moved to it's own file, and referenced here, and anywhere else we need to format stratagems. Prebuild.js should also do this.
+			if (item.buildConfig) {
+				
+				if (item.buildConfig.note) {
+					console.info(item.buildConfig.note)
 				}
+				if (item.buildConfig.action && item.buildConfig.action === "do not generate") {
+					return ""
+				}
+				if (item.buildConfig.action && item.buildConfig.action === "warn") {
+					console.warn("===================================================");
+					console.warn(`Warning: ${item.key} encountered, action set to warn against stratagem.`);
+					console.warn("===================================================");
+				}
+				if (item.buildConfig.action && item.buildConfig.action === "fail") {
+					throw new Error(`Error: ${item.key} encountered, action set to fail build against stratagem.`);
+				}
+				if (item.buildConfig.specialAction && actions[item.buildConfig.specialAction]) {
+					return actions[item.buildConfig.specialAction](item)
+				} else {
+					throw new Error(`${item.key}: No such action as "${item.buildConfig.specialAction}"`)
+				}
+				
 			}
 			return `${EOL
 			}Case "${item.key.toLowerCase().replace("-", " ")}":${EOL
 			}\tStratagem(${JSON.stringify(item.code)})`
-		}).join(''),
-		optionsData: Options[] = JSON5.parse(read("config_template.json5"));
+		}).join('')
+	//let optionsData: Options[] = JSON5.parse(read("config_template.json5"));
 	let count = 0
 	for (const line of html.split(EOL)) {
 		count++;
@@ -69,27 +84,55 @@ function buildAhk() {
 		if (!type) throw new Error(`Missing a type in config_template.json5 (Entry ${index+1})`);
 		if (type !== "string" && type !== "boolean" && type !== "number" && type !== "path") throw new Error(`Type is incorrect in config_template.json5. Should be one of string, number, boolean, or path. (Entry ${index+1})`);
 	})
+	const optionsData2 = optionsData.map(({name, type, defaultData, description})=>{
+		// Surround value in quotes
+		if (type === "string" || type === "path") defaultData = `"${defaultData}"`
+		return {name, type, defaultData, description}
+	})
 	// These are dynamically generated AutoHotkey code, which enables dynamically generating CLI flags parsing and config file parsing
-	const optionsDefault = optionsData.map(({name, defaultData, description})=>{
+	const optionsDefault = optionsData2.map(({name, defaultData, description})=>{
 		return `options["${name}"] := ${defaultData} ; ${description}`
 	}).join(EOL),
-		optionsParse = optionsData.map(({name, type})=>{
-			return `options["${name}"] := tomlRead${type[0].toUpperCase()+type.slice(1)}(A_LoopReadLine, "${name}") || options["${name}"]`
+		optionsParse = optionsData2.map(({name, type}, index)=>{
+			return `${index > 0 ? "\t\t" : ""}options["${name}"] := tomlRead${type[0].toUpperCase()+type.slice(1)}(A_LoopReadLine, "${name}") || options["${name}"]`
+		}).join(EOL),
+		cliParse = optionsData2.map(({name, type}, index)=>{
+			let str = ""
+			switch (type) {
+				case "boolean":
+					str = `split[2] = "true"`
+					break;
+				case "string":
+				case "number":
+					str = `split[2]`
+					break
+				case "path":
+					str = `RegExReplace(RegExReplace(split[2], "^[\`"']"), "[\`"']$")`
+					break
+			}
+			return `${index > 0 ? "\t\t\t" : ""}case "${name}":${EOL}\t\t\t\toptions["${name}"] := ${str}`;
+		}).join(EOL),
+		commandParse = commands.map(({name, goto}, index)=>{
+			return `${index > 0 ? "\t\t\t" : ""}case "${name}":${EOL}\t\t\t\tgoto ${goto}`
 		}).join(EOL)
-	// TODO: CLI flag parsing (What about commands? They are not flags.)
 
-
-	let file = parseReturn(template, {
+	let file = parseReturn("Helldivers 2 Macros_template.ahk", {
 			html,
 			stratagems: formattedStratagems,
 			language: langLong,
 			options: optionsDefault,
-			optionsParse
+			optionsParse,
+			cliParse,
+			configOutput,
+			commandParse
 		}),
 		lines = file.split(EOL),
 		multilineComment = false,
-		removeLine = false;
-
+		removeLine = false,
+		multilineVariable = false;
+		
+	for (let i = 0;i<lines.length;i++) if (typeof lines[i]!=="string") throw new Error("Got a line that is not of type string. How?");
+	
 	// TODO: Some of the below code should be moved to inject.js, as some of the functionality is it's job, not this script's job.
 	// Started building the injection functionality before I had a solid idea of function boundaries.
 	// Ideally, all of inject.js and the code below should be moved into a dedicated AutoHotkey script parser/compiler. But that's waaaaay out of scope for this project.
@@ -115,16 +158,27 @@ function buildAhk() {
 				if (lines[i].includes("!REMOVE_END()")) removeLine = false;
 				lines = [...lines.slice(0, i), ...lines.slice(i+1)];
 				i--;
+				if (i<0) i=0 // Must clamp index. If file starts with a line that is removed, we end up in the negatives.
 			}
 		}
 		if (lines[i].includes("*/")) {
 			multilineComment = false;
 		}
+		if (!multilineVariable) {
+			// TODO: This doesn't check for multiline comments.
+			if (/^\($/.test(lines[i])) { // This test ensures multiline variables in AutoHotkey have any tabs in their text preserved.
+				multilineVariable = true
+			} else {
+				lines[i] = lines[i].replace(/^\t+/, "") // Remove tab characters.
+			}
+		}
+		if (/^\)"/.test(lines[i])) {
+			multilineVariable = false
+		}
 	}
-	const lastbuild = Number(existsSync("./lastbuild.txt") && read("lastbuild.txt")) || 1
+	const lastbuild = Number(existsSync("./lastBuild.txt") && read("lastBuild.txt")) || 1
 	lines.unshift(`; Build ${lastbuild}, last built ${new Date().toLocaleString()}`)
 	file = lines.join(EOL)
-	writeFileSync(join(cwd(), "lastbuild.txt"), String(lastbuild+1))
 
 	writeFileSync(join(cwd(), "..", "dist", `Helldivers 2 Macros.${langLong}.ahk`), file)
 
@@ -143,7 +197,7 @@ parse(`readme_template.md`, "../readme.md", {
 parse("./wizard_template.ahk", "../install.ahk", {
 	language: langLong,
 	languageMap: JSON.stringify(
-		read("./supportedLangs.txt")
+		read("supportedLangs.txt")
 			.replaceAll("`", "``") // Backticks must be doubled, as backticks are escape characters in AutoHotkey
 			.split(EOL)
 			.filter(value=>!/[\s]*/.test(value))

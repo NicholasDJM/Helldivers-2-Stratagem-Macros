@@ -74,7 +74,7 @@ Please note, if you're unable to run Helldivers 2 at a high frame rate, the scri
 
 ## Current Stratagems
 This is a list of all the stratagems currently accepted. When passing these to the script, surround them in quotes.
-This list is up to date with Helldivers 2 version `release/01.001.104/13549`
+This list is up to date with Helldivers 2 version `release/01.002.001/13887`
 
 - Machine Gun
 - Anti-Material Rifle
@@ -93,6 +93,7 @@ This list is up to date with Helldivers 2 version `release/01.001.104/13549`
 - Arc Thrower
 - Quasar Cannon
 - Sterilizer
+- W.A.S.P Launcher
 - Orbital Gatling Barrage
 - Orbital Airburst Strike
 - Orbital 120mm HE Barrage
@@ -119,6 +120,7 @@ This list is up to date with Helldivers 2 version `release/01.001.104/13549`
 - &quot;Guard Dog&quot; Dog Breath
 - Ballistic Shield Backpack
 - Shield Generator Pack
+- Directional Shield
 - Shield Generator Relay
 - Tesla Tower
 - Anti-Personnel Minefield
@@ -126,14 +128,17 @@ This list is up to date with Helldivers 2 version `release/01.001.104/13549`
 - Anti-Tank Mines
 - Gas Mines
 - HMG Emplacement
+- Anti-Tank Emplacement
 - Machine Gun Sentry
 - Gatling Sentry
 - Mortar Sentry
 - Autocannon Sentry
 - Rocket Sentry
 - EMS Mortar Sentry
+- Flame Sentry
 - Patriot Exosuit
 - Emancipator Exosuit
+- Fast Reconnaissance Vehicle
 - Reinforce
 - SOS Beacon
 - Resupply

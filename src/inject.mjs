@@ -2,26 +2,43 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { cwd } from "node:process";
 import { read } from "./read.mjs";
-import JSON5 from "https://cdn.jsdelivr.net/npm/json5@2.2.3/dist/index.min.mjs"
-
 import { langShort, langLong } from "./lang.mjs";
 import { writeFileSync } from "node:fs";
+import { globbySync } from "npm:globby";
+import { mkdirSync } from "node:fs";
 
 
-// Some of the code below was generated with Bito AI and/or Bing Copilot.
+// Some of the code below was generated with Bito AI and/or Bing Copilot and/or Claude 3.5 sonnet via Cursor IDE.
 // It would have taken me a few hours to rewrite this code to my liking, so thanks!
 
-let locales
-if (existsSync(join(cwd(), "locales", `${langLong}.json5`))) {
-	locales = read("locales", `${langLong}.json5`)
-} else if (existsSync(join(cwd(), "locales", `${langShort}.json5`))) {
-	locales = read("locales", `${langShort}.json5`)
-} else {
-	const e = `Cannot find language file for current language. [${langLong}]`;
-	throw new Error(e)
-}
+/** @type {Record<string, string>} */
+let locales = {};
 
-locales = JSON5.parse(locales);
+const initLocales = () => {
+	if (existsSync(join(cwd(), "locales", `${langLong}.mjs`))) {
+		return import(`./locales/${langLong}.mjs`).then(module => {
+			locales = module.default;
+			console.log(locales);
+		}).catch(error => {
+			console.error(`Failed to load locales for ${langLong}:`, error);
+			throw error;
+		});
+	} else if (existsSync(join(cwd(), "locales", `${langShort}.mjs`))) {
+		return import(`./locales/${langShort}.mjs`).then(module => {
+			locales = module.default;
+			console.log(locales);
+		}).catch(error => {
+			console.error(`Failed to load locales for ${langShort}:`, error);
+			throw error;
+		});
+	} else {
+		const e = `Cannot find language file for current language. [${langLong}]`;
+		throw new Error(e);
+	}
+};
+
+// Initialize locales and export a promise that resolves when ready
+export const localesReady = initLocales();
 
 /**
  * Finds and replaces special `!INJECT()` keywords in the given text.  
@@ -149,29 +166,68 @@ export function includeFile(text) {
  * @returns {string} The modified text with locale keywords replaced.
  */
 export function replaceLocaleKeyword(text) {
+	if (!locales || Object.keys(locales).length === 0) {
+		throw new Error('Locales not yet loaded. Please wait for localesReady promise to resolve.');
+	}
+
 	const injectTextSingle = "!LOCALE('";
 	const injectTextDouble = '!LOCALE("';
 	let result = text;
 
-	/**
-	 * Function to replace keywords based on the injectText and quote style
-	 * @param {string} injectText 
-	 * @param {string} quoteChar 
-	 */
-	const replaceKeywords = (injectText, quoteChar) => {
-		let limit = result.split(injectText).length - 1;
-		while (limit > 0) {
-			const start = result.indexOf(injectText);
-			if (start === -1) break;
+    // Define language-specific concatenation patterns
+    const langPatterns = {
+        'ahk': {
+            before: ' . ',
+            after: ' . '
+        },
+        'js': {
+            before: ' + ',
+            after: ' + '
+        }
+        // Add more languages as needed
+    };
 
-			const end = result.indexOf(quoteChar+")", start + injectText.length);
-			if (end === -1) break;
+    /**
+     * Function to replace keywords based on the injectText and quote style
+     * @param {string} injectText 
+     * @param {string} quoteChar 
+     */
+    const replaceKeywords = (injectText, quoteChar) => {
+        let limit = result.split(injectText).length - 1;
+        while (limit > 0) {
+            const start = result.indexOf(injectText);
+            if (start === -1) break;
 
-			const key = result.slice(start + injectText.length, end);
-			result = result.slice(0, start) + locales[key] + result.slice(end + 2);
-			limit--;
-		}
-	};
+            const end = result.indexOf(quoteChar + ")", start + injectText.length);
+            if (end === -1) break;
+
+            // Parse the arguments: key, language, and substitutions object
+            const argsString = result.slice(start + injectText.length, end);
+            const args = argsString.split(',').map(arg => arg.trim());
+            const key = args[0].replace(/["']/g, '');
+            const lang = args[1]?.replace(/["']/g, '') || 'js'; // Default to JavaScript
+            const substitutions = args[2] ? JSON5.parse(args[2]) : {};
+
+            // Get the locale string and pattern for the specified language
+            let localeString = locales[key];
+            const pattern = langPatterns[lang] || langPatterns.js;
+
+            // Replace placeholders with variables using language-specific concatenation
+            if (substitutions) {
+                for (const [placeholder, value] of Object.entries(substitutions)) {
+                    const regex = new RegExp(`{{${placeholder}}}`, 'g');
+                    localeString = localeString.replace(regex, `${pattern.before}${value}${pattern.after}`);
+                }
+            }
+
+            // Remove leading/trailing concatenation operators and wrap in quotes
+            const operatorPattern = new RegExp(`^[\\s${pattern.before}${pattern.after}]*|[\\s${pattern.before}${pattern.after}]*$`, 'g');
+            localeString = `${quoteChar}${localeString.replace(operatorPattern, '')}${quoteChar}`;
+
+            result = result.slice(0, start) + localeString + result.slice(end + 2);
+            limit--;
+        }
+    };
 
 	// First, try replacing with double quotes
 	replaceKeywords(injectTextDouble, '"');
@@ -208,4 +264,49 @@ export function parse(fileInput, fileOutput, vars) {
  */
 export function parseReturn(fileInput, vars) {
 	return includeFile(replaceLocaleKeyword(replaceInjectKeyword(read(fileInput), vars)))
+}
+
+/**
+ * Automatically reads a directory of template files and writes the output to a new directory, using {@link parse()}. 
+ * Ensure files are named with the "_template" suffix.
+ * @param {string} directory 
+ * @param {Record<string,string>} vars 
+ * @param {string?} newDirectory 
+ */
+export function autoParse(directory, vars, newDirectory = "") {
+	if (newDirectory !== "" && !existsSync(newDirectory)) {
+		mkdirSync(newDirectory, { recursive: true });
+	}
+	const files = globbySync(join(directory, "**/*.*"), {
+		absolute: true
+	});
+	for (const file of files) {
+		if (file.endsWith("_template.ahk")) {
+			parse(file, newDirectory + file.replace("_template", ""), vars);
+		}
+	}
+}
+
+/**
+ * Automatically reads a directory of template files and returns an object of the output, using {@link parseReturn()}. 
+ * Ensure files are named with the "_template" suffix.
+ * @param {string} directory 
+ * @param {Record<string,string>} vars 
+ * @param {string?} newDirectory 
+ * @returns {Record<string,string>}
+ */
+export function autoParseReturn(directory, vars, newDirectory = "") {
+	if (newDirectory !== "" && !existsSync(newDirectory)) {
+		mkdirSync(newDirectory, { recursive: true });
+	}
+	const files = globbySync(join(directory, "**/*.*"), {
+		absolute: true
+	});
+	let result = {};
+	for (const file of files) {
+		if (file.endsWith("_template.ahk")) {
+			result[file] = parseReturn(file, newDirectory + file.replace("_template", ""), vars);
+		}
+	}
+	return result;
 }

@@ -90,29 +90,18 @@ Loop A_Args.Length {
 	if split.Length > 1 {
 		; If argument has an = sign, it's a flag
 		switch split[1] {
-			; TODO: also generate this from build.ts
-			case "delay":
-				options["delay"] := split[2]
-			case "holdDelay":
-				options["holdDelay"] := split[2]
-			case "path":
-				options["steamPath"] := RegExReplace(RegExReplace(split[2], "^[`"']"), "[`"']$")
-			case "updates":
-				options["updates"] := split[2] = "true" ? true : false
-			case "wait":
-				options["wait"] := split[2]
+			!INJECT("cliParse")
 			default:
 				TrayTip("!LOCALE('invalidFlag')", appname, TrayEnums["Error"] + TrayEnums["LargeIcon"])
 		}
 	} else {
 		; Otherwise, we can assume it's a Stratagem name or command.
-		if (A_Args[A_Index] = "update macros") {
-			goto update
+		switch A_Args[A_Index] {
+			!INJECT("commandParse")
+			default:
+				options["stratagem"] := A_Args[A_Index]
 		}
-		if (A_Args[A_Index] = "generate options.toml") {
-			goto genOptions
-		}
-		options["stratagem"] := A_Args[A_Index]
+
 	}
 }
 
@@ -426,10 +415,7 @@ if (!FileExist("./options.toml")) {
 	; TODO: Locale
 	FileAppend("
 (
-delay = 150 # Default is 150
-holdDelay = 10 # Default is 10
-steamPath = "C:\Program Files (x86)\Steam" # Default "C:\Program Files (x86)\Steam"
-updates = true # Default is true
+!INJECT("configOutput")
 )", "options.toml")
 } else {
 	; TODO: Locale

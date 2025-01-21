@@ -1,0 +1,6 @@
+{
+	"imports": {
+		"globby": "npm:globby",
+		"json5": "npm:json5"
+	}
+}

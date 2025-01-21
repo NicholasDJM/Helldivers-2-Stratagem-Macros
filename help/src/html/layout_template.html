@@ -170,9 +170,9 @@
 							<include src="./html/stratagems.html"></include>
 						</ul>
 						<!-- TODO: Get "Can't find results" text from locale -->
-						<p x-data="tools" x-show="search()==''" x-text="'Cannot find any results for '+input" x-cloak></p>
+						<p x-data="tools" x-show="search()==''" x-text="!LOCALE('no-results', 'js', {input:input})" x-cloak></p>
 						<!-- TODO These "buttons" really should be <button>s, not an <li>s with interactivity. But PicoCSS adds styles that I don't want, which I'd need to override. Just a lot of work. -->
-						<ul class="nobullets" x-cloak x-data="tools" id="list">
+						<!-- <ul class="nobullets" x-cloak x-data="tools" id="list">
 							<template x-for="value in search()" :key="value.item.key">
 								<li tabindex="0" aria-role="button" class="stratagem" :class="value.item.type.join(' ')" @click.throttle.6000ms="copyStratagem()" @keydown.enter.throttle.6000ms="copyStratagem()" :data-key='value.item.key'>
 									<template x-if="value.item.icon">
@@ -183,7 +183,7 @@
 									<code spellcheck="false" x-text='value.item.modelName || "" + (value.item.displayName || value.item.key)'></code>
 								</li>
 							</template>
-						</ul>
+						</ul> -->
 					</details>
 					<hr>
 					<details>
