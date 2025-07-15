@@ -19,7 +19,7 @@
 #SingleInstance
 SendMode "Event"
 SetWorkingDir A_ScriptDir
-version := 34
+version := 35
 options := Map()
 options["timing"] := 150 ; Delay between keys
 options["secondaryTiming"] := 10 ; How long to hold a key
@@ -248,6 +248,8 @@ if (!keys.Has("right")){
 if (!keys.Has("menu")){
 	keys["menu"] := "ctrl"
 	key_menu_type := "hold"
+} else if(keys.Has("menu") && keys["menu"] == "left ctrl"){
+	keys["menu"] := "ctrl"
 }
 KeyDownUp(key, timing) {
 	Send("{" . key . " Down}")
